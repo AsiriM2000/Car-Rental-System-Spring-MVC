@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Document Title
+      ============================================= -->
+  <title>Customer - SignUp</title>
+
+  <!-- Stylesheets
+    ============================================= -->
+  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="../assets/fonts/css/all.min.css">
+  <!-- Meta tags
+     ============================================= -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <style>
+    body{
+      margin: 0;
+      padding: 0;
+      background-color: #020202;!important;
+    }
+  </style>
+</head>
+<body>
+<section>
+  <div class="container">
+    <div class="row d-flex justify-content-center align-items-center">
+      <div class="col">
+        <div class="card card-registration my-4">
+          <div class="row g-0">
+            <div class="col-xl-6 d-none d-xl-block">
+              <img src="../assets/img/signupImage/img4.png"
+                   alt="" class="img-fluid"/>
+            </div>
+            <div class="col-xl-6">
+              <div class="card-body text-black">
+                <h3 class="mb-3 text-uppercase">Customer registration form</h3>
+
+                <div class="row">
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                      <input type="text" id="email" class="form-control form-control-lg" name="email"/>
+                      <label class="form-label" for="email">Email</label>
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 mb-4">
+                    <div class="form-outline">
+                      <input type="text" id="name" class="form-control form-control-lg" name="name"/>
+                      <label class="form-label" for="name">Name</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="text" id="address" class="form-control form-control-lg" name="address"/>
+                  <label class="form-label" for="address">Address</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="text" id="nicNum" class="form-control form-control-lg" name="nicNum"/>
+                  <label class="form-label" for="nicNum">NIC Number</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="file" class="form-control" id="nicImg" name="nicImg"/>
+                  <label class="form-label" for="nicImg">NIC Photo</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="text" id="drivingNum" class="form-control form-control-lg" name="drivingNum"/>
+                  <label class="form-label" for="drivingNum">Driving License Number</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="file" class="form-control" id="drivingImg" name="drivingImg"/>
+                  <label class="form-label" for="drivingImg">Driving License Photo</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="text" id="contact" class="form-control form-control-lg" name="nicNum"/>
+                  <label class="form-label" for="contact">Contact Number</label>
+                </div>
+
+                <div class="form-outline mb-4">
+                  <input type="password" id="password" class="form-control form-control-lg" name="password"/>
+                  <label class="form-label" for="password">Password</label>
+                </div>
+
+                <div class="d-flex justify-content-end pt-3">
+                  <button type="button" class="btn btn-warning btn-lg ms-2" onclick="location.href='../customer.html'">Back Home</button>
+                  <button type="button" class="btn btn-primary btn-lg ms-2" id="signUp">SignUp</button>
+                </div>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="../assets/js/bootstrap.min.js"></script>
+</body>
+</html>
