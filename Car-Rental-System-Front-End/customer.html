@@ -8,6 +8,7 @@
   <!-- Stylesheets
     ============================================= -->
   <link href="assets/css/customer.css" rel="stylesheet">
+  <link href="assets/css/bootstrap.min.css">
   <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
   <!-- Meta tags
      ============================================= -->
@@ -27,10 +28,9 @@
   </ul>
   <div class="header-btn">
     <a class="sign-up" href="./pages/signup.html" target="_self">Sign Up</a>
-    <a class="sign-in" href="#">Sign In</a>
+    <a class="sign-in" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Sign In</a>
   </div>
 </header>
-
 <!--Home-->
 <section class="home" id="home">
   <div class="content">
@@ -151,6 +151,48 @@
   <p>&#169; Design By : <span style="color:#d58700;">Asiri</span> Madhusanka</p>
 </div>
 
+<div id="id01" class="modal">
+
+  <form class="modal-content animate" id="loginForm">
+    <div class="imgcontainer">
+      <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">&times;</span>
+      <img src="./assets/img/login-img.png" alt="Avatar" class="avatar">
+    </div>
+
+    <div class="container">
+      <label for="username"><b>Username</b></label>
+      <input type="text" placeholder="Enter Username" id="username" name="username" required>
+
+      <label for="password"><b>Password</b></label>
+      <input type="password" placeholder="Enter Password" id="password" name="password" required>
+
+      <button type="button" id="loginBtn">Login</button>
+    </div>
+
+    <div class="container" style="background-color:#f1f1f1">
+      <button type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+    </div>
+  </form>
+</div>
+
+<script src="assets/js/jquery-3.6.1.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
+<script>
+  var modal = document.getElementById('id01');
+  window.onclick = function(event) {
+    if (event.target == modal) {
+      modal.style.display = "none";
+    }
+  }
+
+  $("#loginBtn").click(function (){
+    let formData = $("#loginForm").serialize();
+    $.ajax({
+      url:"customer",
+      method:"post",
+      data:formData
+    });
+  });
+</script>
 </body>
 </html>
