@@ -184,15 +184,6 @@
       modal.style.display = "none";
     }
   }
-
-  $("#loginBtn").click(function (){
-    let formData = $("#loginForm").serialize();
-    $.ajax({
-      url:"customer",
-      method:"post",
-      data:formData
-    });
-  });
 </script>
 </body>
 </html>
