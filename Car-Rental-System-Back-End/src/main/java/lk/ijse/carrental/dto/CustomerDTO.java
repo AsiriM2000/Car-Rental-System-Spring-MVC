@@ -14,9 +14,9 @@ public class CustomerDTO {
     private String custEmail;
     private String custName;
     private String custAddress;
-    private String custContactNumber;
     private String custNIC;
     private String custDrivingLicien;
+    private String custContactNumber;
     private String password;
 
 }

@@ -1,112 +1,153 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Document Title
+    <!-- Document Title
+        ============================================= -->
+    <title>Customer - SignUp</title>
+
+    <!-- Stylesheets
       ============================================= -->
-  <title>Customer - SignUp</title>
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../assets/fonts/css/all.min.css" rel="stylesheet">
+    <!-- Meta tags
+       ============================================= -->
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <!-- Stylesheets
-    ============================================= -->
-  <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
-  <link rel="stylesheet" href="../assets/fonts/css/all.min.css">
-  <!-- Meta tags
-     ============================================= -->
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <style>
-    body{
-      margin: 0;
-      padding: 0;
-      background-color: #020202;!important;
-    }
-  </style>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #020202;
+        !important;
+        }
+    </style>
 </head>
 <body>
 <section>
-  <div class="container">
-    <div class="row d-flex justify-content-center align-items-center">
-      <div class="col">
-        <div class="card card-registration my-4">
-          <div class="row g-0">
-            <div class="col-xl-6 d-none d-xl-block">
-              <img src="../assets/img/signupImage/img4.png"
-                   alt="" class="img-fluid"/>
-            </div>
-            <div class="col-xl-6">
-              <div class="card-body text-black">
-                <h3 class="mb-3 text-uppercase">Customer registration form</h3>
+    <div class="container">
+        <div class="row d-flex justify-content-center align-items-center">
+            <div class="col">
+                <div class="card card-registration my-4">
+                    <div class="row g-0">
+                        <div class="col-xl-6 d-none d-xl-block">
+                            <img alt=""
+                                 class="img-fluid" src="../assets/img/signupImage/img4.png"/>
+                        </div>
+                        <div class="col-xl-6">
+                            <div class="card-body text-black">
+                                <h3 class="mb-3 text-uppercase">Customer registration form</h3>
 
-                <form id="signUpForm">
-                  <div class="row">
-                    <div class="col-md-6 mb-4">
-                      <div class="form-outline">
-                        <input type="text" id="email" class="form-control form-control-lg" name="email">
-                        <label class="form-label" for="email">Email</label>
-                      </div>
+                                <form id="signUpForm">
+                                    <div class="row">
+                                        <div class="col-md-6 mb-4">
+                                            <div class="form-outline">
+                                                <input class="form-control form-control-lg" id="email" name="custEmail"
+                                                       type="text">
+                                                <label class="form-label" for="email">Email</label>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-md-6 mb-4">
+                                            <div class="form-outline">
+                                                <input class="form-control form-control-lg" id="name" name="custName"
+                                                       type="text">
+                                                <label class="form-label" for="name">Name</label>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input class="form-control form-control-lg" id="address" name="custAddress"
+                                               type="text">
+                                        <label class="form-label" for="address">Address</label>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input class="form-control form-control-lg" id="nicNum" name="custNIC"
+                                               type="text">
+                                        <label class="form-label" for="nicNum">NIC Number</label>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input class="form-control" id="nicImg" name="nicImg" type="file">
+                                        <label class="form-label" for="nicImg">NIC Photo</label>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input class="form-control form-control-lg" id="drivingNum" name="custDrivingLicien"
+                                               type="text">
+                                        <label class="form-label" for="drivingNum">Driving License Number</label>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input class="form-control" id="drivingImg" name="drivingImg" type="file">
+                                        <label class="form-label" for="drivingImg">Driving License Photo</label>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input class="form-control form-control-lg" id="contact" name="custContactNumber"
+                                               type="text">
+                                        <label for="contact">Contact Number</label>
+                                    </div>
+
+                                    <div class="form-outline mb-4">
+                                        <input class="form-control form-control-lg" id="password" name="password"
+                                               type="password">
+                                        <label class="form-label" for="password">Password</label>
+                                    </div>
+                                </form>
+
+                                <div class="d-flex justify-content-end pt-3">
+                                    <button class="btn btn-warning btn-lg ms-2" formtarget="_blank"
+                                            onclick="location.href='../customer.html'" type="button">Back Home
+                                    </button>
+                                    <button class="btn btn-primary btn-lg ms-2" id="signUp" type="button">SignUp
+                                    </button>
+                                </div>
+
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="col-md-6 mb-4">
-                      <div class="form-outline">
-                        <input type="text" id="name" class="form-control form-control-lg" name="name">
-                        <label class="form-label" for="name">Name</label>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div class="form-outline mb-4">
-                    <input type="text" id="address" class="form-control form-control-lg" name="address">
-                    <label class="form-label" for="address">Address</label>
-                  </div>
-
-                  <div class="form-outline mb-4">
-                    <input type="text" id="nicNum" class="form-control form-control-lg" name="nicNum">
-                    <label class="form-label" for="nicNum">NIC Number</label>
-                  </div>
-
-                  <div class="form-outline mb-4">
-                    <input type="file" class="form-control" id="nicImg" name="nicImg">
-                    <label class="form-label" for="nicImg">NIC Photo</label>
-                  </div>
-
-                  <div class="form-outline mb-4">
-                    <input type="text" id="drivingNum" class="form-control form-control-lg" name="drivingNum">
-                    <label class="form-label" for="drivingNum">Driving License Number</label>
-                  </div>
-
-                  <div class="form-outline mb-4">
-                    <input type="file" class="form-control" id="drivingImg" name="drivingImg">
-                    <label class="form-label" for="drivingImg">Driving License Photo</label>
-                  </div>
-
-                  <div class="form-outline mb-4">
-                    <input type="text" id="contact" class="form-control form-control-lg" name="contact">
-                    <label for="contact">Contact Number</label>
-                  </div>
-
-                  <div class="form-outline mb-4">
-                    <input type="password" id="password" class="form-control form-control-lg" name="password">
-                    <label class="form-label" for="password">Password</label>
-                  </div>
-                </form>
-
-                <div class="d-flex justify-content-end pt-3">
-                  <button type="button" class="btn btn-warning btn-lg ms-2" onclick="location.href='../customer.html'" formtarget="_blank">Back Home</button>
-                  <button type="button" class="btn btn-primary btn-lg ms-2" id="signUp">SignUp</button>
                 </div>
-
-              </div>
             </div>
-          </div>
         </div>
-      </div>
     </div>
-  </div>
 </section>
 <script src="../assets/js/jquery-3.6.1.min.js"></script>
 <script src="../assets/js/bootstrap.min.js"></script>
 
 <script>
+    let baseUrl = "http://localhost:8080/Car_Rental_System_Back_End_war/";
+
+    $("#signUp").click(function () {
+        var formData = $("#signUpForm").serialize();
+
+        $.ajax({
+            url: baseUrl+"customer",
+            method: "post",
+            data: formData,
+            dataType: "json",
+            success: function (resp) {
+                alert(resp.message);
+                setTextFieldValues("","","","","","","");
+            },
+            error: function (error) {
+                alert(JSON.parse(error.responseText).message);
+            }
+        });
+
+    });
+
+    function setTextFieldValues(email, name, address, nic, license, contact, password) {
+        $("#email").val(email);
+        $("#name").val(name);
+        $("#address").val(address);
+        $("#nicNum").val(nic);
+        $("#drivingNum").val(license);
+        $("#contact").val(contact);
+        $("#password").val(password);
+    }
 </script>
 </body>
 </html>
