@@ -142,6 +142,7 @@ input {
     line-height: 30px;
     text-align: center
 }
+
 @media screen and (max-width: 1024px){
     .img-car{
         display: none;

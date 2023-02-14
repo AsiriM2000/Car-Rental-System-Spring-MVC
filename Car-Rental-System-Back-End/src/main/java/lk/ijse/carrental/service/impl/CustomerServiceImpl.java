@@ -5,6 +5,7 @@ import lk.ijse.carrental.entity.Customer;
 import lk.ijse.carrental.repo.CustomerRepo;
 import lk.ijse.carrental.service.CustomerService;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,6 +42,16 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public ArrayList<CustomerDTO> getAllCustomer() {
-        return null;
+        return mapper.map(repo.findAll(),new TypeToken<ArrayList<CustomerDTO>>(){}.getType());
+    }
+
+    @Override
+    public CustomerDTO searchByCustomerEmail(String email) {
+        return mapper.map(repo.findByCustEmail(email),CustomerDTO.class);
+    }
+
+    @Override
+    public CustomerDTO searchByCustomerEmailAndPassword(String email, String password) {
+        return mapper.map(repo.findByCustEmailAndPassword(email,password),CustomerDTO.class);
     }
 }

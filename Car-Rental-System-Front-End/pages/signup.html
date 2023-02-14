@@ -70,7 +70,7 @@
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input class="form-control" id="nicImg" name="nicImg" type="file">
+                                        <input class="form-control" id="nicImg" name="myFile" type="file">
                                         <label class="form-label" for="nicImg">NIC Photo</label>
                                     </div>
 
@@ -81,7 +81,7 @@
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input class="form-control" id="drivingImg" name="drivingImg" type="file">
+                                        <input class="form-control" id="drivingImg" name="myFile" type="file">
                                         <label class="form-label" for="drivingImg">Driving License Photo</label>
                                     </div>
 
@@ -121,6 +121,29 @@
     let baseUrl = "http://localhost:8080/Car_Rental_System_Back_End_war/";
 
     $("#signUp").click(function () {
+        saveCustomer();
+        var data = new FormData();
+        let file = $("#nicImg")[0].files[0];
+        let fileName = $("#nicImg")[0].files[0].name;
+        data.append("myFile", file, fileName);
+
+        $.ajax({
+            url: baseUrl + "customer/file",
+            method: 'post',
+            async: true,
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (resp) {
+                alert("Successfully Uploaded");
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+
+    });
+    function saveCustomer(){
         var formData = $("#signUpForm").serialize();
 
         $.ajax({
@@ -129,7 +152,7 @@
             data: formData,
             dataType: "json",
             success: function (resp) {
-                alert(resp.message);
+                console.log(resp.message);
                 setTextFieldValues("","","","","","","");
             },
             error: function (error) {
@@ -137,8 +160,7 @@
             }
         });
 
-    });
-
+    }
     function setTextFieldValues(email, name, address, nic, license, contact, password) {
         $("#email").val(email);
         $("#name").val(name);
@@ -147,7 +169,10 @@
         $("#drivingNum").val(license);
         $("#contact").val(contact);
         $("#password").val(password);
+        $("#nicImg").val("");
+        $("#drivingImg").val("");
     }
+
 </script>
 </body>
 </html>
