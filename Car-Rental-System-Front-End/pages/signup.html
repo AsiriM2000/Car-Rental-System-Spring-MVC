@@ -42,7 +42,7 @@
                                     <div class="row">
                                         <div class="col-md-6 mb-4">
                                             <div class="form-outline">
-                                                <input class="form-control form-control-lg" id="email" name="custEmail"
+                                                <input class="form-control form-control-lg" id="email" name="email"
                                                        type="text">
                                                 <label class="form-label" for="email">Email</label>
                                             </div>
@@ -50,7 +50,7 @@
 
                                         <div class="col-md-6 mb-4">
                                             <div class="form-outline">
-                                                <input class="form-control form-control-lg" id="name" name="custName"
+                                                <input class="form-control form-control-lg" id="name" name="name"
                                                        type="text">
                                                 <label class="form-label" for="name">Name</label>
                                             </div>
@@ -58,13 +58,13 @@
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input class="form-control form-control-lg" id="address" name="custAddress"
+                                        <input class="form-control form-control-lg" id="address" name="address"
                                                type="text">
                                         <label class="form-label" for="address">Address</label>
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input class="form-control form-control-lg" id="nicNum" name="custNIC"
+                                        <input class="form-control form-control-lg" id="nicNum" name="nic"
                                                type="text">
                                         <label class="form-label" for="nicNum">NIC Number</label>
                                     </div>
@@ -75,7 +75,7 @@
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input class="form-control form-control-lg" id="drivingNum" name="custDrivingLicien"
+                                        <input class="form-control form-control-lg" id="drivingNum" name="license"
                                                type="text">
                                         <label class="form-label" for="drivingNum">Driving License Number</label>
                                     </div>
@@ -86,7 +86,7 @@
                                     </div>
 
                                     <div class="form-outline mb-4">
-                                        <input class="form-control form-control-lg" id="contact" name="custContactNumber"
+                                        <input class="form-control form-control-lg" id="contact" name="contact"
                                                type="text">
                                         <label for="contact">Contact Number</label>
                                     </div>
@@ -145,13 +145,13 @@
     });
     function saveCustomer(){
         var formData = $("#signUpForm").serialize();
-
         $.ajax({
             url: baseUrl+"customer",
             method: "post",
             data: formData,
             dataType: "json",
             success: function (resp) {
+                alert(resp.message)
                 console.log(resp.message);
                 setTextFieldValues("","","","","","","");
             },

@@ -24,15 +24,18 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public void saveCustomer(CustomerDTO dto) {
-        if(repo.existsById(dto.getCustEmail())){
-            throw new RuntimeException("Customer "+dto.getCustEmail()+" Already Exist..!");
+        if(repo.existsById(dto.getEmail())){
+            throw new RuntimeException("Customer "+dto.getEmail()+" Already Exist..!");
         }
         repo.save(mapper.map(dto, Customer.class));
     }
 
     @Override
     public void updateCustomer(CustomerDTO dto) {
-
+        if (!repo.existsById(dto.getEmail())) {
+            throw new RuntimeException("Customer "+dto.getEmail()+" Not Available To Update..!");
+        }
+        repo.save(mapper.map(dto,Customer.class));
     }
 
     @Override
@@ -47,11 +50,11 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     public CustomerDTO searchByCustomerEmail(String email) {
-        return mapper.map(repo.findByCustEmail(email),CustomerDTO.class);
+        return mapper.map(repo.findByEmail(email),CustomerDTO.class);
     }
 
     @Override
     public CustomerDTO searchByCustomerEmailAndPassword(String email, String password) {
-        return mapper.map(repo.findByCustEmailAndPassword(email,password),CustomerDTO.class);
+        return mapper.map(repo.findByEmailAndPassword(email,password),CustomerDTO.class);
     }
 }

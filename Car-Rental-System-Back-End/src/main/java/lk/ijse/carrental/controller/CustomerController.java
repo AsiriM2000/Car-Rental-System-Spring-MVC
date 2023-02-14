@@ -1,6 +1,8 @@
 package lk.ijse.carrental.controller;
 
 import lk.ijse.carrental.dto.CustomerDTO;
+import lk.ijse.carrental.entity.Customer;
+import lk.ijse.carrental.repo.CustomerRepo;
 import lk.ijse.carrental.service.CustomerService;
 import lk.ijse.carrental.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +33,13 @@ public class CustomerController {
         service.saveCustomer(dto);
         return new ResponseUtil("200",dto.toString()+ " Register Successful...!",null);
     }
+
+  @PutMapping
+    public ResponseUtil updateCustomer(@RequestBody CustomerDTO dto){
+        service.updateCustomer(dto);
+        return new ResponseUtil("200",dto.toString()+"updated",null);
+    }
+
     @PostMapping(path = "/file",consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity uploadFileWithSpringWay(@RequestPart("myFile") MultipartFile myFile ) {
         try {
@@ -51,7 +60,7 @@ public class CustomerController {
             return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }
-    @PutMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    @PutMapping(path = "/file",consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity uploadFile(@RequestPart("myFile") MultipartFile myFile, @RequestPart("myFile") byte[] isFile, @RequestPart("myFile") Part myPart) {
         System.out.println(isFile);
         System.out.println(myPart.getSubmittedFileName());

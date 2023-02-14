@@ -61,7 +61,7 @@
             background-color: rgb(0, 0, 0);
             background-color: rgba(0, 0, 0, 0.4);
             padding-top: 60px;
-            overflow: hidden;
+            /*overflow: hidden;*/
         }
 
         .modal-content {
@@ -131,34 +131,34 @@
 
 
 <div class="modal" id="id01">
-    <form class="modal-content animate" id="loginForm">
+    <form class="modal-content animate" id="profileData">
         <div class="imgcontainer">
             <span class="close" onclick="document.getElementById('id01').style.display='none'" title="Close Modal">&times;</span>
         </div>
 
         <div class="container">
-            <label><b></b></label>
-            <input id="email" name="email" required type="text" placeholder="Email">
+            <label style=""><b>Your Profile</b></label>
+
+            <input id="email" name="email" placeholder="Email" type="text">
+
+            <input id="name" name="name" placeholder="Name" type="text">
 
 
-            <input id="name" name="name" required type="text" placeholder="Name">
+            <input id="address" name="address" placeholder="Address" type="text">
 
 
-            <input id="address" name="address" required type="text" placeholder="Address">
+            <input id="nic" name="nic" placeholder="NIC Number" type="text">
 
 
-            <input id="nic" name="nic" required type="text" placeholder="NIC Number">
+            <input id="license" name="license" placeholder="Driving License Number" type="text">
 
 
-            <input id="license" name="license" required type="text" placeholder="Driving License Number">
+            <input id="contact" name="contact" placeholder="Contact Number" type="text">
 
 
-            <input id="contact" name="contact" required type="text" placeholder="Contact Number">
+            <input id="password" name="password" placeholder="Password" type="password">
 
-
-            <input id="password" name="password" required type="password" placeholder="Password">
-
-            <button id="update" type="button">Update</button>
+            <button id="update" type="button">Update Information</button>
         </div>
     </form>
 </div>
@@ -174,29 +174,60 @@
     }
 
     let baseUrl = "http://localhost:8080/Car_Rental_System_Back_End_war/";
-    $("#loginBtn").click(function () {
-        console.log("done")
-    });
+
+
     loadAll();
 
     function loadAll() {
-        var username = $("#lusername").val();
-        var password = $("#lpassword").val();
-        console.log(username)
         $.ajax({
-            url: baseUrl + "customer?email=",
+            url: baseUrl + "customer?email=madhusankaasiri2@gmail.com",
             dataType: "json",
             success: function (resp) {
-                $("#email").val(resp.data.custEmail)
-                $("#name").val(resp.data.custName)
-                $("#address").val(resp.data.custAddress)
-                $("#nic").val(resp.data.custNIC)
-                $("#license").val(resp.data.custDrivingLicien)
-                $("#contact").val(resp.data.custContactNumber)
-                $("#password").val(resp.data.password)
+                $("#email").val(resp.data.email);
+                $("#name").val(resp.data.name);
+                $("#address").val(resp.data.address);
+                $("#nic").val(resp.data.nic);
+                $("#license").val(resp.data.license);
+                $("#contact").val(resp.data.contact);
+                $("#password").val(resp.data.password);
             }
         });
     }
+
+    $("#update").click(function () {
+        var email = $("#email").val();
+        var name = $("#name").val();
+        var address = $("#address").val();
+        var nic = $("#nic").val();
+        var license = $("#license").val();
+        var contact = $("#contact").val();
+        var password = $("#password").val();
+
+        var customer = {
+            email: email,
+            name: name,
+            address: address,
+            nic: nic,
+            license: license,
+            contact: contact,
+            password: password
+        }
+
+        console.log(customer)
+        $.ajax({
+            url: baseUrl+"customer",
+            method: "put",
+            contentType: "application/json",
+            data: JSON.stringify(customer),
+            dataType: "json",
+            success: function (resp){
+                alert(resp.message);
+            },
+            error: function (error){
+                alert(JSON.parse(error.responseText).message);
+            }
+        });
+    });
 
 </script>
 </body>

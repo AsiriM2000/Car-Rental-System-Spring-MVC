@@ -1,7 +1,9 @@
 package lk.ijse.carrental.repo;
 
 import lk.ijse.carrental.config.WebRootConfig;
+import lk.ijse.carrental.dto.CustomerDTO;
 import lk.ijse.carrental.entity.Customer;
+import lk.ijse.carrental.service.CustomerService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,15 +25,18 @@ class CustomerRepoTest {
     @Autowired
     CustomerRepo repo;
 
+    @Autowired
+    CustomerService service;
+
     @Test
     public void test(){
-        Customer email = repo.findByCustEmail("asd@gmail.com");
+        Customer email = repo.findByEmail("asd@gmail.com");
         System.out.println(email);
     }
 
     @Test
     public void test2(){
-        Customer psw = repo.findByCustEmailAndPassword("asd@gmail.com", "12345");
+        Customer psw = repo.findByEmailAndPassword("asd@gmail.com", "12345");
         System.out.println(psw.toString());
     }
 }

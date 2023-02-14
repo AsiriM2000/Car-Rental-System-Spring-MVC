@@ -13,15 +13,14 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@ToString
 public class Customer {
 
     @Id
-    private String custEmail;
-    private String custName;
-    private String custAddress;
-    private String custNIC;
-    private String custDrivingLicien;
-    private String custContactNumber;
+    private String email;
+    private String name;
+    private String address;
+    private String nic;
+    private String license;
+    private String contact;
     private String password;
 }
