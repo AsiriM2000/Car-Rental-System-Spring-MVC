@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Document Title
+      ============================================= -->
+    <title>Rent Car</title>
+
+    <!-- Stylesheets
+     ============================================= -->
+    <link href="../assets/fonts/css/all.min.css" rel="stylesheet">
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Meta tags
+      ============================================= -->
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
+
+    <!-- Styles
+        ============================================= -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .customer-head {
+            width: 100%;
+            margin-top: 10px;
+            height: 40px;
+            background-color: #D9D9D9;
+        }
+
+        header {
+            width: 100%;
+            background-color: #D9D9D9;
+        }
+
+        .main-section {
+            width: 90%;
+            margin: auto;
+            background-color: #2E4053;
+        }
+
+        .collapse {
+            flex-basis: 100%;
+            flex-grow: 1;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .collapse a {
+            font-size: 20px;
+            color: #0047FF;
+        }
+
+        .collapse a:hover {
+            color: #f9004d;
+            transition: .4s;
+        }
+
+        .breadcrumb li {
+            margin-top: 10px;
+            font-size: 20px;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        .add button:first-child {
+            background-color: #3498DB;
+            margin-left: 30px;
+            margin-top: 32px;
+        }
+
+        .add button:first-child:hover {
+            background-color: #3498DB;
+        }
+
+        tbody tr {
+            color: aqua;
+        }
+
+        .order-table {
+            margin-top: 25px;
+            height: 28vh;
+        }
+
+        .order-detail {
+            margin-top: 25px;
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+
+        .add-button {
+            text-align: right;
+            margin-top: 1rem;
+        }
+
+        button {
+            background-color: #04AA6D;
+            color: white;
+            padding: 14px 20px;
+            margin: 8px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+            position: relative;
+        }
+
+        .container {
+            padding: 16px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+            overflow: hidden;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto;
+            border: 1px solid #888;
+            width: 50%;
+        }
+
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #000;
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: red;
+            cursor: pointer;
+        }
+        img.avatar {
+            border-radius: 50%;
+        }
+        .imgcontainer img {
+            width: 100px;
+            height: 100px;
+            border: 5px solid #555;
+        }
+
+        .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+        }
+
+        @-webkit-keyframes animatezoom {
+            from {
+                -webkit-transform: scale(0)
+            }
+            to {
+                -webkit-transform: scale(1)
+            }
+        }
+    </style>
+    </style>
+</head>
+<body>
+<!-- header
+  ============================================= -->
+<header>
+    <nav class="navbar navbar-expand-lg">
+        <p>Email: <span id="emailLoad"></span></p>
+        <div class="container-fluid">
+            <button aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+                    data-bs-target="#navbarNavDropdown" data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav justify-content-center">
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link" href="../customer.html">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <a class="navbar-brand" href="#">
+                <img alt="Logo" class="d-inline-block align-text-top" height="30" onclick="document.getElementById('id01').style.display='block'"
+                     src="../assets/img/login.png"
+                     width="30">
+                Account
+            </a>
+        </div>
+    </nav>
+</header>
+<!-- main
+   ============================================= -->
+<main>
+    <section class="main-section">
+        <section class="customer-head"></section>
+
+        <div class="row order-detail">
+            <div class="col-lg-6 mt-lg-0 mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Choose Car</label>
+                                    <select class="form-select" id="selectCar">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Register Number</label>
+                                    <input class="form-control" id="regNumber" type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Brand</label>
+                                    <input class="form-control" id="brand" type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Type</label>
+                                    <input class="form-control" id="type" type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>No Of Passenger</label>
+                                    <input class="form-control" id="noOfPassenger" type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Transmission Type</label>
+                                    <input class="form-control" id="transmission" type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-5">
+                                <div class="form-group">
+                                    <label>Fuel Type</label>
+                                    <input class="form-control" id="fuelType" type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label>Daily Rate</label>
+                                    <input class="form-control" id="dailyRate" type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label>Monthly Rate</label>
+                                    <input class="form-control" id="monthlyRate" type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-5">
+                                <div class="form-group">
+                                    <label>Free Mileage For Price</label>
+                                    <input class="form-control" id="freePrice" type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-4">
+                                <div class="form-group">
+                                    <label>Extra Price For KM</label>
+                                    <input class="form-control" id="extraPrice" type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label>Color</label>
+                                    <input class="form-control" id="color" type="text">
+                                </div>
+
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 mt-lg-0 mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>PickUp-Date</label>
+                                    <input class="form-control" id="pickupData" type="date">
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Return-Date</label>
+                                    <input class="form-control" id="returnDate" type="date">
+                                </div>
+                            </div>
+
+                            <div class="col-4 mt-4">
+                                <button class="btn btn-success" id="rentCar" type="button">Rent Car</button>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <section class="order-table">
+            <div class="col-md-12 mt-4" div style="height:262px; overflow-y: scroll">
+                <table class="table table-bordered">
+                    <thead class="bg-danger text-white">
+                    <tr>
+                    </tr>
+                    </thead>
+                    <tbody id="tblOrder">
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </section>
+
+
+</main>
+<div class="modal" id="id01">
+    <form class="modal-content animate" id="profileData">
+        <div class="imgcontainer">
+            <span class="close" onclick="document.getElementById('id01').style.display='none'" title="Close Modal">&times;</span>
+            <img alt="Avatar" class="avatar" src="../assets/img/user.jpg">
+            <p>Your Profile</p>
+        </div>
+
+        <div class="container">
+
+            <input id="email" name="email" placeholder="Email" type="text">
+
+            <input id="name" name="name" placeholder="Name" type="text">
+
+
+            <input id="address" name="address" placeholder="Address" type="text">
+
+
+            <input id="nic" name="nic" placeholder="NIC Number" type="text">
+
+
+            <input id="license" name="license" placeholder="Driving License Number" type="text">
+
+
+            <input id="contact" name="contact" placeholder="Contact Number" type="text">
+
+
+            <input id="password" name="password" placeholder="Password" type="password">
+
+            <button id="update" type="button">Update Information</button>
+        </div>
+    </form>
+</div>
+
+
+<script src="../assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/jquery-3.6.1.min.js"></script>
+
+<script>
+    var modal = document.getElementById('id01');
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    let baseUrl = "http://localhost:8080/Car_Rental_System_Back_End_war/";
+
+
+    loadAll();
+
+    function loadAll() {
+        $.ajax({
+            url: baseUrl + "customer?email=",
+            dataType: "json",
+            success: function (resp) {
+                $("#email").val(resp.data.email);
+                $("#name").val(resp.data.name);
+                $("#address").val(resp.data.address);
+                $("#nic").val(resp.data.nic);
+                $("#license").val(resp.data.license);
+                $("#contact").val(resp.data.contact);
+                $("#password").val(resp.data.password);
+            }
+        });
+    }
+
+    $("#update").click(function () {
+        var email = $("#email").val();
+        var name = $("#name").val();
+        var address = $("#address").val();
+        var nic = $("#nic").val();
+        var license = $("#license").val();
+        var contact = $("#contact").val();
+        var password = $("#password").val();
+
+        var customer = {
+            email: email,
+            name: name,
+            address: address,
+            nic: nic,
+            license: license,
+            contact: contact,
+            password: password
+        }
+
+        console.log(customer)
+        $.ajax({
+            url: baseUrl + "customer",
+            method: "put",
+            contentType: "application/json",
+            data: JSON.stringify(customer),
+            dataType: "json",
+            success: function (resp) {
+                alert(resp.message);
+            },
+            error: function (error) {
+                alert(JSON.parse(error.responseText).message);
+            }
+        });
+    });
+
+    function test(){
+       $("#color").innerHTML =  localStorage.getItem("textValue");
+    }
+</script>
+</body>
+</html>

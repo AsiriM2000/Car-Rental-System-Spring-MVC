@@ -149,7 +149,7 @@
 </div>
 
 <div class="modal" id="id01">
-    <form class="modal-content animate" id="loginForm">
+    <form class="modal-content animate" id="loginForm" action="pages/rentcar.html">
         <div class="imgcontainer">
             <span class="close" onclick="document.getElementById('id01').style.display='none'" title="Close Modal">&times;</span>
             <img alt="Avatar" class="avatar" src="./assets/img/login-img.png">
@@ -157,11 +157,11 @@
         </div>
 
         <div class="container">
-            <label for="lusername"><b>Username</b></label>
-            <input id="lusername" name="username" placeholder="Enter Username" required type="text">
+               <label for="lusername"><b>Username</b></label>
+               <input id="lusername" name="lusername" placeholder="Enter Username" required type="text"/>
 
-            <label for="lpassword"><b>Password</b></label>
-            <input id="lpassword" name="password" placeholder="Enter Password" required type="password">
+               <label for="lpassword"><b>Password</b></label>
+               <input id="lpassword" name="lusername" placeholder="Enter Password" required type="password"/>
 
             <button id="loginBtn" type="button">Login</button>
         </div>
@@ -175,7 +175,8 @@
 </div>
 <script src="assets/js/jquery-3.6.1.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
-<script>
+<script type="text/javascript">
+    test();
     var modal = document.getElementById('id01');
     window.onclick = function (event) {
         if (event.target == modal) {
@@ -191,7 +192,7 @@
             url: baseUrl + "customer?email=" + username + "&password=" + password,
             dataType: "json",
             success: function (resp) {
-                location.href = './pages/car.html';
+                location.href = './pages/rentcar.html';
                 clear();
             },
             error: function (error) {
@@ -204,7 +205,6 @@
         $("#lusername").val("");
         $("#lpassword").val("");
     }
-
 </script>
 </body>
 </html>
