@@ -89,7 +89,7 @@ public class CustomerController {
 
 
     }
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/image",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getAllImagesFromDatabase() {
         return new ResponseEntity(allImages, HttpStatus.OK);
     }
