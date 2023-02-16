@@ -8,7 +8,6 @@
     <!-- Stylesheets
       ============================================= -->
     <link href="assets/css/customer.css" rel="stylesheet">
-    <link href="assets/css/bootstrap.min.css" rel="script">
     <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
     <!-- Meta tags
        ============================================= -->
@@ -149,7 +148,7 @@
 </div>
 
 <div class="modal" id="id01">
-    <form class="modal-content animate" id="loginForm" action="pages/rentcar.html">
+    <form class="modal-content animate" id="loginForm">
         <div class="imgcontainer">
             <span class="close" onclick="document.getElementById('id01').style.display='none'" title="Close Modal">&times;</span>
             <img alt="Avatar" class="avatar" src="./assets/img/login-img.png">
@@ -176,7 +175,6 @@
 <script src="assets/js/jquery-3.6.1.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 <script type="text/javascript">
-    test();
     var modal = document.getElementById('id01');
     window.onclick = function (event) {
         if (event.target == modal) {
@@ -192,7 +190,7 @@
             url: baseUrl + "customer?email=" + username + "&password=" + password,
             dataType: "json",
             success: function (resp) {
-                location.href = './pages/rentcar.html';
+                window.location.href = './pages/rentcar.html';
                 clear();
             },
             error: function (error) {
