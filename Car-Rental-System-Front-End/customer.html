@@ -13,6 +13,7 @@
        ============================================= -->
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
 </head>
 <body>
 <!--Header-->
@@ -26,7 +27,8 @@
         <li><a href="#about">About</a></li>
     </ul>
     <div class="header-btn">
-        <a class="sign-up" href="./pages/signup.html">Sign Up</a>
+        <a class="sign-up" onclick="document.getElementById('id02').style.display='block'" style="width:auto;">Sign
+            Up</a>
         <a class="sign-in" onclick="document.getElementById('id01').style.display='block'" style="width:auto;">Sign
             In</a>
     </div>
@@ -146,7 +148,7 @@
 <div class="copyright">
     <p>&#169; Design By : <span style="color:#d58700;">Asiri</span> Madhusanka</p>
 </div>
-
+<!--Login-->
 <div class="modal" id="id01">
     <form class="modal-content animate" id="loginForm">
         <div class="imgcontainer">
@@ -156,25 +158,72 @@
         </div>
 
         <div class="container">
-               <label for="lusername"><b>Username</b></label>
-               <input id="lusername" name="lusername" placeholder="Enter Username" required type="text"/>
+            <label for="lusername"><b>Username</b></label>
+            <input id="lusername" name="lusername" placeholder="Enter Username" required type="text"/>
 
-               <label for="lpassword"><b>Password</b></label>
-               <input id="lpassword" name="lusername" placeholder="Enter Password" required type="password"/>
+            <label for="lpassword"><b>Password</b></label>
+            <input id="lpassword" name="lusername" placeholder="Enter Password" required type="password"/>
 
-            <button id="loginBtn" type="button">Login</button>
-        </div>
-
-        <div class="container" style="background-color:#f1f1f1">
-            <button class="cancelbtn" onclick="document.getElementById('id01').style.display='none'" type="button">
-                Cancel
-            </button>
+            <button id="logBtn" type="button">Login</button>
         </div>
     </form>
 </div>
+
+<!--SignUp-->
+<div class="modal" id="id02">
+    <span class="close" onclick="document.getElementById('id02').style.display='none'"
+          title="Close Modal">&times;</span>
+    <form class="modal-content" id="signUpForm">
+        <div class="imgcontainer">
+            <span class="close" onclick="document.getElementById('id02').style.display='none'" title="Close Modal">&times;</span>
+        </div>
+        <div class="container">
+            <h1>Sign Up</h1>
+            <hr>
+            <br>
+            <input class="form-control form-control-lg" id="email" name="email" placeholder="Enter Email" required
+                   type="text">
+
+            <input class="form-control form-control-lg" id="name" name="name" placeholder="Enter Name" required
+                   type="text">
+
+            <input class="form-control form-control-lg" id="address" name="address" placeholder="Enter Address" required
+                   type="text">
+
+            <input class="form-control form-control-lg" id="nicNum" name="nic" placeholder="Enter NIC Number" required
+                   type="text">
+
+            <label for="nicImg" class="btn">Select NIC Image</label>
+            <input class="form-control" id="nicImg" name="myFile" type="file" title="">
+
+            <input class="form-control form-control-lg" id="drivingNum" name="license" placeholder="Enter License Number" required
+                   type="text">
+
+            <label for="nicImg" class="btn">Select License Image</label>
+            <input class="form-control" id="licenseImg" name="" type="file" title="">
+
+            <input class="form-control form-control-lg" id="contact" name="contact" placeholder="Enter Contact Number" required
+                   type="text">
+
+            <input class="form-control form-control-lg" id="password" name="password" placeholder="Enter Password" required
+                   type="password">
+
+            <div class="clearfix">
+                <button id="signupBtn" type="button">Sign Up</button>
+            </div>
+        </div>
+    </form>
+</div>
+
 <script src="assets/js/jquery-3.6.1.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
 <script type="text/javascript">
+    var modal = document.getElementById('id02');
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
     var modal = document.getElementById('id01');
     window.onclick = function (event) {
         if (event.target == modal) {
@@ -182,7 +231,7 @@
         }
     }
     let baseUrl = "http://localhost:8080/Car_Rental_System_Back_End_war/";
-    $("#loginBtn").click(function () {
+    $("#logBtn").click(function () {
         var username = $("#lusername").val();
         var password = $("#lpassword").val();
 
@@ -190,7 +239,7 @@
             url: baseUrl + "customer?email=" + username + "&password=" + password,
             dataType: "json",
             success: function (resp) {
-                window.location.href = './pages/rentcar.html';
+                location.href = './pages/rentcar.html';
                 clear();
             },
             error: function (error) {
@@ -202,6 +251,58 @@
     function clear() {
         $("#lusername").val("");
         $("#lpassword").val("");
+    }
+    $("#signupBtn").click(function () {
+        saveCustomer();
+        var data = new FormData();
+        let file = $("#nicImg")[0].files[0];
+        let fileName = $("#nicImg")[0].files[0].name;
+        data.append("myFile", file, fileName);
+
+        $.ajax({
+            url: baseUrl + "customer/file",
+            method: 'post',
+            async: true,
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (resp) {
+                alert("Successfully Uploaded");
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+
+    });
+    function saveCustomer(){
+        var formData = $("#signUpForm").serialize();
+        $.ajax({
+            url: baseUrl+"customer",
+            method: "post",
+            data: formData,
+            dataType: "json",
+            success: function (resp) {
+                alert(resp.message)
+                console.log(resp.message);
+                setTextFieldValues("","","","","","","");
+            },
+            error: function (error) {
+                alert(JSON.parse(error.responseText).message);
+            }
+        });
+
+    }
+    function setTextFieldValues(email, name, address, nic, license, contact, password) {
+        $("#email").val(email);
+        $("#name").val(name);
+        $("#address").val(address);
+        $("#nicNum").val(nic);
+        $("#drivingNum").val(license);
+        $("#contact").val(contact);
+        $("#password").val(password);
+        $("#nicImg").val("");
+        $("#drivingImg").val("");
     }
 </script>
 </body>
