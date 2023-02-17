@@ -102,6 +102,7 @@ header{
     background: #474fa0;
     color: #fff;
     border-radius: 0.5rem;
+    cursor: pointer;
 }
 
 .header-btn .sign-in:hover{

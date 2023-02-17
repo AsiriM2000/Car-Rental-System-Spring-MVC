@@ -39,6 +39,7 @@
 
         .main-section {
             width: 90%;
+            height: 90vh;
             margin: auto;
             background-color: #2E4053;
         }
@@ -86,7 +87,7 @@
 
         .order-table {
             margin-top: 25px;
-            height: 28vh;
+
         }
 
         .order-detail {
@@ -192,7 +193,7 @@
             }
         }
     </style>
-    </style>
+
 </head>
 <body>
 <!-- header
@@ -228,10 +229,24 @@
         <section class="customer-head"></section>
 
         <div class="row order-detail">
-            <div class="col-lg-6 mt-lg-0 mt-3">
+            <div class="col-lg-12 mt-lg-0 mt-3">
                 <div class="card">
                     <div class="card-body">
                         <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Rent Id</label>
+                                    <input class="form-control" id="rentId" type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Date</label>
+                                    <input class="form-control" id="rentDate" type="date">
+                                </div>
+                            </div>
+
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>Choose Car</label>
@@ -318,14 +333,6 @@
 
                             </div>
 
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-lg-6 mt-lg-0 mt-3">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="row">
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>PickUp-Date</label>
@@ -348,19 +355,18 @@
                     </div>
                 </div>
             </div>
-
         </div>
         <section class="order-table">
-            <div class="col-md-12 mt-4" div style="height:262px; overflow-y: scroll">
-                <table class="table table-bordered">
-                    <thead class="bg-danger text-white">
-                    <tr>
-                    </tr>
-                    </thead>
-                    <tbody id="tblOrder">
-                    </tbody>
-                </table>
-            </div>
+<!--            <div class="col-md-12 mt-4" div style="height:262px; overflow-y: scroll">-->
+<!--                <table class="table table-bordered">-->
+<!--                    <thead class="bg-danger text-white">-->
+<!--                    <tr>-->
+<!--                    </tr>-->
+<!--                    </thead>-->
+<!--                    <tbody id="tblOrder">-->
+<!--                    </tbody>-->
+<!--                </table>-->
+<!--            </div>-->
         </section>
     </section>
 
