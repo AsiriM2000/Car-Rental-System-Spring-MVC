@@ -7,7 +7,7 @@
 
   <!-- Stylesheets
     ============================================= -->
-  <link href="assets/css/bootstrap.min.css" rel="stylesheet">
+  <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
   <!-- Meta tags
      ============================================= -->
   <meta charset="UTF-8">
@@ -195,7 +195,7 @@
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">
-        <img src="assets/img/admin/car.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
+        <img src="../assets/img/admin/car.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
        Easy Car Rental (Pvt) Ltd.
       </a>
 
@@ -221,39 +221,38 @@
         </ul>
       </div>
       <a class="navbar-brand" href="#">
-        <img src="assets/img/admin/login.png" alt="Logo" width="30" height="30"
+        <img src="../assets/img/admin/login.png" alt="Logo" width="30" height="30"
              class="d-inline-block align-text-top">
         Admin
       </a>
     </div>
   </nav>
 </header>
-
 <!-- dashboard
    ============================================= -->
 <main id="dashboardContent">
   <section id="dashboard">
     <section>
       <a href="#">
-        <img src="assets/img/admin/car.png" width="70px">
+        <img src="../assets/img/admin/car.png" width="70px">
         <br>
         <br>
         <p>Available Cars - <span>15</span></p>
       </a>
       <a href="#">
-        <img src="assets/img/admin/customers.png" width="70px">
+        <img src="../assets/img/admin/customers.png" width="70px">
         <br>
         <br>
-        <p>Customers - <span>22</span></p>
+        <p>Customers - <span id="customerCount"></span></p>
       </a>
       <a href="#">
-        <img src="assets/img/admin/completed-task.png" width="70px">
+        <img src="../assets/img/admin/completed-task.png" width="70px">
         <br>
         <br>
         <p>Transaction - <span>100,000.00</span></p>
       </a>
       <a href="#">
-        <img src="assets/img/admin/report.png" width="70px">
+        <img src="../assets/img/admin/report.png" width="70px">
         <br>
         <br>
         <p>Completed Rentals - <span>9</span></p>
@@ -268,7 +267,7 @@
   <section class="main-section">
     <section class="customer-head">
       <ul class="breadcrumb">
-        <img src="assets/img/admin/customers.png" width="35px">
+        <img src="../assets/img/admin/customers.png" width="35px">
         <li><a href="#">Dashboard /</a></li>
         <li class="active"> Customers</li>
       </ul>
@@ -373,7 +372,7 @@
   <section class="main-section">
     <section class="item-head">
       <ul class="breadcrumb">
-        <img src="assets/img/admin/car.png" width="35px">
+        <img src="../assets/img/admin/car.png" width="35px">
         <li><a href="#">Dashboard /</a></li>
         <li class="active"> Items</li>
       </ul>
@@ -536,15 +535,16 @@
   </section>
 </main>
 
-<script src="assets/js/bootstrap.min.js"></script>
-<script src="assets/js/jquery-3.6.1.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/jquery-3.6.1.min.js"></script>
 
 
-<script src="assets/js/util/DashboardController.js"></script>
+<script src="../assets/js/util/DashboardController.js"></script>
 
 <script>
   let baseUrl = "http://localhost:8080/Car_Rental_System_Back_End_war/";
   loadAll();
+  count();
   // loadTheLastUploadedImage();
   function loadAll() {
     $("#tblCustomer").empty();
@@ -556,6 +556,7 @@
           var row = '<tr><td>' + cus.email + '</td><td>' + cus.name + '</td><td>' + cus.address + '</td><td>' + cus.nic + '</td><td>'+ cus.license + '</td><td>'+ cus.contact + '</td><td>'+ cus.password + '</td></tr>';
           $("#tblCustomer").append(row);
         }
+
         bindRowClickEvents();
       }
     });
@@ -595,6 +596,23 @@
       }
     });
   });
+
+  $("#delete-customer").click(function (){
+    var email = $("#email").val();
+    $.ajax({
+      url: baseUrl+"customer?email="+email,
+      method: "delete",
+      dataType: "json",
+      success: function (resp){
+        alert(resp.message);
+        loadAll();
+      },
+      error: function (error){
+        alert(JSON.parse(error.responseText).message);
+      }
+    });
+  });
+
   function loadTheLastUploadedImage() {
     $("#tblCustomer").empty();
     $.ajax({
@@ -628,6 +646,16 @@
       $('#contact').val(contact);
       $('#password').val(password);
 
+    });
+  }
+
+  function count(){
+    $.ajax({
+      url: baseUrl+"customer/count",
+      dataType: "json",
+      success: function (resp){
+        $("#customerCount").text(resp.data);
+      }
     });
   }
 </script>

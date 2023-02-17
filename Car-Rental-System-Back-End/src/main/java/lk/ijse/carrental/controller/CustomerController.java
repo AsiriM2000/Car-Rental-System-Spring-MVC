@@ -34,10 +34,16 @@ public class CustomerController {
         return new ResponseUtil("200",dto.toString()+ " Register Successful...!",null);
     }
 
-  @PutMapping
+    @PutMapping
     public ResponseUtil updateCustomer(@RequestBody CustomerDTO dto){
         service.updateCustomer(dto);
         return new ResponseUtil("200",dto.toString()+"updated",null);
+    }
+
+    @DeleteMapping
+    public ResponseUtil deleteCustomer(String email){
+        service.deleteCustomer(email);
+        return new ResponseUtil("200", email +" Deleted",null);
     }
 
     @PostMapping(path = "/file",consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -110,5 +116,11 @@ public class CustomerController {
     public ResponseUtil searchCustomerByEmailAndPassword(String email,String password){
         CustomerDTO customer = service.searchByCustomerEmailAndPassword(email,password);
         return new ResponseUtil("200"," Success.!",customer);
+    }
+
+    @GetMapping("/count")
+    public ResponseUtil count(){
+        long count = service.count();
+        return new ResponseUtil("200"," Success.!",count);
     }
 }

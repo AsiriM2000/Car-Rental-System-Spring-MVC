@@ -39,8 +39,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void deleteCustomer(String id) {
-
+    public void deleteCustomer(String email) {
+        if (!repo.existsById(email)){
+            throw new RuntimeException("Customer "+email+" Not Available to Delete..!");
+        }
+        repo.deleteById(email);
     }
 
     @Override
@@ -56,5 +59,10 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public CustomerDTO searchByCustomerEmailAndPassword(String email, String password) {
         return mapper.map(repo.findByEmailAndPassword(email,password),CustomerDTO.class);
+    }
+
+    @Override
+    public long count() {
+        return repo.count();
     }
 }
