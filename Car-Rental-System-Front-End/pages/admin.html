@@ -398,11 +398,18 @@
         <table class="table table-bordered">
           <thead class="bg-danger text-white">
           <tr>
-            <th>Item Code</th>
-            <th>Item Name</th>
-            <th>Qty</th>
-            <th>Uniq Price</th>
-            <th style="width: 190px">Action</th>
+            <th>Car Name</th>
+            <th>Register Number</th>
+            <th>Brand</th>
+            <th>Type</th>
+            <th>No Of Passenger</th>
+            <th>Transmission Type</th>
+            <th>Fuel Type</th>
+            <th>Daily Rate</th>
+            <th>Monthly Rate</th>
+            <th>Free Mileage For Price</th>
+            <th>Extra Price For KM</th>
+            <th>Color</th>
           </tr>
           </thead>
           <tbody id="tblItem">
@@ -412,7 +419,7 @@
       </div>
     </section>
   </section>
-
+</main>
   <!-- item-form-save
      ============================================= -->
   <div aria-hidden="true" aria-labelledby="itemLabel" class="modal fade col-lg-8" id="saveItems" tabindex="-1">
@@ -489,8 +496,8 @@
             </div>
 
             <div aria-label="Basic mixed styles example" class="btn-group" role="group">
-              <button class="btn btn-success save-cus" type="button" id="saveItem">Save</button>
-              <button class="btn btn-secondary close-cus" data-bs-dismiss="modal" type="button">Close
+              <button class="btn btn-success save-cus" type="button" id="saveCar">Save</button>
+              <button class="btn btn-warning close-cus" type="button" id="updateCar">Update
               </button>
             </div>
 
@@ -500,164 +507,164 @@
     </div>
   </div>
 
-<!-- order-detail
-   ============================================= -->
-<main id="orderDetailContent">
-  <section class="main-section">
-    <section class="item-head">
-      <ul class="breadcrumb">
-        <img src="assests/img/report.png" width="35px">
-        <li><a href="#">Dashboard /</a></li>
-        <li class="active"> Order-Detail</li>
-      </ul>
+  <!-- order-detail
+     ============================================= -->
+  <main id="orderDetailContent">
+    <section class="main-section">
+      <section class="item-head">
+        <ul class="breadcrumb">
+          <img src="assests/img/report.png" width="35px">
+          <li><a href="#">Dashboard /</a></li>
+          <li class="active"> Order-Detail</li>
+        </ul>
+      </section>
+
+      <section class="Order-Detail">
+        <div div class="col-md-12 mt-4" style="height:430px; overflow-y: scroll">
+          <table class="table table-bordered">
+            <thead class="bg-danger text-white">
+            <tr>
+              <th>OrderId</th>
+              <th>Date</th>
+              <th>Cus Id</th>
+              <th>Item Code</th>
+              <th>Price</th>
+              <th>Qty</th>
+              <th>Total</th>
+            </tr>
+            </thead>
+            <tbody id="tblOrderDetail">
+
+            </tbody>
+          </table>
+        </div>
+      </section>
     </section>
+  </main>
 
-    <section class="Order-Detail">
-      <div div class="col-md-12 mt-4" style="height:430px; overflow-y: scroll">
-        <table class="table table-bordered">
-          <thead class="bg-danger text-white">
-          <tr>
-            <th>OrderId</th>
-            <th>Date</th>
-            <th>Cus Id</th>
-            <th>Item Code</th>
-            <th>Price</th>
-            <th>Qty</th>
-            <th>Total</th>
-          </tr>
-          </thead>
-          <tbody id="tblOrderDetail">
-
-          </tbody>
-        </table>
-      </div>
-    </section>
-  </section>
-</main>
-
-<script src="../assets/js/bootstrap.min.js"></script>
-<script src="../assets/js/jquery-3.6.1.min.js"></script>
+  <script src="../assets/js/bootstrap.min.js"></script>
+  <script src="../assets/js/jquery-3.6.1.min.js"></script>
 
 
-<script src="../assets/js/util/DashboardController.js"></script>
+  <script src="../assets/js/util/DashboardController.js"></script>
 
-<script>
-  let baseUrl = "http://localhost:8080/Car_Rental_System_Back_End_war/";
-  loadAll();
-  count();
-  // loadTheLastUploadedImage();
-  function loadAll() {
-    $("#tblCustomer").empty();
-    $.ajax({
-      url: baseUrl+"customer",
-      dataType: "json",
-      success: function (resp) {
-        for (let cus of resp.data) {
-          var row = '<tr><td>' + cus.email + '</td><td>' + cus.name + '</td><td>' + cus.address + '</td><td>' + cus.nic + '</td><td>'+ cus.license + '</td><td>'+ cus.contact + '</td><td>'+ cus.password + '</td></tr>';
-          $("#tblCustomer").append(row);
+  <script>
+    let baseUrl = "http://localhost:8080/Car_Rental_System_Back_End_war/";
+    loadAll();
+    count();
+    // loadTheLastUploadedImage();
+    function loadAll() {
+      $("#tblCustomer").empty();
+      $.ajax({
+        url: baseUrl+"customer",
+        dataType: "json",
+        success: function (resp) {
+          for (let cus of resp.data) {
+            var row = '<tr><td>' + cus.email + '</td><td>' + cus.name + '</td><td>' + cus.address + '</td><td>' + cus.nic + '</td><td>'+ cus.license + '</td><td>'+ cus.contact + '</td><td>'+ cus.password + '</td></tr>';
+            $("#tblCustomer").append(row);
+          }
+
+          bindRowClickEvents();
         }
-
-        bindRowClickEvents();
-      }
-    });
-  }
-
-  $("#updateCustomer").click(function () {
-    var email = $("#email").val();
-    var name = $("#name").val();
-    var address = $("#address").val();
-    var nic = $("#nic").val();
-    var license = $("#license").val();
-    var contact = $("#contact").val();
-    var password = $("#password").val();
-
-    var customer = {
-      email: email,
-      name: name,
-      address: address,
-      nic: nic,
-      license: license,
-      contact: contact,
-      password: password
+      });
     }
 
-    $.ajax({
-      url: baseUrl + "customer",
-      method: "put",
-      contentType: "application/json",
-      data: JSON.stringify(customer),
-      dataType: "json",
-      success: function (resp) {
-        alert(resp.message);
-        loadAll();
-      },
-      error: function (error) {
-        alert(JSON.parse(error.responseText).message);
-      }
-    });
-  });
+    $("#updateCustomer").click(function () {
+      var email = $("#email").val();
+      var name = $("#name").val();
+      var address = $("#address").val();
+      var nic = $("#nic").val();
+      var license = $("#license").val();
+      var contact = $("#contact").val();
+      var password = $("#password").val();
 
-  $("#delete-customer").click(function (){
-    var email = $("#email").val();
-    $.ajax({
-      url: baseUrl+"customer?email="+email,
-      method: "delete",
-      dataType: "json",
-      success: function (resp){
-        alert(resp.message);
-        loadAll();
-      },
-      error: function (error){
-        alert(JSON.parse(error.responseText).message);
+      var customer = {
+        email: email,
+        name: name,
+        address: address,
+        nic: nic,
+        license: license,
+        contact: contact,
+        password: password
       }
-    });
-  });
 
-  function loadTheLastUploadedImage() {
-    $("#tblCustomer").empty();
-    $.ajax({
-      url: baseUrl + "customer/image",
-      method:"get",
-      dataType: 'json',
-      success: function (resp) {
-        for (let i in resp) {
-          let row = `<tr><td><img src="${baseUrl + resp[i]}" width="100px"></td></tr>`;
-          $("#tblCustomer").append(row);
+      $.ajax({
+        url: baseUrl + "customer",
+        method: "put",
+        contentType: "application/json",
+        data: JSON.stringify(customer),
+        dataType: "json",
+        success: function (resp) {
+          alert(resp.message);
+          loadAll();
+        },
+        error: function (error) {
+          alert(JSON.parse(error.responseText).message);
         }
-      }
+      });
     });
-  }
 
-  function bindRowClickEvents() {
-    $("#tblCustomer>tr").click(function () {
-      let email = $(this).children(":eq(0)").text();
-      let name = $(this).children(":eq(1)").text();
-      let address = $(this).children(":eq(2)").text();
-      let nic = $(this).children(":eq(3)").text();
-      let license = $(this).children(":eq(4)").text();
-      let contact = $(this).children(":eq(5)").text();
-      let password = $(this).children(":eq(6)").text();
-
-      $('#email').val(email);
-      $('#name').val(name);
-      $('#address').val(address);
-      $('#nic').val(nic);
-      $('#license').val(license);
-      $('#contact').val(contact);
-      $('#password').val(password);
-
+    $("#delete-customer").click(function (){
+      var email = $("#email").val();
+      $.ajax({
+        url: baseUrl+"customer?email="+email,
+        method: "delete",
+        dataType: "json",
+        success: function (resp){
+          alert(resp.message);
+          loadAll();
+        },
+        error: function (error){
+          alert(JSON.parse(error.responseText).message);
+        }
+      });
     });
-  }
 
-  function count(){
-    $.ajax({
-      url: baseUrl+"customer/count",
-      dataType: "json",
-      success: function (resp){
-        $("#customerCount").text(resp.data);
-      }
-    });
-  }
-</script>
+    function loadTheLastUploadedImage() {
+      $("#tblCustomer").empty();
+      $.ajax({
+        url: baseUrl + "customer/image",
+        method:"get",
+        dataType: 'json',
+        success: function (resp) {
+          for (let i in resp) {
+            let row = `<tr><td><img src="${baseUrl + resp[i]}" width="100px"></td></tr>`;
+            $("#tblCustomer").append(row);
+          }
+        }
+      });
+    }
+
+    function bindRowClickEvents() {
+      $("#tblCustomer>tr").click(function () {
+        let email = $(this).children(":eq(0)").text();
+        let name = $(this).children(":eq(1)").text();
+        let address = $(this).children(":eq(2)").text();
+        let nic = $(this).children(":eq(3)").text();
+        let license = $(this).children(":eq(4)").text();
+        let contact = $(this).children(":eq(5)").text();
+        let password = $(this).children(":eq(6)").text();
+
+        $('#email').val(email);
+        $('#name').val(name);
+        $('#address').val(address);
+        $('#nic').val(nic);
+        $('#license').val(license);
+        $('#contact').val(contact);
+        $('#password').val(password);
+
+      });
+    }
+
+    function count(){
+      $.ajax({
+        url: baseUrl+"customer/count",
+        dataType: "json",
+        success: function (resp){
+          $("#customerCount").text(resp.data);
+        }
+      });
+    }
+  </script>
 </body>
 </html>
