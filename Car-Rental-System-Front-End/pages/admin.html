@@ -1,931 +1,1058 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Document Title
-         ============================================= -->
-  <title>Admin Panel</title>
+    <!-- Document Title
+           ============================================= -->
+    <title>Admin Panel</title>
 
-  <!-- Stylesheets
-    ============================================= -->
-  <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Meta tags
-     ============================================= -->
-  <meta charset="UTF-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <!-- Stylesheets
+      ============================================= -->
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Meta tags
+       ============================================= -->
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <style>
-    *{
-      margin: 0;
-      padding: 0;
-      font-family: 'Poppins', sans-serif;
-    }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
 
-    #customerContent{
-      display: none;
-    }
-    #itemContent{
-      display: none;
-    }
-    #driverContent{
-      display: none;
-    }
-    #orderDetailContent{
-      display: none;
-    }
-    header{
-      width: 100%;
-      background-color: #D9D9D9;
-    }
+        #customerContent {
+            display: none;
+        }
 
-    #dashboard  .card-title img{
-      width: 80px;
-    }
+        #itemContent {
+            display: none;
+        }
 
-    #dashboard .collapse {
-      flex-basis: 100%;
-      flex-grow: 1;
-      align-items: center;
-      justify-content: center;
-    }
+        #driverContent {
+            display: none;
+        }
 
-    #dashboard  .collapse a{
-      font-size: 20px;
-      color: #0047FF;
-    }
-    #dashboard .collapse a:hover{
-      color: #f9004d;
-      transition: .4s;
-    }
+        #orderDetailContent {
+            display: none;
+        }
 
-    main #dashboard {
-      height: 700px;
-      margin: 50px auto;
-      display: flex;
-    }
+        header {
+            width: 100%;
+            background-color: #D9D9D9;
+        }
 
-    main #dashboard  section{
-      margin: 80px auto;
-      text-align: center;
-    }
-    main #dashboard a{
-      margin-top: 70px !important;
-      text-decoration: none;
-      padding-top: 30px;
-      padding-bottom: 5px;
-      padding-left: 15px;
-      padding-right: 15px;
-      border-radius: 10px;
-      margin: 10px;
-      -webkit-box-shadow: 0 5px 5px 2px #484848;
-      border: 1px solid #000;
-      background: #D9D9D9;
-      color: #222222;
-      font-size: 20px;
-      display: inline-block;
-      width: 275px;
-      height: 180px;
-      text-align: center;
-      margin-bottom: 5px;
-    }
-    main #dashboard  img:hover{
-      transform: scale(1.3);
-      transition: .3s;
-    }
+        #dashboard .card-title img {
+            width: 80px;
+        }
 
-    /*<!-- customer and item-->*/
-    .customer-head{
-      width: 100%;
-      height: 40px;
-      background-color: #D9D9D9;
+        #dashboard .collapse {
+            flex-basis: 100%;
+            flex-grow: 1;
+            align-items: center;
+            justify-content: center;
+        }
 
-    }
-    .item-head{
-      width: 100%;
-      height: 40px;
-      background-color: #D9D9D9;
+        #dashboard .collapse a {
+            font-size: 20px;
+            color: #0047FF;
+        }
 
-    }
-    header{
-      width: 100%;
-      background-color: #D9D9D9;
-      margin-bottom: 2rem;
-    }
+        #dashboard .collapse a:hover {
+            color: #f9004d;
+            transition: .4s;
+        }
 
-    .main-section{
-      width: 90%;
-      margin: auto;
-      background-color: #2E4053 ;
-    }
-    .collapse {
-      flex-basis: 100%;
-      flex-grow: 1;
-      align-items: center;
-      justify-content: center;
-    }
+        main #dashboard {
+            height: 700px;
+            margin: 50px auto;
+            display: flex;
+        }
 
-    .collapse a{
-      font-size: 20px;
-      color: #0047FF;
-    }
-    .collapse a:hover{
-      color: #f9004d;
-      transition: .4s;
-    }
-    .breadcrumb {
-      margin-left: 20px;
-      list-style: none;
-      border-radius: 4px;
-    }
-    .breadcrumb li{
-      margin-top: 10px;
-      font-size: 20px;
-    }
-    .breadcrumb a{
-      text-decoration: none;
-      font-size: 20px;
-    }
-    .back{
-      margin-top: 20px;
-      margin-left: 20px;
-    }
+        main #dashboard section {
+            margin: 80px auto;
+            text-align: center;
+        }
 
-    .search{
-      display: flex;
-      width: 100%;
-      margin-top: 20px;
-      justify-content: space-between;
-    }
+        main #dashboard a {
+            margin-top: 70px !important;
+            text-decoration: none;
+            padding-top: 30px;
+            padding-bottom: 5px;
+            padding-left: 15px;
+            padding-right: 15px;
+            border-radius: 10px;
+            margin: 10px;
+            -webkit-box-shadow: 0 5px 5px 2px #484848;
+            border: 1px solid #000;
+            background: #D9D9D9;
+            color: #222222;
+            font-size: 20px;
+            display: inline-block;
+            width: 275px;
+            height: 180px;
+            text-align: center;
+            margin-bottom: 5px;
+        }
 
-    .d-flex{
-      width: 500px;
-      margin-left: 10px;
-    }
-    .add{
-      width: 350px;
-    }
-    .add button:first-child{
-      background-color:#3498DB ;
-    }
-    .add button:last-child{
-      background-color: #dc3545;
-    }
-    .add button:first-child:hover{
-      background-color:#3498DB ;
-    }
-    .add button:last-child:hover{
-      background-color:#dc3545;
-    }
-    .cus-table{
-      margin-top: 25px;
-      height: 50vh;
-    }
-    .item-table{
-      margin-top: 25px;
-      height: 50vh;
-    }
-    .save-cus, .close-cus{
-      width: 232px;
-    }
+        main #dashboard img:hover {
+            transform: scale(1.3);
+            transition: .3s;
+        }
 
-    tbody tr {
-      color: aqua;
-    }
+        /*<!-- customer and item-->*/
+        .customer-head {
+            width: 100%;
+            height: 40px;
+            background-color: #D9D9D9;
 
-  </style>
+        }
+
+        .item-head {
+            width: 100%;
+            height: 40px;
+            background-color: #D9D9D9;
+
+        }
+
+        header {
+            width: 100%;
+            background-color: #D9D9D9;
+            margin-bottom: 2rem;
+        }
+
+        .main-section {
+            width: 90%;
+            margin: auto;
+            background-color: #2E4053;
+        }
+
+        .collapse {
+            flex-basis: 100%;
+            flex-grow: 1;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .collapse a {
+            font-size: 20px;
+            color: #0047FF;
+        }
+
+        .collapse a:hover {
+            color: #f9004d;
+            transition: .4s;
+        }
+
+        .breadcrumb {
+            margin-left: 20px;
+            list-style: none;
+            border-radius: 4px;
+        }
+
+        .breadcrumb li {
+            margin-top: 10px;
+            font-size: 20px;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            font-size: 20px;
+        }
+
+        .back {
+            margin-top: 20px;
+            margin-left: 20px;
+        }
+
+        .search {
+            display: flex;
+            width: 100%;
+            margin-top: 20px;
+            justify-content: space-between;
+        }
+
+        .d-flex {
+            width: 500px;
+            margin-left: 10px;
+        }
+
+        .add {
+            width: 350px;
+        }
+
+        .add button:first-child {
+            background-color: #3498DB;
+        }
+
+        .add button:last-child {
+            background-color: #dc3545;
+        }
+
+        .add button:first-child:hover {
+            background-color: #3498DB;
+        }
+
+        .add button:last-child:hover {
+            background-color: #dc3545;
+        }
+
+        .cus-table {
+            margin-top: 25px;
+            height: 50vh;
+        }
+
+        .item-table {
+            margin-top: 25px;
+            height: 50vh;
+        }
+
+        .save-cus, .close-cus {
+            width: 232px;
+        }
+
+        tbody tr {
+            color: aqua;
+        }
+
+    </style>
 </head>
 <body>
 <header>
-  <nav class="navbar navbar-expand-lg">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">
-        <img src="../assets/img/admin/car.png" alt="Logo" width="30" height="30" class="d-inline-block align-text-top">
-       Easy Car Rental (Pvt) Ltd.
-      </a>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img alt="Logo" class="d-inline-block align-text-top" height="30" src="../assets/img/admin/car.png"
+                     width="30">
+                Easy Car Rental (Pvt) Ltd.
+            </a>
 
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-              aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+            <button aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+                    data-bs-target="#navbarNavDropdown" data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav justify-content-center">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="#" id="home">Home</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" id="customer">Customers</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" id="item">Cars</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" id="driver">Drivers</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#" id="order-Detail">Transaction Data</a>
-          </li>
-        </ul>
-      </div>
-      <a class="navbar-brand" href="#">
-        <img src="../assets/img/admin/login.png" alt="Logo" width="30" height="30"
-             class="d-inline-block align-text-top">
-        Admin
-      </a>
-    </div>
-  </nav>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav justify-content-center">
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link" href="#" id="home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="customer">Customers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="item">Cars</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="driver">Drivers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="order-Detail">Transaction Data</a>
+                    </li>
+                </ul>
+            </div>
+            <a class="navbar-brand" href="#">
+                <img alt="Logo" class="d-inline-block align-text-top" height="30" src="../assets/img/admin/login.png"
+                     width="30">
+                Admin
+            </a>
+        </div>
+    </nav>
 </header>
 <!-- dashboard
    ============================================= -->
 <main id="dashboardContent">
-  <section id="dashboard">
-    <section>
-      <a href="#">
-        <img src="../assets/img/admin/car.png" width="70px">
-        <br>
-        <br>
-        <p>Available Cars - <span>15</span></p>
-      </a>
-      <a href="#">
-        <img src="../assets/img/admin/customers.png" width="70px">
-        <br>
-        <br>
-        <p>Customers - <span id="customerCount"></span></p>
-      </a>
-      <a href="#">
-        <img src="../assets/img/admin/completed-task.png" width="70px">
-        <br>
-        <br>
-        <p>Transaction - <span>100,000.00</span></p>
-      </a>
-      <a href="#">
-        <img src="../assets/img/admin/report.png" width="70px">
-        <br>
-        <br>
-        <p>Completed Rentals - <span>9</span></p>
-      </a>
+    <section id="dashboard">
+        <section>
+            <a href="#">
+                <img src="../assets/img/admin/car.png" width="70px">
+                <br>
+                <br>
+                <p>Available Cars - <span>15</span></p>
+            </a>
+            <a href="#">
+                <img src="../assets/img/admin/customers.png" width="70px">
+                <br>
+                <br>
+                <p>Customers - <span id="customerCount"></span></p>
+            </a>
+            <a href="#">
+                <img src="../assets/img/admin/completed-task.png" width="70px">
+                <br>
+                <br>
+                <p>Transaction - <span>100,000.00</span></p>
+            </a>
+            <a href="#">
+                <img src="../assets/img/admin/report.png" width="70px">
+                <br>
+                <br>
+                <p>Completed Rentals - <span>9</span></p>
+            </a>
+        </section>
     </section>
-  </section>
 </main>
 
 <!-- customer
    ============================================= -->
 <main id="customerContent">
-  <section class="main-section">
-    <section class="customer-head">
-      <ul class="breadcrumb">
-        <img src="../assets/img/admin/customers.png" width="35px">
-        <li><a href="#">Dashboard /</a></li>
-        <li class="active"> Customers</li>
-      </ul>
+    <section class="main-section">
+        <section class="customer-head">
+            <ul class="breadcrumb">
+                <img src="../assets/img/admin/customers.png" width="35px">
+                <li><a href="#">Dashboard /</a></li>
+                <li class="active"> Customers</li>
+            </ul>
+        </section>
+
+        <section class="search">
+            <form class="d-flex" role="search">
+                <input aria-label="Search" class="form-control me-2" placeholder="Search Customer..." type="search">
+                <button class="btn btn-outline-success" type="button">Search</button>
+            </form>
+            <div class="add">
+                <button class="btn btn-secondary add-cus" data-bs-target="#editCustomers" data-bs-toggle="modal"
+                        type="button">
+                    <img src="" width="20px">
+                    Update Customer
+                </button>
+                <button class="btn btn-secondary" id="delete-customer" type="button">Delete Customer</button>
+            </div>
+        </section>
+
+        <section class="cus-table">
+            <div class="col-md-12 mt-4" div style="height:430px; overflow-y: scroll">
+                <table class="table table-bordered">
+                    <thead class="bg-danger text-white">
+                    <tr>
+                        <th style="width: 300px">Customer Email</th>
+                        <th style="width: 300px">Customer Name</th>
+                        <th style="width: 300px">Customer Address</th>
+                        <th style="width: 300px">Customer NIC</th>
+                        <th style="width: 300px">Customer License</th>
+                        <th style="width: 300px">Customer Contact</th>
+                        <th style="width: 300px">Password</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tblCustomer">
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </section>
 
-    <section class="search">
-      <form class="d-flex" role="search">
-        <input aria-label="Search" class="form-control me-2" placeholder="Search Customer..." type="search">
-        <button class="btn btn-outline-success" type="button">Search</button>
-      </form>
-      <div class="add">
-        <button class="btn btn-secondary add-cus" data-bs-target="#editCustomers" data-bs-toggle="modal"
-                type="button">
-          <img src="" width="20px">
-          Update Customer
-        </button>
-        <button class="btn btn-secondary" id="delete-customer" type="button">Delete Customer</button>
-      </div>
-    </section>
+    <!-- customer-form-edit
+   ============================================= -->
+    <div aria-hidden="true" aria-labelledby="customerLabelEdit" class="modal fade" id="editCustomers" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="customerLabelEdit">Customer Update</h5>
+                    <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div class="modal-body">
+                    <section>
+                        <div class="mb-3">
+                            <label class="form-label" for="email">Customer Email</label>
+                            <input class="form-control" id="email" name="email" type="text">
 
-    <section class="cus-table">
-      <div class="col-md-12 mt-4" div style="height:430px; overflow-y: scroll">
-        <table class="table table-bordered">
-          <thead class="bg-danger text-white">
-          <tr>
-            <th style="width: 300px">Customer Email</th>
-            <th style="width: 300px">Customer Name</th>
-            <th style="width: 300px">Customer Address</th>
-            <th style="width: 300px">Customer NIC</th>
-            <th style="width: 300px">Customer License</th>
-            <th style="width: 300px">Customer Contact</th>
-            <th style="width: 300px">Password</th>
-          </tr>
-          </thead>
-          <tbody id="tblCustomer">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="name">Customer Name</label>
+                            <input class="form-control" id="name" multiple name="name" type="text">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="address">Customer Address</label>
+                            <input class="form-control" id="address" name="address" type="text">
+                        </div>
+                        <div class="mb-3">
+                            <label class="form-label" for="nic">Customer NIC</label>
+                            <input class="form-control" id="nic" name="nic" type="text">
+                        </div>
 
-          </tbody>
-        </table>
-      </div>
-    </section>
-  </section>
+                        <div class="mb-3">
+                            <label class="form-label" for="license">Customer License</label>
+                            <input class="form-control" id="license" name="license" type="text">
+                        </div>
 
-  <!-- customer-form-edit
- ============================================= -->
-  <div aria-hidden="true" aria-labelledby="customerLabelEdit" class="modal fade" id="editCustomers" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="customerLabelEdit">Customer Update</h5>
-          <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                        <div class="mb-3">
+                            <label class="form-label" for="contact">Customer Contact</label>
+                            <input class="form-control" id="contact" name="contact" type="text">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="password">Customer Password</label>
+                            <input class="form-control" id="password" name="password" type="text">
+                        </div>
+
+                        <div aria-label="Basic mixed styles example" class="btn-group" role="group">
+                            <button class="btn btn-success save-cus" id="updateCustomer" type="button">Update</button>
+                            <button class="btn btn-secondary close-cus" data-bs-dismiss="modal" type="button">Close
+                            </button>
+                        </div>
+                    </section>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          <section>
-            <div class="mb-3">
-              <label class="form-label" for="email">Customer Email</label>
-              <input class="form-control" id="email" name="email" type="text">
-
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="name">Customer Name</label>
-              <input class="form-control" id="name" multiple name="name" type="text">
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="address">Customer Address</label>
-              <input class="form-control" id="address" name="address" type="text">
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="nic">Customer NIC</label>
-              <input class="form-control" id="nic" name="nic" type="text">
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label" for="license">Customer License</label>
-              <input class="form-control" id="license" name="license" type="text">
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label" for="contact">Customer Contact</label>
-              <input class="form-control" id="contact" name="contact" type="text">
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label" for="password">Customer Password</label>
-              <input class="form-control" id="password" name="password" type="text">
-            </div>
-
-            <div aria-label="Basic mixed styles example" class="btn-group" role="group">
-              <button class="btn btn-success save-cus" id="updateCustomer" type="button">Update</button>
-              <button class="btn btn-secondary close-cus" data-bs-dismiss="modal" type="button">Close
-              </button>
-            </div>
-          </section>
-        </div>
-      </div>
     </div>
-  </div>
 </main>
 
 <!-- driver
    ============================================= -->
 <main id="driverContent">
-  <section class="main-section">
-    <section class="customer-head">
-      <ul class="breadcrumb">
-        <img src="../assets/img/admin/customers.png" width="35px">
-        <li><a href="#">Dashboard /</a></li>
-        <li class="active"> Drivers</li>
-      </ul>
+    <section class="main-section">
+        <section class="customer-head">
+            <ul class="breadcrumb">
+                <img src="../assets/img/admin/customers.png" width="35px">
+                <li><a href="#">Dashboard /</a></li>
+                <li class="active"> Drivers</li>
+            </ul>
+        </section>
+
+        <section class="search">
+            <form class="d-flex" role="search">
+                <input aria-label="Search" class="form-control me-2" placeholder="Search Driver..." type="search">
+                <button class="btn btn-outline-success" type="button">Search</button>
+            </form>
+            <div class="add">
+                <button class="btn btn-secondary add-cus" data-bs-target="#addDrivers" data-bs-toggle="modal"
+                        type="button">
+                    <img src="" width="20px">
+                    Add Driver
+                </button>
+                <button class="btn btn-secondary" id="delete-driver" type="button">Delete Driver</button>
+            </div>
+        </section>
+
+        <section class="cus-table">
+            <div class="col-md-12 mt-4" div style="height:430px; overflow-y: scroll">
+                <table class="table table-bordered">
+                    <thead class="bg-danger text-white">
+                    <tr>
+                        <th style="width: 300px">Driver Email</th>
+                        <th style="width: 300px">Driver Name</th>
+                        <th style="width: 300px">Driver Address</th>
+                        <th style="width: 300px">Driver Age</th>
+                        <th style="width: 300px">Driver Contact</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tblDriver">
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </section>
 
-    <section class="search">
-      <form class="d-flex" role="search">
-        <input aria-label="Search" class="form-control me-2" placeholder="Search Driver..." type="search">
-        <button class="btn btn-outline-success" type="button">Search</button>
-      </form>
-      <div class="add">
-        <button class="btn btn-secondary add-cus" data-bs-target="#addDrivers" data-bs-toggle="modal"
-                type="button">
-          <img src="" width="20px">
-          Add Driver
-        </button>
-        <button class="btn btn-secondary" id="delete-driver" type="button">Delete Driver</button>
-      </div>
-    </section>
+    <!-- driver-form-save
+   ============================================= -->
+    <div aria-hidden="true" aria-labelledby="customerLabelEdit" class="modal fade" id="addDrivers" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="saveDri">Save Driver</h5>
+                    <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="driverForm">
+                        <section>
+                            <div class="mb-3">
+                                <label class="form-label" for="driverEmail">Driver Email</label>
+                                <input class="form-control" id="driverEmail" name="driverEmail" type="text">
 
-    <section class="cus-table">
-      <div class="col-md-12 mt-4" div style="height:430px; overflow-y: scroll">
-        <table class="table table-bordered">
-          <thead class="bg-danger text-white">
-          <tr>
-            <th style="width: 300px">Driver Email</th>
-            <th style="width: 300px">Driver Name</th>
-            <th style="width: 300px">Driver Address</th>
-            <th style="width: 300px">Driver Age</th>
-            <th style="width: 300px">Driver Contact</th>
-            <th style="width: 300px">Password</th>
-          </tr>
-          </thead>
-          <tbody id="tblDriver">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="driverName">Driver Name</label>
+                                <input class="form-control" id="driverName" multiple name="driverName" type="text">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="driverAddress">Driver Address</label>
+                                <input class="form-control" id="driverAddress" name="driverAddress" type="text">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label" for="driverAge">Driver Age</label>
+                                <input class="form-control" id="driverAge" name="driverAge" type="text">
+                            </div>
 
-          </tbody>
-        </table>
-      </div>
-    </section>
-  </section>
+                            <div class="mb-3">
+                                <label class="form-label" for="driverContact">Driver Contact</label>
+                                <input class="form-control" id="driverContact" name="driverContact" type="text">
+                            </div>
 
-  <!-- customer-form-save
- ============================================= -->
-  <div aria-hidden="true" aria-labelledby="customerLabelEdit" class="modal fade" id="addDrivers" tabindex="-1">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="saveDri">Save Driver</h5>
-          <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+
+                            <div aria-label="Basic mixed styles example" class="btn-group" role="group">
+                                <button class="btn btn-success save-cus" id="saveDriver" type="button">Save</button>
+                                <button class="btn btn-warning save-cus" id="updateDriver" type="button">Update</button>
+                            </div>
+                        </section>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          <section>
-            <div class="mb-3">
-              <label class="form-label" for="driverEmail">Driver Email</label>
-              <input class="form-control" id="driverEmail" name="driverEmail" type="text">
-
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="driverName">Driver Name</label>
-              <input class="form-control" id="driverName" multiple name="driverName" type="text">
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="driverAddress">Driver Address</label>
-              <input class="form-control" id="driverAddress" name="driverAddress" type="text">
-            </div>
-            <div class="mb-3">
-              <label class="form-label" for="driverAge">Driver Age</label>
-              <input class="form-control" id="driverAge" name="driverAge" type="text">
-            </div>
-
-            <div class="mb-3">
-              <label class="form-label" for="driverContact">Driver Contact</label>
-              <input class="form-control" id="driverContact" name="driverContact" type="text">
-            </div>
-
-
-            <div aria-label="Basic mixed styles example" class="btn-group" role="group">
-              <button class="btn btn-success save-cus" id="updateDriver" type="button">Update</button>
-              <button class="btn btn-secondary close-cus" data-bs-dismiss="modal" type="button">Close
-              </button>
-            </div>
-          </section>
-        </div>
-      </div>
     </div>
-  </div>
 </main>
 
 <!-- car
    ============================================= -->
 <main id="itemContent">
-  <section class="main-section">
-    <section class="item-head">
-      <ul class="breadcrumb">
-        <img src="../assets/img/admin/car.png" width="35px">
-        <li><a href="#">Dashboard /</a></li>
-        <li class="active"> Cars</li>
-      </ul>
-    </section>
-    <section class="search">
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search Car..." aria-label="Search">
-        <button class="btn btn-outline-success" type="button">Search</button>
-      </form>
-      <div class="add">
-        <button type="button" class="btn btn-secondary add-cus" data-bs-target="#saveItems"
-                data-bs-toggle="modal">
-          <img src="" width="20px">
-          Add Car
-        </button>
-        <button type="button" class="btn btn-secondary" id="delete-car">Delete Car</button>
-      </div>
-    </section>
+    <section class="main-section">
+        <section class="item-head">
+            <ul class="breadcrumb">
+                <img src="../assets/img/admin/car.png" width="35px">
+                <li><a href="#">Dashboard /</a></li>
+                <li class="active"> Cars</li>
+            </ul>
+        </section>
+        <section class="search">
+            <form class="d-flex" role="search">
+                <input aria-label="Search" class="form-control me-2" placeholder="Search Car..." type="search">
+                <button class="btn btn-outline-success" type="button">Search</button>
+            </form>
+            <div class="add">
+                <button class="btn btn-secondary add-cus" data-bs-target="#saveItems" data-bs-toggle="modal"
+                        type="button">
+                    <img src="" width="20px">
+                    Add Car
+                </button>
+                <button class="btn btn-secondary" id="delete-car" type="button">Delete Car</button>
+            </div>
+        </section>
 
 
-    <section class="item-table">
-      <div div class="col-md-12 mt-4" style="height:430px; overflow-y: scroll">
-        <table class="table table-bordered">
-          <thead class="bg-danger text-white">
-          <tr>
-            <th>Car Name</th>
-            <th>Register Number</th>
-            <th>Brand</th>
-            <th>Type</th>
-            <th>No Of Passenger</th>
-            <th>Transmission Type</th>
-            <th>Fuel Type</th>
-            <th>Daily Rate</th>
-            <th>Monthly Rate</th>
-            <th>Free Mileage For Price</th>
-            <th>Extra Price For KM</th>
-            <th>Color</th>
-            <th>Qty</th>
-          </tr>
-          </thead>
-          <tbody id="tblCar">
+        <section class="item-table">
+            <div class="col-md-12 mt-4" div style="height:430px; overflow-y: scroll">
+                <table class="table table-bordered">
+                    <thead class="bg-danger text-white">
+                    <tr>
+                        <th>Car Name</th>
+                        <th>Register Number</th>
+                        <th>Brand</th>
+                        <th>Type</th>
+                        <th>No Of Passenger</th>
+                        <th>Transmission Type</th>
+                        <th>Fuel Type</th>
+                        <th>Daily Rate</th>
+                        <th>Monthly Rate</th>
+                        <th>Free Mileage For Price</th>
+                        <th>Extra Price For KM</th>
+                        <th>Color</th>
+                        <th>Qty</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tblCar">
 
-          </tbody>
-        </table>
-      </div>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </section>
-  </section>
 </main>
 <!-- item-form-save
      ============================================= -->
 <div aria-hidden="true" aria-labelledby="itemLabel" class="modal fade col-lg-8" id="saveItems" tabindex="-1">
     <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="itemLabel">Save Car</h5>
-          <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="itemLabel">Save Car</h5>
+                <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+            </div>
+            <div class="modal-body">
+                <form id="carForm">
+                    <section>
+                        <div class="mb-3">
+                            <label class="form-label" for="carName">Car Name</label>
+                            <input class="form-control" id="carName" name="carName" type="text">
+                            <span class="control-error" id="lblItemCode"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="regNumber">Register Number</label>
+                            <input class="form-control" id="regNumber" multiple name="regNumber" type="text">
+                            <span class="control-error" id="lblItemName"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="brand">Brand</label>
+                            <input class="form-control" id="brand" name="brand" type="text">
+                            <span class="control-error" id="lblItemQty"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="type">Type</label>
+                            <input class="form-control" id="type" name="type" type="text">
+                            <span class="control-error" id="lblItemUnitPrice"></span>
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="noOfPassenger">No Of Passenger</label>
+                            <input class="form-control" id="noOfPassenger" name="noOfPassenger" type="text">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="transmission">Transmission Type</label>
+                            <input class="form-control" id="transmission" name="transmission" type="text">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="fuelType">Fuel Type</label>
+                            <input class="form-control" id="fuelType" name="fuelType" type="text">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="dailyRate">Daily Rate</label>
+                            <input class="form-control" id="dailyRate" name="dailyRate" type="text">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="monthlyRate">Monthly Rate</label>
+                            <input class="form-control" id="monthlyRate" name="monthlyRate" type="text">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="freePrice">Free Mileage For Price</label>
+                            <input class="form-control" id="freePrice" name="freePrice" type="text">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="extraPrice">Extra Price For KM</label>
+                            <input class="form-control" id="extraPrice" name="extraPrice" type="text">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="color">Color</label>
+                            <input class="form-control" id="color" name="color" type="text">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="carQty">Car Qty</label>
+                            <input class="form-control" id="carQty" name="carQty" type="text">
+                        </div>
+
+                        <div aria-label="Basic mixed styles example" class="btn-group" role="group">
+                            <button class="btn btn-success save-cus" id="saveCar" type="button">Save</button>
+                            <button class="btn btn-warning close-cus" id="updateCar" type="button">Update
+                            </button>
+                        </div>
+
+                    </section>
+                </form>
+            </div>
         </div>
-        <div class="modal-body">
-         <form id="carForm">
-           <section>
-             <div class="mb-3">
-               <label class="form-label" for="carName">Car Name</label>
-               <input class="form-control" id="carName" type="text" name="carName">
-               <span class="control-error" id="lblItemCode"></span>
-             </div>
-
-             <div class="mb-3">
-               <label class="form-label" for="regNumber">Register Number</label>
-               <input class="form-control" id="regNumber" multiple type="text" name="regNumber">
-               <span class="control-error" id="lblItemName"></span>
-             </div>
-
-             <div class="mb-3">
-               <label class="form-label" for="brand">Brand</label>
-               <input class="form-control" id="brand" type="text" name="brand">
-               <span class="control-error" id="lblItemQty"></span>
-             </div>
-
-             <div class="mb-3">
-               <label class="form-label" for="type">Type</label>
-               <input class="form-control" id="type" type="text" name="type">
-               <span class="control-error" id="lblItemUnitPrice"></span>
-             </div>
-
-             <div class="mb-3">
-               <label class="form-label" for="noOfPassenger">No Of Passenger</label>
-               <input class="form-control" id="noOfPassenger" type="text" name="noOfPassenger">
-             </div>
-
-             <div class="mb-3">
-               <label class="form-label" for="transmission">Transmission Type</label>
-               <input class="form-control" id="transmission" type="text" name="transmission">
-             </div>
-
-             <div class="mb-3">
-               <label class="form-label" for="fuelType">Fuel Type</label>
-               <input class="form-control" id="fuelType" type="text" name="fuelType">
-             </div>
-
-             <div class="mb-3">
-               <label class="form-label" for="dailyRate">Daily Rate</label>
-               <input class="form-control" id="dailyRate" type="text" name="dailyRate">
-             </div>
-
-             <div class="mb-3">
-               <label class="form-label" for="monthlyRate">Monthly Rate</label>
-               <input class="form-control" id="monthlyRate" type="text" name="monthlyRate">
-             </div>
-
-             <div class="mb-3">
-               <label class="form-label" for="freePrice">Free Mileage For Price</label>
-               <input class="form-control" id="freePrice" type="text" name="freePrice">
-             </div>
-
-             <div class="mb-3">
-               <label class="form-label" for="extraPrice">Extra Price For KM</label>
-               <input class="form-control" id="extraPrice" type="text" name="extraPrice">
-             </div>
-
-             <div class="mb-3">
-               <label class="form-label" for="color">Color</label>
-               <input class="form-control" id="color" type="text" name="color">
-             </div>
-
-             <div class="mb-3">
-               <label class="form-label" for="carQty">Car Qty</label>
-               <input class="form-control" id="carQty" type="text" name="carQty">
-             </div>
-
-             <div aria-label="Basic mixed styles example" class="btn-group" role="group">
-               <button class="btn btn-success save-cus" type="button" id="saveCar">Save</button>
-               <button class="btn btn-warning close-cus" type="button" id="updateCar">Update
-               </button>
-             </div>
-
-           </section>
-         </form>
-        </div>
-      </div>
     </div>
-  </div>
+</div>
 
 <!-- order-detail
      ============================================= -->
 <main id="orderDetailContent">
     <section class="main-section">
-      <section class="item-head">
-        <ul class="breadcrumb">
-          <img src="assests/img/report.png" width="35px">
-          <li><a href="#">Dashboard /</a></li>
-          <li class="active"> Order-Detail</li>
-        </ul>
-      </section>
+        <section class="item-head">
+            <ul class="breadcrumb">
+                <img src="assests/img/report.png" width="35px">
+                <li><a href="#">Dashboard /</a></li>
+                <li class="active"> Order-Detail</li>
+            </ul>
+        </section>
 
-      <section class="Order-Detail">
-        <div div class="col-md-12 mt-4" style="height:430px; overflow-y: scroll">
-          <table class="table table-bordered">
-            <thead class="bg-danger text-white">
-            <tr>
-              <th>OrderId</th>
-              <th>Date</th>
-              <th>Cus Id</th>
-              <th>Item Code</th>
-              <th>Price</th>
-              <th>Qty</th>
-              <th>Total</th>
-            </tr>
-            </thead>
-            <tbody id="tblOrderDetail">
+        <section class="Order-Detail">
+            <div class="col-md-12 mt-4" div style="height:430px; overflow-y: scroll">
+                <table class="table table-bordered">
+                    <thead class="bg-danger text-white">
+                    <tr>
+                        <th>OrderId</th>
+                        <th>Date</th>
+                        <th>Cus Id</th>
+                        <th>Item Code</th>
+                        <th>Price</th>
+                        <th>Qty</th>
+                        <th>Total</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tblOrderDetail">
 
-            </tbody>
-          </table>
-        </div>
-      </section>
+                    </tbody>
+                </table>
+            </div>
+        </section>
     </section>
-  </main>
+</main>
 
-  <script src="../assets/js/bootstrap.min.js"></script>
-  <script src="../assets/js/jquery-3.6.1.min.js"></script>
+<script src="../assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/jquery-3.6.1.min.js"></script>
 
 
-  <script src="../assets/js/util/DashboardController.js"></script>
+<script src="../assets/js/util/DashboardController.js"></script>
 
-  <script>
+<script>
 
     let baseUrl = "http://localhost:8080/Car_Rental_System_Back_End_war/";
 
     loadAll();
     loadAllCar();
+    loadAllDriver();
     count();
 
     function loadAll() {
-      $("#tblCustomer").empty();
-      $.ajax({
-        url: baseUrl+"customer",
-        dataType: "json",
-        success: function (resp) {
-          for (let cus of resp.data) {
-            var row = '<tr><td>' + cus.email + '</td><td>' + cus.name + '</td><td>' + cus.address + '</td><td>' + cus.nic + '</td><td>'+ cus.license + '</td><td>'+ cus.contact + '</td><td>'+ cus.password + '</td></tr>';
-            $("#tblCustomer").append(row);
-          }
+        $("#tblCustomer").empty();
+        $.ajax({
+            url: baseUrl + "customer",
+            dataType: "json",
+            success: function (resp) {
+                for (let cus of resp.data) {
+                    var row = '<tr><td>' + cus.email + '</td><td>' + cus.name + '</td><td>' + cus.address + '</td><td>' + cus.nic + '</td><td>' + cus.license + '</td><td>' + cus.contact + '</td><td>' + cus.password + '</td></tr>';
+                    $("#tblCustomer").append(row);
+                }
 
-          bindRowClickEvents();
-        }
-      });
+                bindRowClickEvents();
+            }
+        });
     }
 
     $("#updateCustomer").click(function () {
-      var email = $("#email").val();
-      var name = $("#name").val();
-      var address = $("#address").val();
-      var nic = $("#nic").val();
-      var license = $("#license").val();
-      var contact = $("#contact").val();
-      var password = $("#password").val();
+        var email = $("#email").val();
+        var name = $("#name").val();
+        var address = $("#address").val();
+        var nic = $("#nic").val();
+        var license = $("#license").val();
+        var contact = $("#contact").val();
+        var password = $("#password").val();
 
-      var customer = {
-        email: email,
-        name: name,
-        address: address,
-        nic: nic,
-        license: license,
-        contact: contact,
-        password: password
-      }
-
-      $.ajax({
-        url: baseUrl + "customer",
-        method: "put",
-        contentType: "application/json",
-        data: JSON.stringify(customer),
-        dataType: "json",
-        success: function (resp) {
-          alert(resp.message);
-          loadAll();
-        },
-        error: function (error) {
-          alert(JSON.parse(error.responseText).message);
+        var customer = {
+            email: email,
+            name: name,
+            address: address,
+            nic: nic,
+            license: license,
+            contact: contact,
+            password: password
         }
-      });
+
+        $.ajax({
+            url: baseUrl + "customer",
+            method: "put",
+            contentType: "application/json",
+            data: JSON.stringify(customer),
+            dataType: "json",
+            success: function (resp) {
+                alert(resp.message);
+                loadAll();
+            },
+            error: function (error) {
+                alert(JSON.parse(error.responseText).message);
+            }
+        });
     });
 
     $("#delete-customer").click(function () {
-      var email = $("#email").val();
-      $.ajax({
-        url: baseUrl+"customer?email="+email,
-        method: "delete",
-        dataType: "json",
-        success: function (resp){
-          alert(resp.message);
-          loadAll();
-        },
-        error: function (error){
-          alert(JSON.parse(error.responseText).message);
-        }
-      });
+        var email = $("#email").val();
+        $.ajax({
+            url: baseUrl + "customer?email=" + email,
+            method: "delete",
+            dataType: "json",
+            success: function (resp) {
+                alert(resp.message);
+                loadAll();
+            },
+            error: function (error) {
+                alert(JSON.parse(error.responseText).message);
+            }
+        });
     });
 
     function loadTheLastUploadedImage() {
-      $("#tblCustomer").empty();
-      $.ajax({
-        url: baseUrl + "customer/image",
-        method:"get",
-        dataType: 'json',
-        success: function (resp) {
-          for (let i in resp) {
-            let row = `<tr><td><img src="${baseUrl + resp[i]}" width="100px"></td></tr>`;
-            $("#tblCustomer").append(row);
-          }
-        }
-      });
+        $("#tblCustomer").empty();
+        $.ajax({
+            url: baseUrl + "customer/image",
+            method: "get",
+            dataType: 'json',
+            success: function (resp) {
+                for (let i in resp) {
+                    let row = `<tr><td><img src="${baseUrl + resp[i]}" width="100px"></td></tr>`;
+                    $("#tblCustomer").append(row);
+                }
+            }
+        });
     }
 
     function bindRowClickEvents() {
-      $("#tblCustomer>tr").click(function () {
-        let email = $(this).children(":eq(0)").text();
-        let name = $(this).children(":eq(1)").text();
-        let address = $(this).children(":eq(2)").text();
-        let nic = $(this).children(":eq(3)").text();
-        let license = $(this).children(":eq(4)").text();
-        let contact = $(this).children(":eq(5)").text();
-        let password = $(this).children(":eq(6)").text();
+        $("#tblCustomer>tr").click(function () {
+            let email = $(this).children(":eq(0)").text();
+            let name = $(this).children(":eq(1)").text();
+            let address = $(this).children(":eq(2)").text();
+            let nic = $(this).children(":eq(3)").text();
+            let license = $(this).children(":eq(4)").text();
+            let contact = $(this).children(":eq(5)").text();
+            let password = $(this).children(":eq(6)").text();
 
-        $('#email').val(email);
-        $('#name').val(name);
-        $('#address').val(address);
-        $('#nic').val(nic);
-        $('#license').val(license);
-        $('#contact').val(contact);
-        $('#password').val(password);
+            $('#email').val(email);
+            $('#name').val(name);
+            $('#address').val(address);
+            $('#nic').val(nic);
+            $('#license').val(license);
+            $('#contact').val(contact);
+            $('#password').val(password);
 
-      });
+        });
     }
 
-    function count(){
-      $.ajax({
-        url: baseUrl+"customer/count",
-        dataType: "json",
-        success: function (resp){
-          $("#customerCount").text(resp.data);
-        }
-      });
+    function count() {
+        $.ajax({
+            url: baseUrl + "customer/count",
+            dataType: "json",
+            success: function (resp) {
+                $("#customerCount").text(resp.data);
+            }
+        });
     }
 
-    $("#saveCar").click(function (){
-      let carData = $("#carForm").serialize();
-      $.ajax({
-        url: baseUrl+"car",
-        method: "post",
-        data: carData,
-        success: function (resp){
-          alert(resp.message);
-          loadAllCar();
-        },
-        error: function (error){
-          alert(JSON.parse(error.responseText).message);
-        }
-      });
+    $("#saveCar").click(function () {
+        let carData = $("#carForm").serialize();
+        $.ajax({
+            url: baseUrl + "car",
+            method: "post",
+            data: carData,
+            success: function (resp) {
+                alert(resp.message);
+                loadAllCar();
+            },
+            error: function (error) {
+                alert(JSON.parse(error.responseText).message);
+            }
+        });
     });
 
-    $("#updateCar").click(function (){
+    $("#updateCar").click(function () {
 
-      let carName = $("#carName").val();
-      let regNumber = $("#regNumber").val();
-      let brand = $("#brand").val();
-      let type = $("#type").val();
-      let passenger = $("#noOfPassenger").val();
-      let trans = $("#transmission").val();
-      let fuel = $("#fuelType").val();
-      let dailyRate = $("#dailyRate").val();
-      let monthlyRate = $("#monthlyRate").val();
-      let freePrice = $("#freePrice").val();
-      let extraPrice = $("#extraPrice").val();
-      let color = $("#color").val();
-      let qty = $("#carQty").val();
+        let carName = $("#carName").val();
+        let regNumber = $("#regNumber").val();
+        let brand = $("#brand").val();
+        let type = $("#type").val();
+        let passenger = $("#noOfPassenger").val();
+        let trans = $("#transmission").val();
+        let fuel = $("#fuelType").val();
+        let dailyRate = $("#dailyRate").val();
+        let monthlyRate = $("#monthlyRate").val();
+        let freePrice = $("#freePrice").val();
+        let extraPrice = $("#extraPrice").val();
+        let color = $("#color").val();
+        let qty = $("#carQty").val();
 
-      var car = {
-        carName:carName,
-        regNumber:regNumber,
-        brand:brand,
-        type:type,
-        noOfPassenger:passenger,
-        transmission:trans,
-        fuelType:fuel,
-        dailyRate:dailyRate,
-        monthlyRate:monthlyRate,
-        freePrice:freePrice,
-        extraPrice:extraPrice,
-        color:color,
-        carQty:qty
-      }
-
-      $.ajax({
-        url: baseUrl+"car",
-        method: "put",
-        contentType: "application/json",
-        data: JSON.stringify(car),
-        dataType: "json",
-        success: function (resp){
-          alert(resp.message);
-         loadAllCar();
-        },
-        error: function (error){
-          alert(JSON.parse(error.responseText).message);
+        var car = {
+            carName: carName,
+            regNumber: regNumber,
+            brand: brand,
+            type: type,
+            noOfPassenger: passenger,
+            transmission: trans,
+            fuelType: fuel,
+            dailyRate: dailyRate,
+            monthlyRate: monthlyRate,
+            freePrice: freePrice,
+            extraPrice: extraPrice,
+            color: color,
+            carQty: qty
         }
-      });
+
+        $.ajax({
+            url: baseUrl + "car",
+            method: "put",
+            contentType: "application/json",
+            data: JSON.stringify(car),
+            dataType: "json",
+            success: function (resp) {
+                alert(resp.message);
+                loadAllCar();
+            },
+            error: function (error) {
+                alert(JSON.parse(error.responseText).message);
+            }
+        });
 
     });
 
-    $("#delete-car").click(function (){
-      let regNumber = $("#regNumber").val();
-      $.ajax({
-        url: baseUrl+"car?regNumber="+regNumber,
-        method: "delete",
-        dataType: "json",
-        success: function (resp){
-          alert(resp.message);
-          loadAllCar();
-        },
-        error: function (error){
-          alert(JSON.parse(error.responseText).message);
-        }
-      });
+    $("#delete-car").click(function () {
+        let regNumber = $("#regNumber").val();
+        $.ajax({
+            url: baseUrl + "car?regNumber=" + regNumber,
+            method: "delete",
+            dataType: "json",
+            success: function (resp) {
+                alert(resp.message);
+                loadAllCar();
+            },
+            error: function (error) {
+                alert(JSON.parse(error.responseText).message);
+            }
+        });
     });
 
-    function loadAllCar(){
-      $("#tblCar").empty();
-      $.ajax({
-        url: baseUrl+"car",
-        dataType: "json",
-        success: function (resp){
-          for (let car of resp.data) {
-            var row = '<tr><td>' + car.carName + '</td><td>' + car.regNumber + '</td><td>' + car.brand + '</td><td>' + car.type + '</td><td>'+ car.noOfPassenger + '</td><td>'+ car.transmission + '</td><td>'+ car.fuelType + '</td><td>' + car.dailyRate + '</td><td>' + car.monthlyRate + '</td><td>' + car.freePrice +'</td><td>' + car.extraPrice + '</td><td>' + car.color +'</td><td>' + car.carQty +'</td></tr>';
-            $("#tblCar").append(row);
-          }
+    function loadAllCar() {
+        $("#tblCar").empty();
+        $.ajax({
+            url: baseUrl + "car",
+            dataType: "json",
+            success: function (resp) {
+                for (let car of resp.data) {
+                    var row = '<tr><td>' + car.carName + '</td><td>' + car.regNumber + '</td><td>' + car.brand + '</td><td>' + car.type + '</td><td>' + car.noOfPassenger + '</td><td>' + car.transmission + '</td><td>' + car.fuelType + '</td><td>' + car.dailyRate + '</td><td>' + car.monthlyRate + '</td><td>' + car.freePrice + '</td><td>' + car.extraPrice + '</td><td>' + car.color + '</td><td>' + car.carQty + '</td></tr>';
+                    $("#tblCar").append(row);
+                }
 
-          bindRowClickEventsCar();
-          clearCar("","","","","","","","","","","","","");
-        }
-      });
+                bindRowClickEventsCar();
+                clearCar("", "", "", "", "", "", "", "", "", "", "", "", "");
+            }
+        });
     }
 
     function bindRowClickEventsCar() {
-      $("#tblCar>tr").click(function () {
-        let carName = $(this).children(":eq(0)").text();
-        let regNumber = $(this).children(":eq(1)").text();
-        let brand = $(this).children(":eq(2)").text();
-        let type = $(this).children(":eq(3)").text();
-        let noOfPassenger = $(this).children(":eq(4)").text();
-        let transmission = $(this).children(":eq(5)").text();
-        let fuelType = $(this).children(":eq(6)").text();
-        let dailyRate = $(this).children(":eq(7)").text();
-        let monthlyRate = $(this).children(":eq(8)").text();
-        let freePrice = $(this).children(":eq(9)").text();
-        let extraPrice = $(this).children(":eq(10)").text();
-        let color = $(this).children(":eq(11)").text();
-        let carQty = $(this).children(":eq(12)").text();
+        $("#tblCar>tr").click(function () {
+            let carName = $(this).children(":eq(0)").text();
+            let regNumber = $(this).children(":eq(1)").text();
+            let brand = $(this).children(":eq(2)").text();
+            let type = $(this).children(":eq(3)").text();
+            let noOfPassenger = $(this).children(":eq(4)").text();
+            let transmission = $(this).children(":eq(5)").text();
+            let fuelType = $(this).children(":eq(6)").text();
+            let dailyRate = $(this).children(":eq(7)").text();
+            let monthlyRate = $(this).children(":eq(8)").text();
+            let freePrice = $(this).children(":eq(9)").text();
+            let extraPrice = $(this).children(":eq(10)").text();
+            let color = $(this).children(":eq(11)").text();
+            let carQty = $(this).children(":eq(12)").text();
 
-        $("#carName").val(carName);
-        $("#regNumber").val(regNumber);
+            $("#carName").val(carName);
+            $("#regNumber").val(regNumber);
+            $("#brand").val(brand);
+            $("#type").val(type);
+            $("#noOfPassenger").val(noOfPassenger);
+            $("#transmission").val(transmission);
+            $("#fuelType").val(fuelType);
+            $("#dailyRate").val(dailyRate);
+            $("#monthlyRate").val(monthlyRate);
+            $("#freePrice").val(freePrice);
+            $("#extraPrice").val(extraPrice);
+            $("#color").val(color);
+            $("#carQty").val(carQty);
+
+        });
+    }
+
+    function clearCar(name, reg, brand, type, passenger, trans, fuel, daily, monthly, freePrice, extraPrice, color, qty) {
+        $("#carName").val(name);
+        $("#regNumber").val(reg);
         $("#brand").val(brand);
         $("#type").val(type);
-        $("#noOfPassenger").val(noOfPassenger);
-        $("#transmission").val(transmission);
-        $("#fuelType").val(fuelType);
-        $("#dailyRate").val(dailyRate);
-        $("#monthlyRate").val(monthlyRate);
+        $("#noOfPassenger").val(passenger);
+        $("#transmission").val(trans);
+        $("#fuelType").val(fuel);
+        $("#dailyRate").val(daily);
+        $("#monthlyRate").val(monthly);
         $("#freePrice").val(freePrice);
         $("#extraPrice").val(extraPrice);
         $("#color").val(color);
-        $("#carQty").val(carQty);
-
-      });
+        $("#carQty").val(qty);
     }
 
-    function clearCar(name,reg,brand,type,passenger,trans,fuel,daily,monthly,freePrice,extraPrice,color,qty){
-      $("#carName").val(name);
-      $("#regNumber").val(reg);
-      $("#brand").val(brand);
-      $("#type").val(type);
-      $("#noOfPassenger").val(passenger);
-      $("#transmission").val(trans);
-      $("#fuelType").val(fuel);
-      $("#dailyRate").val(daily);
-      $("#monthlyRate").val(monthly);
-      $("#freePrice").val(freePrice);
-      $("#extraPrice").val(extraPrice);
-      $("#color").val(color);
-      $("#carQty").val(qty);
+    $("#saveDriver").click(function () {
+        let driverForm = $("#driverForm").serialize();
+        $.ajax({
+            url: baseUrl + "driver",
+            method: "post",
+            data: driverForm,
+            success: function (resp) {
+                alert(resp.message);
+                loadAllDriver();
+            },
+            error: function (error) {
+                alert(JSON.parse(error.responseText).message);
+            }
+        });
+    });
+
+    $("#updateDriver").click(function () {
+        let email = $("#driverEmail").val();
+        let name = $("#driverName").val();
+        let address = $("#driverAddress").val();
+        let age = $("#driverAge").val();
+        let contact = $("#driverContact").val();
+
+        var driver = {
+            driverEmail:email,
+            driverName:name,
+            driverAddress:address,
+            driverAge:age,
+            driverContact:contact
+        }
+
+        $.ajax({
+            url: baseUrl+"driver",
+            method: "put",
+            contentType: "application/json",
+            data: JSON.stringify(driver),
+            dataType: "json",
+            success: function (resp){
+                alert(resp.message);
+                loadAllDriver();
+            },
+            error: function (error){
+                alert(JSON.parse(error.responseText).message);
+            }
+        });
+    });
+
+    $("#delete-driver").click(function () {
+        let email = $("#driverEmail").val();
+        $.ajax({
+            url: baseUrl + "driver?email=" + email,
+            method: "delete",
+            dataType: "json",
+            success: function (resp) {
+                alert(resp.message);
+                loadAllDriver();
+            },
+            error: function (error) {
+                alert(JSON.parse(error.responseText).message);
+            }
+        });
+    });
+
+    function loadAllDriver() {
+        $("#tblDriver").empty();
+        $.ajax({
+            url: baseUrl + "driver",
+            dataType: "json",
+            success: function (resp) {
+                for (let driver of resp.data) {
+                    var row = '<tr><td>' + driver.driverEmail + '</td><td>' + driver.driverName + '</td><td>' + driver.driverAddress + '</td><td>' + driver.driverAge + '</td><td>' + driver.driverContact + '</td><tr>';
+                    $("#tblDriver").append(row);
+                }
+                bindRowClickEventsDriver();
+                clearDriver("", "", "", "", "");
+            }
+        });
     }
 
-  </script>
+    function bindRowClickEventsDriver() {
+        $("#tblDriver>tr").click(function () {
+            let driEmail = $(this).children(":eq(0)").text();
+            let driName = $(this).children(":eq(1)").text();
+            let driAddress = $(this).children(":eq(2)").text();
+            let driAge = $(this).children(":eq(3)").text();
+            let driContact = $(this).children(":eq(4)").text();
+
+            $("#driverEmail").val(driEmail);
+            $("#driverName").val(driName);
+            $("#driverAddress").val(driAddress);
+            $("#driverAge").val(driAge);
+            $("#driverContact").val(driContact);
+        });
+    }
+
+    function clearDriver(email, name, address, age, contact) {
+        $("#driverEmail").val(email);
+        $("#driverName").val(name);
+        $("#driverAddress").val(address);
+        $("#driverAge").val(age);
+        $("#driverContact").val(contact);
+    }
+</script>
 
 </body>
 </html>
