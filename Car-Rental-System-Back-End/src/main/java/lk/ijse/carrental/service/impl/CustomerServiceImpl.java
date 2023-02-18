@@ -25,7 +25,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void saveCustomer(CustomerDTO dto) {
         if(repo.existsById(dto.getEmail())){
-            throw new RuntimeException("Customer "+dto.getEmail()+" Already Exist..!");
+            throw new RuntimeException("Customer "+dto.getEmail()+" Already Exist...!");
         }
         repo.save(mapper.map(dto, Customer.class));
     }
@@ -33,7 +33,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void updateCustomer(CustomerDTO dto) {
         if (!repo.existsById(dto.getEmail())) {
-            throw new RuntimeException("Customer "+dto.getEmail()+" Not Available To Update..!");
+            throw new RuntimeException("Customer "+dto.getEmail()+" Not Available To Update...!");
         }
         repo.save(mapper.map(dto,Customer.class));
     }
@@ -41,7 +41,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void deleteCustomer(String email) {
         if (!repo.existsById(email)){
-            throw new RuntimeException("Customer "+email+" Not Available to Delete..!");
+            throw new RuntimeException("Customer "+email+" Not Available to Delete...!");
         }
         repo.deleteById(email);
     }

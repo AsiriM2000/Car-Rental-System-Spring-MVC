@@ -37,13 +37,13 @@ public class CustomerController {
     @PutMapping
     public ResponseUtil updateCustomer(@RequestBody CustomerDTO dto){
         service.updateCustomer(dto);
-        return new ResponseUtil("200",dto.toString()+"updated",null);
+        return new ResponseUtil("200",dto.toString()+"update Successful...!",null);
     }
 
     @DeleteMapping
     public ResponseUtil deleteCustomer(String email){
         service.deleteCustomer(email);
-        return new ResponseUtil("200", email +" Deleted",null);
+        return new ResponseUtil("200", email +" Delete Successful...!",null);
     }
 
     @PostMapping(path = "/file",consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -109,18 +109,18 @@ public class CustomerController {
     @GetMapping(params = "email")
     public ResponseUtil searchCustomerByEmail(String email){
         CustomerDTO customer = service.searchByCustomerEmail(email);
-        return new ResponseUtil("200"," Success.!",customer);
+        return new ResponseUtil("200"," Success",customer);
     }
 
     @GetMapping(params = {"email","password"})
     public ResponseUtil searchCustomerByEmailAndPassword(String email,String password){
         CustomerDTO customer = service.searchByCustomerEmailAndPassword(email,password);
-        return new ResponseUtil("200"," Success.!",customer);
+        return new ResponseUtil("200"," Success",customer);
     }
 
     @GetMapping("/count")
     public ResponseUtil count(){
         long count = service.count();
-        return new ResponseUtil("200"," Success.!",count);
+        return new ResponseUtil("200"," Success",count);
     }
 }

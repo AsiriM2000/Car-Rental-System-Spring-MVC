@@ -366,7 +366,7 @@
   </div>
 </main>
 
-<!-- item
+<!-- car
    ============================================= -->
 <main id="itemContent">
   <section class="main-section">
@@ -374,7 +374,7 @@
       <ul class="breadcrumb">
         <img src="../assets/img/admin/car.png" width="35px">
         <li><a href="#">Dashboard /</a></li>
-        <li class="active"> Items</li>
+        <li class="active"> Cars</li>
       </ul>
     </section>
     <section class="search">
@@ -410,9 +410,10 @@
             <th>Free Mileage For Price</th>
             <th>Extra Price For KM</th>
             <th>Color</th>
+            <th>Qty</th>
           </tr>
           </thead>
-          <tbody id="tblItem">
+          <tbody id="tblCar">
 
           </tbody>
         </table>
@@ -430,83 +431,85 @@
           <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
         </div>
         <div class="modal-body">
-          <section>
-            <div class="mb-3">
-              <label class="form-label" for="carName">Car Name</label>
-              <input class="form-control" id="carName" type="text" name="carName">
-              <span class="control-error" id="lblItemCode"></span>
-            </div>
+         <form id="carForm">
+           <section>
+             <div class="mb-3">
+               <label class="form-label" for="carName">Car Name</label>
+               <input class="form-control" id="carName" type="text" name="carName">
+               <span class="control-error" id="lblItemCode"></span>
+             </div>
 
-            <div class="mb-3">
-              <label class="form-label" for="regNumber">Register Number</label>
-              <input class="form-control" id="regNumber" multiple type="text" name="regNumber">
-              <span class="control-error" id="lblItemName"></span>
-            </div>
+             <div class="mb-3">
+               <label class="form-label" for="regNumber">Register Number</label>
+               <input class="form-control" id="regNumber" multiple type="text" name="regNumber">
+               <span class="control-error" id="lblItemName"></span>
+             </div>
 
-            <div class="mb-3">
-              <label class="form-label" for="brand">Brand</label>
-              <input class="form-control" id="brand" type="text" name="brand">
-              <span class="control-error" id="lblItemQty"></span>
-            </div>
+             <div class="mb-3">
+               <label class="form-label" for="brand">Brand</label>
+               <input class="form-control" id="brand" type="text" name="brand">
+               <span class="control-error" id="lblItemQty"></span>
+             </div>
 
-            <div class="mb-3">
-              <label class="form-label" for="type">Type</label>
-              <input class="form-control" id="type" type="text" name="type">
-              <span class="control-error" id="lblItemUnitPrice"></span>
-            </div>
+             <div class="mb-3">
+               <label class="form-label" for="type">Type</label>
+               <input class="form-control" id="type" type="text" name="type">
+               <span class="control-error" id="lblItemUnitPrice"></span>
+             </div>
 
-            <div class="mb-3">
-              <label class="form-label" for="noOfPassenger">No Of Passenger</label>
-              <input class="form-control" id="noOfPassenger" type="text" name="noOfPassenger">
-            </div>
+             <div class="mb-3">
+               <label class="form-label" for="noOfPassenger">No Of Passenger</label>
+               <input class="form-control" id="noOfPassenger" type="text" name="noOfPassenger">
+             </div>
 
-            <div class="mb-3">
-              <label class="form-label" for="transmission">Transmission Type</label>
-              <input class="form-control" id="transmission" type="text" name="transmission">
-            </div>
+             <div class="mb-3">
+               <label class="form-label" for="transmission">Transmission Type</label>
+               <input class="form-control" id="transmission" type="text" name="transmission">
+             </div>
 
-            <div class="mb-3">
-              <label class="form-label" for="fuelType">Fuel Type</label>
-              <input class="form-control" id="fuelType" type="text" name="fuelType">
-            </div>
+             <div class="mb-3">
+               <label class="form-label" for="fuelType">Fuel Type</label>
+               <input class="form-control" id="fuelType" type="text" name="fuelType">
+             </div>
 
-            <div class="mb-3">
-              <label class="form-label" for="dailyRate">Daily Rate</label>
-              <input class="form-control" id="dailyRate" type="text" name="dailyRate">
-            </div>
+             <div class="mb-3">
+               <label class="form-label" for="dailyRate">Daily Rate</label>
+               <input class="form-control" id="dailyRate" type="text" name="dailyRate">
+             </div>
 
-            <div class="mb-3">
-              <label class="form-label" for="monthlyRate">Monthly Rate</label>
-              <input class="form-control" id="monthlyRate" type="text" name="monthlyRate">
-            </div>
+             <div class="mb-3">
+               <label class="form-label" for="monthlyRate">Monthly Rate</label>
+               <input class="form-control" id="monthlyRate" type="text" name="monthlyRate">
+             </div>
 
-            <div class="mb-3">
-              <label class="form-label" for="freePrice">Free Mileage For Price</label>
-              <input class="form-control" id="freePrice" type="text" name="freePrice">
-            </div>
+             <div class="mb-3">
+               <label class="form-label" for="freePrice">Free Mileage For Price</label>
+               <input class="form-control" id="freePrice" type="text" name="freePrice">
+             </div>
 
-            <div class="mb-3">
-              <label class="form-label" for="extraPrice">Extra Price For KM</label>
-              <input class="form-control" id="extraPrice" type="text" name="extraPrice">
-            </div>
+             <div class="mb-3">
+               <label class="form-label" for="extraPrice">Extra Price For KM</label>
+               <input class="form-control" id="extraPrice" type="text" name="extraPrice">
+             </div>
 
-            <div class="mb-3">
-              <label class="form-label" for="color">Color</label>
-              <input class="form-control" id="color" type="text" name="color">
-            </div>
+             <div class="mb-3">
+               <label class="form-label" for="color">Color</label>
+               <input class="form-control" id="color" type="text" name="color">
+             </div>
 
-            <div class="mb-3">
-              <label class="form-label" for="carQty">Car Qty</label>
-              <input class="form-control" id="carQty" type="text" name="carQty">
-            </div>
+             <div class="mb-3">
+               <label class="form-label" for="carQty">Car Qty</label>
+               <input class="form-control" id="carQty" type="text" name="carQty">
+             </div>
 
-            <div aria-label="Basic mixed styles example" class="btn-group" role="group">
-              <button class="btn btn-success save-cus" type="button" id="saveCar">Save</button>
-              <button class="btn btn-warning close-cus" type="button" id="updateCar">Update
-              </button>
-            </div>
+             <div aria-label="Basic mixed styles example" class="btn-group" role="group">
+               <button class="btn btn-success save-cus" type="button" id="saveCar">Save</button>
+               <button class="btn btn-warning close-cus" type="button" id="updateCar">Update
+               </button>
+             </div>
 
-          </section>
+           </section>
+         </form>
         </div>
       </div>
     </div>
@@ -555,9 +558,11 @@
 
   <script>
     let baseUrl = "http://localhost:8080/Car_Rental_System_Back_End_war/";
+
     loadAll();
+    loadAllCar();
     count();
-    // loadTheLastUploadedImage();
+
     function loadAll() {
       $("#tblCustomer").empty();
       $.ajax({
@@ -669,6 +674,152 @@
           $("#customerCount").text(resp.data);
         }
       });
+    }
+
+    $("#saveCar").click(function (){
+      let carData = $("#carForm").serialize();
+      $.ajax({
+        url: baseUrl+"car",
+        method: "post",
+        data: carData,
+        success: function (resp){
+          alert(resp.message);
+          loadAllCar();
+        },
+        error: function (error){
+          alert(JSON.parse(error.responseText).message);
+        }
+      });
+    });
+
+    $("#updateCar").click(function (){
+
+      let carName = $("#carName").val();
+      let regNumber = $("#regNumber").val();
+      let brand = $("#brand").val();
+      let type = $("#type").val();
+      let passenger = $("#noOfPassenger").val();
+      let trans = $("#transmission").val();
+      let fuel = $("#fuelType").val();
+      let dailyRate = $("#dailyRate").val();
+      let monthlyRate = $("#monthlyRate").val();
+      let freePrice = $("#freePrice").val();
+      let extraPrice = $("#extraPrice").val();
+      let color = $("#color").val();
+      let qty = $("#carQty").val();
+
+      var car = {
+        carName:carName,
+        regNumber:regNumber,
+        brand:brand,
+        type:type,
+        noOfPassenger:passenger,
+        transmission:trans,
+        fuelType:fuel,
+        dailyRate:dailyRate,
+        monthlyRate:monthlyRate,
+        freePrice:freePrice,
+        extraPrice:extraPrice,
+        color:color,
+        carQty:qty
+      }
+
+      $.ajax({
+        url: baseUrl+"car",
+        method: "put",
+        contentType: "application/json",
+        data: JSON.stringify(car),
+        dataType: "json",
+        success: function (resp){
+          alert(resp.message);
+         loadAllCar();
+        },
+        error: function (error){
+          alert(JSON.parse(error.responseText).message);
+        }
+      });
+
+    });
+
+    $("#delete-car").click(function (){
+      let regNumber = $("#regNumber").val();
+      $.ajax({
+        url: baseUrl+"car?regNumber="+regNumber,
+        method: "delete",
+        dataType: "json",
+        success: function (resp){
+          alert(resp.message);
+          loadAllCar();
+        },
+        error: function (error){
+          alert(JSON.parse(error.responseText).message);
+        }
+      });
+    });
+    function loadAllCar(){
+      $("#tblCar").empty();
+      $.ajax({
+        url: baseUrl+"car",
+        dataType: "json",
+        success: function (resp){
+          for (let car of resp.data) {
+            var row = '<tr><td>' + car.carName + '</td><td>' + car.regNumber + '</td><td>' + car.brand + '</td><td>' + car.type + '</td><td>'+ car.noOfPassenger + '</td><td>'+ car.transmission + '</td><td>'+ car.fuelType + '</td><td>' + car.dailyRate + '</td><td>' + car.monthlyRate + '</td><td>' + car.freePrice +'</td><td>' + car.extraPrice + '</td><td>' + car.color +'</td><td>' + car.carQty +'</td></tr>';
+            $("#tblCar").append(row);
+          }
+
+          bindRowClickEventsCar();
+          clearCar("","","","","","","","","","","","","");
+        }
+      });
+    }
+
+    function bindRowClickEventsCar() {
+      $("#tblCar>tr").click(function () {
+        let carName = $(this).children(":eq(0)").text();
+        let regNumber = $(this).children(":eq(1)").text();
+        let brand = $(this).children(":eq(2)").text();
+        let type = $(this).children(":eq(3)").text();
+        let noOfPassenger = $(this).children(":eq(4)").text();
+        let transmission = $(this).children(":eq(5)").text();
+        let fuelType = $(this).children(":eq(6)").text();
+        let dailyRate = $(this).children(":eq(7)").text();
+        let monthlyRate = $(this).children(":eq(8)").text();
+        let freePrice = $(this).children(":eq(9)").text();
+        let extraPrice = $(this).children(":eq(10)").text();
+        let color = $(this).children(":eq(11)").text();
+        let carQty = $(this).children(":eq(12)").text();
+
+        $("#carName").val(carName);
+        $("#regNumber").val(regNumber);
+        $("#brand").val(brand);
+        $("#type").val(type);
+        $("#noOfPassenger").val(noOfPassenger);
+        $("#transmission").val(transmission);
+        $("#fuelType").val(fuelType);
+        $("#dailyRate").val(dailyRate);
+        $("#monthlyRate").val(monthlyRate);
+        $("#freePrice").val(freePrice);
+        $("#extraPrice").val(extraPrice);
+        $("#color").val(color);
+        $("#carQty").val(carQty);
+
+      });
+    }
+
+    function clearCar(name,reg,brand,type,passenger,trans,fuel,daily,monthly,freePrice,extraPrice,color,qty){
+      $("#carName").val(name);
+      $("#regNumber").val(reg);
+      $("#brand").val(brand);
+      $("#type").val(type);
+      $("#noOfPassenger").val(passenger);
+      $("#transmission").val(trans);
+      $("#fuelType").val(fuel);
+      $("#dailyRate").val(daily);
+      $("#monthlyRate").val(monthly);
+      $("#freePrice").val(freePrice);
+      $("#extraPrice").val(extraPrice);
+      $("#color").val(color);
+      $("#carQty").val(qty);
     }
   </script>
 </body>
