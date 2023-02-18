@@ -26,6 +26,9 @@
     #itemContent{
       display: none;
     }
+    #driverContent{
+      display: none;
+    }
     #orderDetailContent{
       display: none;
     }
@@ -216,6 +219,9 @@
             <a class="nav-link" href="#" id="item">Cars</a>
           </li>
           <li class="nav-item">
+            <a class="nav-link" href="#" id="driver">Drivers</a>
+          </li>
+          <li class="nav-item">
             <a class="nav-link" href="#" id="order-Detail">Transaction Data</a>
           </li>
         </ul>
@@ -275,21 +281,21 @@
 
     <section class="search">
       <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search Customer..." aria-label="Search">
+        <input aria-label="Search" class="form-control me-2" placeholder="Search Customer..." type="search">
         <button class="btn btn-outline-success" type="button">Search</button>
       </form>
       <div class="add">
-        <button type="button" class="btn btn-secondary add-cus" data-bs-target="#editCustomers"
-                data-bs-toggle="modal">
+        <button class="btn btn-secondary add-cus" data-bs-target="#editCustomers" data-bs-toggle="modal"
+                type="button">
           <img src="" width="20px">
           Update Customer
         </button>
-        <button type="button" class="btn btn-secondary" id="delete-customer">Delete Customer</button>
+        <button class="btn btn-secondary" id="delete-customer" type="button">Delete Customer</button>
       </div>
     </section>
 
     <section class="cus-table">
-      <div div class="col-md-12 mt-4" style="height:430px; overflow-y: scroll">
+      <div class="col-md-12 mt-4" div style="height:430px; overflow-y: scroll">
         <table class="table table-bordered">
           <thead class="bg-danger text-white">
           <tr>
@@ -323,39 +329,134 @@
           <section>
             <div class="mb-3">
               <label class="form-label" for="email">Customer Email</label>
-              <input class="form-control" id="email" type="text" name="email">
+              <input class="form-control" id="email" name="email" type="text">
 
             </div>
             <div class="mb-3">
               <label class="form-label" for="name">Customer Name</label>
-              <input class="form-control" id="name" multiple type="text" name="name">
+              <input class="form-control" id="name" multiple name="name" type="text">
             </div>
             <div class="mb-3">
               <label class="form-label" for="address">Customer Address</label>
-              <input class="form-control" id="address" type="text" name="address">
+              <input class="form-control" id="address" name="address" type="text">
             </div>
             <div class="mb-3">
               <label class="form-label" for="nic">Customer NIC</label>
-              <input class="form-control" id="nic" type="text" name="nic">
+              <input class="form-control" id="nic" name="nic" type="text">
             </div>
 
             <div class="mb-3">
               <label class="form-label" for="license">Customer License</label>
-              <input class="form-control" id="license" type="text" name="license">
+              <input class="form-control" id="license" name="license" type="text">
             </div>
 
             <div class="mb-3">
               <label class="form-label" for="contact">Customer Contact</label>
-              <input class="form-control" id="contact" type="text" name="contact">
+              <input class="form-control" id="contact" name="contact" type="text">
             </div>
 
             <div class="mb-3">
               <label class="form-label" for="password">Customer Password</label>
-              <input class="form-control" id="password" type="text" name="password">
+              <input class="form-control" id="password" name="password" type="text">
             </div>
 
             <div aria-label="Basic mixed styles example" class="btn-group" role="group">
-              <button class="btn btn-success save-cus" type="button" id="updateCustomer">Update</button>
+              <button class="btn btn-success save-cus" id="updateCustomer" type="button">Update</button>
+              <button class="btn btn-secondary close-cus" data-bs-dismiss="modal" type="button">Close
+              </button>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<!-- driver
+   ============================================= -->
+<main id="driverContent">
+  <section class="main-section">
+    <section class="customer-head">
+      <ul class="breadcrumb">
+        <img src="../assets/img/admin/customers.png" width="35px">
+        <li><a href="#">Dashboard /</a></li>
+        <li class="active"> Drivers</li>
+      </ul>
+    </section>
+
+    <section class="search">
+      <form class="d-flex" role="search">
+        <input aria-label="Search" class="form-control me-2" placeholder="Search Driver..." type="search">
+        <button class="btn btn-outline-success" type="button">Search</button>
+      </form>
+      <div class="add">
+        <button class="btn btn-secondary add-cus" data-bs-target="#addDrivers" data-bs-toggle="modal"
+                type="button">
+          <img src="" width="20px">
+          Add Driver
+        </button>
+        <button class="btn btn-secondary" id="delete-driver" type="button">Delete Driver</button>
+      </div>
+    </section>
+
+    <section class="cus-table">
+      <div class="col-md-12 mt-4" div style="height:430px; overflow-y: scroll">
+        <table class="table table-bordered">
+          <thead class="bg-danger text-white">
+          <tr>
+            <th style="width: 300px">Driver Email</th>
+            <th style="width: 300px">Driver Name</th>
+            <th style="width: 300px">Driver Address</th>
+            <th style="width: 300px">Driver Age</th>
+            <th style="width: 300px">Driver Contact</th>
+            <th style="width: 300px">Password</th>
+          </tr>
+          </thead>
+          <tbody id="tblDriver">
+
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </section>
+
+  <!-- customer-form-save
+ ============================================= -->
+  <div aria-hidden="true" aria-labelledby="customerLabelEdit" class="modal fade" id="addDrivers" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="saveDri">Save Driver</h5>
+          <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+        </div>
+        <div class="modal-body">
+          <section>
+            <div class="mb-3">
+              <label class="form-label" for="driverEmail">Driver Email</label>
+              <input class="form-control" id="driverEmail" name="driverEmail" type="text">
+
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="driverName">Driver Name</label>
+              <input class="form-control" id="driverName" multiple name="driverName" type="text">
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="driverAddress">Driver Address</label>
+              <input class="form-control" id="driverAddress" name="driverAddress" type="text">
+            </div>
+            <div class="mb-3">
+              <label class="form-label" for="driverAge">Driver Age</label>
+              <input class="form-control" id="driverAge" name="driverAge" type="text">
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label" for="driverContact">Driver Contact</label>
+              <input class="form-control" id="driverContact" name="driverContact" type="text">
+            </div>
+
+
+            <div aria-label="Basic mixed styles example" class="btn-group" role="group">
+              <button class="btn btn-success save-cus" id="updateDriver" type="button">Update</button>
               <button class="btn btn-secondary close-cus" data-bs-dismiss="modal" type="button">Close
               </button>
             </div>
@@ -421,9 +522,9 @@
     </section>
   </section>
 </main>
-  <!-- item-form-save
+<!-- item-form-save
      ============================================= -->
-  <div aria-hidden="true" aria-labelledby="itemLabel" class="modal fade col-lg-8" id="saveItems" tabindex="-1">
+<div aria-hidden="true" aria-labelledby="itemLabel" class="modal fade col-lg-8" id="saveItems" tabindex="-1">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
@@ -515,9 +616,9 @@
     </div>
   </div>
 
-  <!-- order-detail
+<!-- order-detail
      ============================================= -->
-  <main id="orderDetailContent">
+<main id="orderDetailContent">
     <section class="main-section">
       <section class="item-head">
         <ul class="breadcrumb">
@@ -557,6 +658,7 @@
   <script src="../assets/js/util/DashboardController.js"></script>
 
   <script>
+
     let baseUrl = "http://localhost:8080/Car_Rental_System_Back_End_war/";
 
     loadAll();
@@ -614,7 +716,7 @@
       });
     });
 
-    $("#delete-customer").click(function (){
+    $("#delete-customer").click(function () {
       var email = $("#email").val();
       $.ajax({
         url: baseUrl+"customer?email="+email,
@@ -756,6 +858,7 @@
         }
       });
     });
+
     function loadAllCar(){
       $("#tblCar").empty();
       $.ajax({
@@ -821,6 +924,8 @@
       $("#color").val(color);
       $("#carQty").val(qty);
     }
+
   </script>
+
 </body>
 </html>
