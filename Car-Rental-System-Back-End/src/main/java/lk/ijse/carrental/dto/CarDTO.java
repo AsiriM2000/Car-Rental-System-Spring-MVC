@@ -8,14 +8,13 @@ import lombok.ToString;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 
-@Entity
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @ToString
 public class CarDTO {
     private String carName;
-    @Id
     private String regNumber;
     private String brand;
     private String type;
@@ -27,5 +26,5 @@ public class CarDTO {
     private String freePrice;
     private String extraPrice;
     private String color;
-    private String carQty;
+    private int carQty;
 }

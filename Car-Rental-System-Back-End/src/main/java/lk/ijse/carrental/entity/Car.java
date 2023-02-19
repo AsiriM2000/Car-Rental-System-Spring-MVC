@@ -27,5 +27,5 @@ public class Car {
     private String freePrice;
     private String extraPrice;
     private String color;
-    private String carQty;
+    private int carQty;
 }

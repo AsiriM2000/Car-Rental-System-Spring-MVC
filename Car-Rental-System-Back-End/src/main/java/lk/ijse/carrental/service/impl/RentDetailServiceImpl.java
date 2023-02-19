@@ -22,6 +22,9 @@ public class RentDetailServiceImpl implements RentDetailService {
     RentDetailRepo repo;
 
     @Autowired
+    CarRepo carRepo;
+
+    @Autowired
     ModelMapper mapper;
 
     @Override
@@ -31,6 +34,7 @@ public class RentDetailServiceImpl implements RentDetailService {
             throw new RuntimeException("Rent"+dto.getRentId()+" Already Exist...!");
         }
         repo.save(mapper.map(dto, RentDetail.class));
+
 
     }
 

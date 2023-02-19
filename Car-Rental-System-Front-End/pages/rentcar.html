@@ -262,77 +262,77 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>Register Number</label>
-                                    <input class="form-control" id="regNumber" type="text">
+                                    <input class="form-control" id="regNumber" type="text" readonly>
                                 </div>
                             </div>
 
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>Brand</label>
-                                    <input class="form-control" id="brand" type="text">
+                                    <input class="form-control" id="brand" type="text" readonly>
                                 </div>
                             </div>
 
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>Type</label>
-                                    <input class="form-control" id="type" type="text">
+                                    <input class="form-control" id="type" type="text" readonly>
                                 </div>
                             </div>
 
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>No Of Passenger</label>
-                                    <input class="form-control" id="noOfPassenger" type="text">
+                                    <input class="form-control" id="noOfPassenger" type="text" readonly>
                                 </div>
                             </div>
 
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>Transmission Type</label>
-                                    <input class="form-control" id="transmission" type="text">
+                                    <input class="form-control" id="transmission" type="text" readonly>
                                 </div>
                             </div>
 
                             <div class="col-5">
                                 <div class="form-group">
                                     <label>Fuel Type</label>
-                                    <input class="form-control" id="fuelType" type="text">
+                                    <input class="form-control" id="fuelType" type="text" readonly>
                                 </div>
                             </div>
 
                             <div class="col-4">
                                 <div class="form-group">
                                     <label>Daily Rate</label>
-                                    <input class="form-control" id="dailyRate" type="text">
+                                    <input class="form-control" id="dailyRate" type="text" readonly>
                                 </div>
                             </div>
 
                             <div class="col-3">
                                 <div class="form-group">
                                     <label>Monthly Rate</label>
-                                    <input class="form-control" id="monthlyRate" type="text">
+                                    <input class="form-control" id="monthlyRate" type="text" readonly>
                                 </div>
                             </div>
 
                             <div class="col-5">
                                 <div class="form-group">
                                     <label>Free Mileage For Price</label>
-                                    <input class="form-control" id="freePrice" type="text">
+                                    <input class="form-control" id="freePrice" type="text" readonly>
                                 </div>
                             </div>
 
                             <div class="col-4">
                                 <div class="form-group">
                                     <label>Extra Price For KM</label>
-                                    <input class="form-control" id="extraPrice" type="text">
+                                    <input class="form-control" id="extraPrice" type="text" readonly>
                                 </div>
                             </div>
 
                             <div class="col-3">
                                 <div class="form-group">
                                     <label>Color</label>
-                                    <input class="form-control" id="color" type="text">
+                                    <input class="form-control" id="color" type="text" readonly>
                                 </div>
 
                             </div>
@@ -340,7 +340,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>PickUp-Date</label>
-                                    <input class="form-control" id="pickupData" type="date">
+                                    <input class="form-control" id="pickUpDate" type="date">
                                 </div>
                             </div>
 
@@ -491,6 +491,7 @@
             }
         });
     }
+
     function searchCar(carName) {
         let response = "";
         $.ajax({
@@ -526,6 +527,58 @@
 
     });
 
+    $("#rentCar").click(function () {
+
+        let rentId = $("#rentId").val();
+        let rentDate = $("#rentDate").val();
+        let regNumber = $("#regNumber").val();
+        let pickUpDate = $("#pickUpDate").val();
+        let returnDate = $("#returnDate").val();
+
+        var rentDetail = {
+            rentId: rentId,
+            date: rentDate,
+            regNumber: regNumber,
+            pickUpDate: pickUpDate,
+            returnDate: returnDate,
+            status:"Pending"
+        }
+
+
+        $.ajax({
+            url: baseUrl + "rent",
+            method: "post",
+            dataType: "json",
+            contentType: "application/json",
+            data: JSON.stringify(rentDetail),
+            success: function (resp) {
+                alert(resp.message);
+                clearData("", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+            },
+            error: function (error) {
+                alert(JSON.parse(error.responseText).message);
+            }
+        });
+    });
+
+    function clearData(id, name, car, reg, brand, type, passenger, trans, fuel, daily, monthly, freePrice, extraPrice, color, date) {
+        $("#rentId").val(id);
+        $("#selectCar").val(car);
+        $("#rentDate").val(name);
+        $("#regNumber").val(reg);
+        $("#brand").val(brand);
+        $("#type").val(type);
+        $("#noOfPassenger").val(passenger);
+        $("#transmission").val(trans);
+        $("#fuelType").val(fuel);
+        $("#dailyRate").val(daily);
+        $("#monthlyRate").val(monthly);
+        $("#freePrice").val(freePrice);
+        $("#extraPrice").val(extraPrice);
+        $("#color").val(color);
+        $("#pickupDate").val(date);
+        $("#returnDate").val(date);
+    }
 
 </script>
 </body>
