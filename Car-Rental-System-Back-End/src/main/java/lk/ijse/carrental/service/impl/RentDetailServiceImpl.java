@@ -32,6 +32,7 @@ public class RentDetailServiceImpl implements RentDetailService {
             throw new RuntimeException("Rent"+dto.getRentId()+" Already Exist...!");
         }
         repo.save(mapper.map(dto, RentDetail.class));
+
     }
 
     @Override

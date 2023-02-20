@@ -44,6 +44,13 @@
             background-color: #2E4053;
         }
 
+        .main-section2 {
+            width: 90%;
+            height: 50vh;
+            margin: auto;
+            background-color: #2E4053;
+        }
+
         .collapse {
             flex-basis: 100%;
             flex-grow: 1;
@@ -85,20 +92,10 @@
             color: aqua;
         }
 
-        .order-table {
-            margin-top: 25px;
-
-        }
-
         .order-detail {
             margin-top: 25px;
             margin-left: 20px;
             margin-right: 20px;
-        }
-
-        .add-button {
-            text-align: right;
-            margin-top: 1rem;
         }
 
         button {
@@ -186,6 +183,13 @@
             animation: animatezoom 0.6s
         }
 
+        #rentD{
+            cursor: pointer;
+        }
+
+        #rentDetailContent{
+            display: none;
+        }
         @-webkit-keyframes animatezoom {
             from {
                 -webkit-transform: scale(0)
@@ -212,7 +216,10 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav justify-content-center">
                     <li class="nav-item">
-                        <a aria-current="page" class="nav-link" href="../customer_login_register.html">Home</a>
+                        <a aria-current="page" class="nav-link" href="../customer_login_register.html" id="home">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link" id="rentD">Rent Detail</a>
                     </li>
                 </ul>
             </div>
@@ -228,7 +235,7 @@
 </header>
 <!-- main
    ============================================= -->
-<main>
+<main id="rentCarMain">
     <section class="main-section">
         <section class="customer-head"></section>
 
@@ -362,22 +369,11 @@
                 </div>
             </div>
         </div>
-        <section class="order-table">
-            <!--            <div class="col-md-12 mt-4" div style="height:262px; overflow-y: scroll">-->
-            <!--                <table class="table table-bordered">-->
-            <!--                    <thead class="bg-danger text-white">-->
-            <!--                    <tr>-->
-            <!--                    </tr>-->
-            <!--                    </thead>-->
-            <!--                    <tbody id="tblOrder">-->
-            <!--                    </tbody>-->
-            <!--                </table>-->
-            <!--            </div>-->
-        </section>
     </section>
 
 
 </main>
+
 <div class="modal" id="id01">
     <form class="modal-content animate" id="profileData">
         <div class="imgcontainer">
@@ -412,9 +408,35 @@
     </form>
 </div>
 
+<!-- rent-detail
+   ============================================= -->
+<main id="rentDetailContent">
+    <section class="main-section2">
+        <section class="item-table">
+            <div class="col-md-12 mt-4" div style="height:430px; overflow-y: scroll">
+                <table class="table table-bordered">
+                    <thead class="bg-danger text-white">
+                    <tr>
+                        <th style="width: 300px">Driver Email</th>
+                        <th style="width: 300px">Driver Name</th>
+                        <th style="width: 300px">Driver Address</th>
+                        <th style="width: 300px">Driver Age</th>
+                        <th style="width: 300px">Driver Age</th>
+                        <th style="width: 300px">Driver Age</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tblDetail">
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </section>
+</main>
 
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/jquery-3.6.1.min.js"></script>
+<script src="../assets/js/util/DashBoardControllerUser.js"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
 <script>
     var modal = document.getElementById('id01');
