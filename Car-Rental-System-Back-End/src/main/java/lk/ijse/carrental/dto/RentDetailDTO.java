@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import java.time.LocalDate;
 
 @NoArgsConstructor
 @AllArgsConstructor
@@ -15,9 +14,9 @@ import java.time.LocalDate;
 public class RentDetailDTO {
 
     private String rentId;
-    private LocalDate date;
+    private String date;
     private String regNumber;
-    private LocalDate pickUpDate;
-    private LocalDate returnDate;
+    private String pickUpDate;
+    private String returnDate;
     private String status;
 }

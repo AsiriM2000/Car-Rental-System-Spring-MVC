@@ -24,6 +24,18 @@
             display: none;
         }
 
+        .acceptBtn {
+            background-color: #008CBA;
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 10px;
+            cursor: pointer;
+        }
+
         #itemContent {
             display: none;
         }
@@ -226,7 +238,8 @@
                 Easy Car Rental (Pvt) Ltd.
             </a>
 
-            <button aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler"
+            <button aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler"
                     data-bs-target="#navbarNavDropdown" data-bs-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -285,7 +298,7 @@
                 <img src="assets/img/admin/report.png" width="70px">
                 <br>
                 <br>
-                <p>Completed Rentals - <span>9</span></p>
+                <p>Completed Rentals - <span id="rentCount"></span></p>
             </a>
         </section>
     </section>
@@ -646,9 +659,9 @@
     <section class="main-section">
         <section class="item-head">
             <ul class="breadcrumb">
-                <img src="assests/img/report.png" width="35px">
+                <img src="assets/img/admin/report.png" width="35px">
                 <li><a href="#">Dashboard /</a></li>
-                <li class="active"></li>
+                <li class="active">Transaction Data</li>
             </ul>
         </section>
 
@@ -657,9 +670,15 @@
                 <table class="table table-bordered">
                     <thead class="bg-danger text-white">
                     <tr>
+                        <th style="width: 300px">Rent ID</th>
+                        <th style="width: 300px">Register Number</th>
+                        <th style="width: 300px">Date</th>
+                        <th style="width: 300px">PickUp Date</th>
+                        <th style="width: 300px">Return Date</th>
+                        <th style="width: 300px">Status</th>
                     </tr>
                     </thead>
-                    <tbody id="tblOrderDetail">
+                    <tbody id="tblTransaction">
 
                     </tbody>
                 </table>
@@ -681,7 +700,9 @@
     loadAll();
     loadAllCar();
     loadAllDriver();
+    rentDetail();
     count();
+    rentCount();
 
     function loadAll() {
         $("#tblCustomer").empty();
@@ -792,6 +813,16 @@
             dataType: "json",
             success: function (resp) {
                 $("#customerCount").text(resp.data);
+            }
+        });
+    }
+
+    function rentCount() {
+        $.ajax({
+            url: baseUrl + "rent/allCount",
+            dataType: "json",
+            success: function (resp) {
+                $("#rentCount").text(resp.data);
             }
         });
     }
@@ -967,24 +998,24 @@
         let contact = $("#driverContact").val();
 
         var driver = {
-            driverEmail:email,
-            driverName:name,
-            driverAddress:address,
-            driverAge:age,
-            driverContact:contact
+            driverEmail: email,
+            driverName: name,
+            driverAddress: address,
+            driverAge: age,
+            driverContact: contact
         }
 
         $.ajax({
-            url: baseUrl+"driver",
+            url: baseUrl + "driver",
             method: "put",
             contentType: "application/json",
             data: JSON.stringify(driver),
             dataType: "json",
-            success: function (resp){
+            success: function (resp) {
                 alert(resp.message);
                 loadAllDriver();
             },
-            error: function (error){
+            error: function (error) {
                 alert(JSON.parse(error.responseText).message);
             }
         });
@@ -1035,6 +1066,7 @@
             $("#driverAddress").val(driAddress);
             $("#driverAge").val(driAge);
             $("#driverContact").val(driContact);
+
         });
     }
 
@@ -1044,6 +1076,59 @@
         $("#driverAddress").val(address);
         $("#driverAge").val(age);
         $("#driverContact").val(contact);
+    }
+
+    function rentDetail() {
+        $("#tblTransaction").empty();
+        $.ajax({
+            url: baseUrl + "rent",
+            dataType: "json",
+            success: function (resp) {
+                for (let d of resp.data) {
+                    var row = '<tr><td>' + d.rentId + '</td><td>' + d.regNumber + '</td><td>' + d.date + '</td><td>' + d.pickUpDate + '</td><td>' + d.returnDate + '</td><td><button class="acceptBtn" type="button">Accept</button></td></tr>';
+                    $("#tblTransaction").append(row);
+                }
+                bind();
+            }
+
+        });
+    }
+
+
+    function bind() {
+        $("#tblTransaction>tr").click(function () {
+
+            let rentId = $(this).children(":eq(0)").text();
+            let regNumber = $(this).children(":eq(1)").text();
+            let rentDate = $(this).children(":eq(2)").text();
+            let pickUpDate = $(this).children(":eq(3)").text();
+            let returnDate = $(this).children(":eq(4)").text();
+            let status = $(this).children(":eq(5)").text();
+
+            var stat = {
+                rentId: rentId,
+                date: rentDate,
+                regNumber: regNumber,
+                pickUpDate: pickUpDate,
+                returnDate: returnDate,
+                status:status
+            }
+
+            $.ajax({
+                url: baseUrl + "rent",
+                method: "put",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(stat),
+                success: function (resp) {
+                    alert(resp.message);
+                },
+                error: function (error) {
+                    alert(JSON.parse(error.responseText).message);
+                }
+            });
+            console.log(stat)
+        });
     }
 </script>
 

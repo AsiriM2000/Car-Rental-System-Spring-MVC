@@ -6,5 +6,7 @@ import java.util.ArrayList;
 
 public interface RentDetailService {
     void saveRentalDetail(RentDetailDTO dto);
+    void updateRentalDetail(RentDetailDTO dto);
     ArrayList<RentDetailDTO> getAllRentalDetail();
+    long count();
 }

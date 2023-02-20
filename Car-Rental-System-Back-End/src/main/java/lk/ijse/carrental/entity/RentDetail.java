@@ -6,7 +6,6 @@ import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import java.time.LocalDate;
 
 @Entity
 @NoArgsConstructor
@@ -17,10 +16,10 @@ public class RentDetail {
 
  @Id
     private String rentId;
-    private LocalDate date;
+    private String date;
     private String regNumber;
-    private LocalDate pickUpDate;
-    private LocalDate returnDate;
+    private String pickUpDate;
+    private String returnDate;
     private String status;
 
 
