@@ -44,7 +44,33 @@
             background-color: #2E4053;
         }
 
+        .search {
+            display: flex;
+            width: 100%;
+            margin-top: 20px;
+            justify-content: space-between;
+        }
+
+        .d-flex {
+            width: 680px;
+            margin-left: 10px;
+            height: 41px;
+            margin-top: 10px;
+        }
+
+        #search {
+            width: 100px;
+            height: 40px;
+            margin-top: 0px;
+        }
+
+        #searchRent {
+            height: 40px;
+            margin-top: 0px;
+        }
+
         .main-section2 {
+            margin-top: 10px;
             width: 90%;
             height: 50vh;
             margin: auto;
@@ -183,13 +209,14 @@
             animation: animatezoom 0.6s
         }
 
-        #rentD{
+        #rentD {
             cursor: pointer;
         }
 
-        #rentDetailContent{
+        #rentDetailContent {
             display: none;
         }
+
         @-webkit-keyframes animatezoom {
             from {
                 -webkit-transform: scale(0)
@@ -216,7 +243,8 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav justify-content-center">
                     <li class="nav-item">
-                        <a aria-current="page" class="nav-link" href="../customer_login_register.html" id="home">Home</a>
+                        <a aria-current="page" class="nav-link" href="../customer_login_register.html"
+                           id="home">Home</a>
                     </li>
                     <li class="nav-item">
                         <a aria-current="page" class="nav-link" id="rentD">Rent Detail</a>
@@ -243,135 +271,137 @@
             <div class="col-lg-12 mt-lg-0 mt-3">
                 <div class="card">
                     <div class="card-body">
-                       <form id="myForm">
-                           <div class="row">
-                               <div class="col-6">
-                                   <div class="form-group">
-                                       <label>Email</label>
-                                       <input class="form-control" id="emailRent" type="text">
-                                   </div>
-                               </div>
+                        <form id="myForm">
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Email</label>
+                                        <input class="form-control" id="emailRent" type="text">
+                                    </div>
+                                </div>
 
-                               <div class="col-6">
-                                   <div class="form-group">
-                                       <label>Rent Id</label>
-                                       <input class="form-control" id="rentId" type="text">
-                                   </div>
-                               </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Rent Id</label>
+                                        <input class="form-control" id="rentId" type="text">
+                                    </div>
+                                </div>
 
-                               <div class="col-6">
-                                   <div class="form-group">
-                                       <label>Date</label>
-                                       <input class="form-control" id="rentDate" type="date">
-                                   </div>
-                               </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Date</label>
+                                        <input class="form-control" id="rentDate" type="date">
+                                    </div>
+                                </div>
 
-                               <div class="col-6">
-                                   <div class="form-group">
-                                       <label>Choose Car</label>
-                                       <select class="form-select" id="selectCar">
-                                       </select>
-                                   </div>
-                               </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Choose Car</label>
+                                        <select class="form-select" id="selectCar">
+                                        </select>
+                                    </div>
+                                </div>
 
-                               <div class="col-6">
-                                   <div class="form-group">
-                                       <label>Register Number</label>
-                                       <input class="form-control" id="regNumber" type="text" readonly>
-                                   </div>
-                               </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Register Number</label>
+                                        <input class="form-control" id="regNumber" readonly type="text">
+                                    </div>
+                                </div>
 
-                               <div class="col-6">
-                                   <div class="form-group">
-                                       <label>Brand</label>
-                                       <input class="form-control" id="brand" type="text" readonly>
-                                   </div>
-                               </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Brand</label>
+                                        <input class="form-control" id="brand" readonly type="text">
+                                    </div>
+                                </div>
 
-                               <div class="col-6">
-                                   <div class="form-group">
-                                       <label>Type</label>
-                                       <input class="form-control" id="type" type="text" readonly>
-                                   </div>
-                               </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Type</label>
+                                        <input class="form-control" id="type" readonly type="text">
+                                    </div>
+                                </div>
 
-                               <div class="col-6">
-                                   <div class="form-group">
-                                       <label>No Of Passenger</label>
-                                       <input class="form-control" id="noOfPassenger" type="text" readonly>
-                                   </div>
-                               </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>No Of Passenger</label>
+                                        <input class="form-control" id="noOfPassenger" readonly type="text">
+                                    </div>
+                                </div>
 
-                               <div class="col-6">
-                                   <div class="form-group">
-                                       <label>Transmission Type</label>
-                                       <input class="form-control" id="transmission" type="text" readonly>
-                                   </div>
-                               </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Transmission Type</label>
+                                        <input class="form-control" id="transmission" readonly type="text">
+                                    </div>
+                                </div>
 
-                               <div class="col-5">
-                                   <div class="form-group">
-                                       <label>Fuel Type</label>
-                                       <input class="form-control" id="fuelType" type="text" readonly>
-                                   </div>
-                               </div>
+                                <div class="col-5">
+                                    <div class="form-group">
+                                        <label>Fuel Type</label>
+                                        <input class="form-control" id="fuelType" readonly type="text">
+                                    </div>
+                                </div>
 
-                               <div class="col-4">
-                                   <div class="form-group">
-                                       <label>Daily Rate</label>
-                                       <input class="form-control" id="dailyRate" type="text" readonly>
-                                   </div>
-                               </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>Daily Rate</label>
+                                        <input class="form-control" id="dailyRate" readonly type="text">
+                                    </div>
+                                </div>
 
-                               <div class="col-3">
-                                   <div class="form-group">
-                                       <label>Monthly Rate</label>
-                                       <input class="form-control" id="monthlyRate" type="text" readonly>
-                                   </div>
-                               </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label>Monthly Rate</label>
+                                        <input class="form-control" id="monthlyRate" readonly type="text">
+                                    </div>
+                                </div>
 
-                               <div class="col-5">
-                                   <div class="form-group">
-                                       <label>Free Mileage For Price</label>
-                                       <input class="form-control" id="freePrice" type="text" readonly>
-                                   </div>
-                               </div>
+                                <div class="col-5">
+                                    <div class="form-group">
+                                        <label>Free Mileage For Price</label>
+                                        <input class="form-control" id="freePrice" readonly type="text">
+                                    </div>
+                                </div>
 
-                               <div class="col-4">
-                                   <div class="form-group">
-                                       <label>Extra Price For KM</label>
-                                       <input class="form-control" id="extraPrice" type="text" readonly>
-                                   </div>
-                               </div>
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>Extra Price For KM</label>
+                                        <input class="form-control" id="extraPrice" readonly type="text">
+                                    </div>
+                                </div>
 
-                               <div class="col-3">
-                                   <div class="form-group">
-                                       <label>Color</label>
-                                       <input class="form-control" id="color" type="text" readonly>
-                                   </div>
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label>Color</label>
+                                        <input class="form-control" id="color" readonly type="text">
+                                    </div>
 
-                               </div>
+                                </div>
 
-                               <div class="col-6">
-                                   <div class="form-group">
-                                       <label>PickUp-Date</label>
-                                       <input class="form-control" id="pickUpDate" type="date">
-                                   </div>
-                               </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>PickUp-Date</label>
+                                        <input class="form-control" id="pickUpDate" type="date">
+                                    </div>
+                                </div>
 
-                               <div class="col-6">
-                                   <div class="form-group">
-                                       <label>Return-Date</label>
-                                       <input class="form-control" id="returnDate" type="date">
-                                   </div>
-                               </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Return-Date</label>
+                                        <input class="form-control" id="returnDate" type="date">
+                                    </div>
+                                </div>
 
-                               <div class="col-4 mt-4">
-                                   <button class="btn btn-success" id="rentCar" type="button" onclick="rentDetail()">Rent Car</button>
-                               </div>
+                                <div class="col-4 mt-4">
+                                    <button class="btn btn-success" id="rentCar" onclick="rentDetail()" type="button">
+                                        Rent Car
+                                    </button>
+                                </div>
 
-                           </div>
-                       </form>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -419,11 +449,19 @@
    ============================================= -->
 <main id="rentDetailContent">
     <section class="main-section2">
+        <section class="search">
+            <form class="d-flex" role="search">
+                <input aria-label="Search" class="form-control me-2" id="searchRent"
+                       name="searchRent" placeholder="Enter You're Rent ID..." type="text">
+                <button class="btn btn-outline-success" id="search" type="button">Search</button>
+            </form>
+        </section>
         <section class="item-table">
             <div class="col-md-12 mt-4" div style="height:430px; overflow-y: scroll">
                 <table class="table table-bordered">
                     <thead class="bg-danger text-white">
                     <tr>
+                        <th style="width: 300px">Email</th>
                         <th style="width: 300px">Rent Id</th>
                         <th style="width: 300px">Register Number</th>
                         <th style="width: 300px">Date</th>
@@ -444,7 +482,8 @@
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/jquery-3.6.1.min.js"></script>
 <script src="../assets/js/util/DashBoardControllerUser.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"
+        type="text/javascript"></script>
 <script>
     var modal = document.getElementById('id01');
     window.onclick = function (event) {
@@ -456,7 +495,6 @@
 
     loadAll();
     loadAllCars();
-    rentDetail();
 
     function loadAll() {
         $.ajax({
@@ -560,18 +598,21 @@
 
     $("#rentCar").click(function () {
 
-        if ($("#emailRent").val()==""){
+        if ($("#emailRent").val() == "") {
             alert("Please Enter Email!");
         }
-        if ($("#rentId").val()==""){
+        if ($("#rentId").val() == "") {
             alert("Please Enter Rent ID!");
-        }if ($("#rentDate").val()==""){
+        }
+        if ($("#rentDate").val() == "") {
             alert("Please Enter Date!")
-        }if ($("#pickUpDate").val()==""){
+        }
+        if ($("#pickUpDate").val() == "") {
             alert("Please Enter PickUp Date!")
-        }if ($("#returnDate").val()==""){
+        }
+        if ($("#returnDate").val() == "") {
             alert("Please Enter Return Date!")
-        }else {
+        } else {
             let email = $("#emailRent").val();
             let rentId = $("#rentId").val();
             let rentDate = $("#rentDate").val();
@@ -587,7 +628,7 @@
                 regNumber: regNumber,
                 pickUpDate: pickUpDate,
                 returnDate: returnDate,
-                status:"Pending"
+                status: "Pending"
             }
 
             console.log(rentDetail)
@@ -599,7 +640,7 @@
                 data: JSON.stringify(rentDetail),
                 success: function (resp) {
                     alert(resp.message);
-                    clearData("", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+                    clearData("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
                 },
                 error: function (error) {
                     alert(JSON.parse(error.responseText).message);
@@ -609,7 +650,8 @@
         }
     });
 
-    function clearData(id, name, car, reg, brand, type, passenger, trans, fuel, daily, monthly, freePrice, extraPrice, color, date) {
+    function clearData(email, id, name, car, reg, brand, type, passenger, trans, fuel, daily, monthly, freePrice, extraPrice, color, date) {
+        $("#emailRent").val(email);
         $("#rentId").val(id);
         $("#selectCar").val(car);
         $("#rentDate").val(name);
@@ -628,21 +670,22 @@
         $("#returnDate").val(date);
     }
 
-    function rentDetail() {
-        let id = $("#rentId").val();
+    $("#search").click(function () {
+        let rentId = $("#searchRent").val();
 
         $("#tblDetail").empty();
         $.ajax({
-            url: baseUrl + "rent?rentId="+id,
+            url: baseUrl + "rent?rentId=" + rentId,
             dataType: "json",
             success: function (resp) {
-                let d  = resp.data;
-                var row = '<tr><td>' + d.rentId + '</td><td>' + d.regNumber + '</td><td>' + d.date + '</td><td>' + d.pickUpDate + '</td><td>' + d.returnDate + '</td><td>'+d.status+'</td></tr>';
+                let d = resp.data;
+                var row = '<tr><td>' + d.email + '</td><td>' + d.rentId + '</td><td>' + d.regNumber + '</td><td>' + d.date + '</td><td>' + d.pickUpDate + '</td><td>' + d.returnDate + '</td><td>' + d.status + '</td></tr>';
                 $("#tblDetail").append(row);
             }
 
         });
-    }
+
+    });
 </script>
 </body>
 </html>

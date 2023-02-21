@@ -8,6 +8,6 @@ public interface RentDetailService {
     void saveRentalDetail(RentDetailDTO dto);
     void updateRentalDetail(RentDetailDTO dto);
     ArrayList<RentDetailDTO> getAllRentalDetail();
-    RentDetailDTO searchDetailRentId(String rentId);
+    RentDetailDTO searchRentDetail(String email);
     long count();
 }

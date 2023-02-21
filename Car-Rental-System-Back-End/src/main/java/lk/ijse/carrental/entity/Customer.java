@@ -24,6 +24,4 @@ public class Customer {
     private String license;
     private String contact;
     private String password;
-    @OneToMany(mappedBy = "email", cascade = CascadeType.ALL)
-    private List<RentDetail> rentDetails = new ArrayList<>();
 }

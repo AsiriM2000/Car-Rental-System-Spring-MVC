@@ -29,7 +29,7 @@ public class RentDetailServiceImpl implements RentDetailService {
     @Override
     public void saveRentalDetail(RentDetailDTO dto) {
         if (repo.existsById(dto.getRentId())){
-            throw new RuntimeException("Rent"+dto.getRentId()+" Already Exist...!");
+            throw new RuntimeException("Rent "+dto.getRentId()+" Already Exist...!");
         }
         repo.save(mapper.map(dto, RentDetail.class));
 
@@ -38,7 +38,7 @@ public class RentDetailServiceImpl implements RentDetailService {
     @Override
     public void updateRentalDetail(RentDetailDTO dto) {
         if (!repo.existsById(dto.getRentId())){
-            throw new RuntimeException("Rent"+dto.getRentId()+" Not Available...!");
+            throw new RuntimeException("Rent "+dto.getRentId()+" Not Available...!");
         }
         repo.save(mapper.map(dto,RentDetail.class));
     }
@@ -49,7 +49,7 @@ public class RentDetailServiceImpl implements RentDetailService {
     }
 
     @Override
-    public RentDetailDTO searchDetailRentId(String rentId) {
+    public RentDetailDTO searchRentDetail(String rentId) {
         return mapper.map(repo.findByRentId(rentId),RentDetailDTO.class);
     }
 

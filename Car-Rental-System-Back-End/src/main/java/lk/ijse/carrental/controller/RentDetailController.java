@@ -42,7 +42,7 @@ public class RentDetailController {
 
     @GetMapping(params = "rentId")
     public ResponseUtil searchDetail(String rentId){
-        RentDetailDTO rentData = service.searchDetailRentId(rentId);
-        return new ResponseUtil("200","Success",rentData);
+        RentDetailDTO detailDTO = service.searchRentDetail(rentId);
+        return new ResponseUtil("200","Success",detailDTO);
     }
 }

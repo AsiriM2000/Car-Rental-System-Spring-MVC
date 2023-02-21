@@ -28,11 +28,11 @@ class CustomerRepoTest {
     @Autowired
     CustomerService service;
 
-//    @Test
-//    public void test(){
-//        Customer email = repo.findByEmail("asd@gmail.com");
-//        System.out.println(email);
-//    }
+    @Test
+    public void test(){
+        Customer email = repo.findByEmail("asd@gmail.com");
+        System.out.println(email);
+    }
 //
 //    @Test
 //    public void test2(){
@@ -40,9 +40,9 @@ class CustomerRepoTest {
 //        System.out.println(psw.toString());
 //    }
 
-    @Test
-    void test(){
-        long count = repo.count();
-        System.out.println(count);
-    }
+//    @Test
+//    void test(){
+//        long count = repo.count();
+//        System.out.println(count);
+//    }
 }

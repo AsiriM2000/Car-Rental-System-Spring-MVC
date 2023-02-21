@@ -653,7 +653,7 @@
     </div>
 </div>
 
-<!-- order-detail
+<!-- rent-detail
      ============================================= -->
 <main id="orderDetailContent">
     <section class="main-section">
@@ -670,6 +670,7 @@
                 <table class="table table-bordered">
                     <thead class="bg-danger text-white">
                     <tr>
+                        <th style="width: 300px">Customer Email</th>
                         <th style="width: 300px">Rent ID</th>
                         <th style="width: 300px">Register Number</th>
                         <th style="width: 300px">Date</th>
@@ -1085,7 +1086,7 @@
             dataType: "json",
             success: function (resp) {
                 for (let d of resp.data) {
-                    var row = '<tr><td>' + d.rentId + '</td><td>' + d.regNumber + '</td><td>' + d.date + '</td><td>' + d.pickUpDate + '</td><td>' + d.returnDate + '</td><td><button class="acceptBtn" type="button">Accept</button></td></tr>';
+                    var row = '<tr><td>' + d.email + '</td><td>'+ d.rentId + '</td><td>' + d.regNumber + '</td><td>' + d.date + '</td><td>' + d.pickUpDate + '</td><td>' + d.returnDate + '</td><td><button class="acceptBtn" type="button">Accept</button></td></tr>';
                     $("#tblTransaction").append(row);
                 }
                 bind();
@@ -1097,14 +1098,16 @@
     function bind() {
         $("#tblTransaction>tr").click(function () {
 
-            let rentId = $(this).children(":eq(0)").text();
-            let regNumber = $(this).children(":eq(1)").text();
-            let rentDate = $(this).children(":eq(2)").text();
-            let pickUpDate = $(this).children(":eq(3)").text();
-            let returnDate = $(this).children(":eq(4)").text();
-            let status = $(this).children(":eq(5)").text();
+            let email = $(this).children(":eq(0)").text();
+            let rentId = $(this).children(":eq(1)").text();
+            let regNumber = $(this).children(":eq(2)").text();
+            let rentDate = $(this).children(":eq(3)").text();
+            let pickUpDate = $(this).children(":eq(4)").text();
+            let returnDate = $(this).children(":eq(5)").text();
+            let status = $(this).children(":eq(6)").text();
 
             var stat = {
+                email: email,
                 rentId: rentId,
                 date: rentDate,
                 regNumber: regNumber,

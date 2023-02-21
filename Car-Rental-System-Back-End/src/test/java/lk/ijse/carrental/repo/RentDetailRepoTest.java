@@ -1,6 +1,7 @@
 package lk.ijse.carrental.repo;
 
 import lk.ijse.carrental.config.WebRootConfig;
+import lk.ijse.carrental.entity.Customer;
 import lk.ijse.carrental.entity.RentDetail;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -23,8 +24,7 @@ class RentDetailRepoTest {
 
     @Test
     public void test(){
-        RentDetail r001 = repo.findByRentId("R002");
-        System.out.println(r001);
+        RentDetail id = repo.findByRentId("madhusankaasiri2@gmail.com");
+        System.out.println(id);
     }
-
 }
