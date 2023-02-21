@@ -39,4 +39,10 @@ public class RentDetailController {
         long count = service.count();
         return new ResponseUtil("200","Success",count);
     }
+
+    @GetMapping(params = "rentId")
+    public ResponseUtil searchDetail(String rentId){
+        RentDetailDTO rentData = service.searchDetailRentId(rentId);
+        return new ResponseUtil("200","Success",rentData);
+    }
 }

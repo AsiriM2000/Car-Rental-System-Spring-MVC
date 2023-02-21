@@ -49,6 +49,11 @@ public class RentDetailServiceImpl implements RentDetailService {
     }
 
     @Override
+    public RentDetailDTO searchDetailRentId(String rentId) {
+        return mapper.map(repo.findByRentId(rentId),RentDetailDTO.class);
+    }
+
+    @Override
     public long count() {
         return repo.count();
     }

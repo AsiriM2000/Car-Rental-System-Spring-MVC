@@ -3,8 +3,12 @@ package lk.ijse.carrental.entity;
 
 import lombok.*;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @NoArgsConstructor
@@ -20,4 +24,6 @@ public class Customer {
     private String license;
     private String contact;
     private String password;
+    @OneToMany(mappedBy = "email", cascade = CascadeType.ALL)
+    private List<RentDetail> rentDetails = new ArrayList<>();
 }

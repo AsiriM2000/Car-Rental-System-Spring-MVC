@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -14,6 +13,7 @@ import lombok.ToString;
 public class RentDetailDTO {
 
     private String rentId;
+    private String email;
     private String date;
     private String regNumber;
     private String pickUpDate;
