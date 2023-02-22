@@ -1,17 +1,16 @@
 package lk.ijse.carrental.entity;
-
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
+
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
 @Entity
-public class RentDetail {
+public class RentDetail{
     @Id
     private String rentId;
     private String email;
@@ -21,8 +20,5 @@ public class RentDetail {
     private String returnDate;
     private String status;
 
-    @ManyToOne
-    @JoinColumn(name = "email",referencedColumnName = "email",insertable = false,updatable = false)
-    private Customer customer;
 
 }

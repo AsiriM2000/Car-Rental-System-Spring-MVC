@@ -5,10 +5,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-
-
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
@@ -27,4 +23,6 @@ public class CarDTO {
     private String extraPrice;
     private String color;
     private int carQty;
+    private String available;
+
 }

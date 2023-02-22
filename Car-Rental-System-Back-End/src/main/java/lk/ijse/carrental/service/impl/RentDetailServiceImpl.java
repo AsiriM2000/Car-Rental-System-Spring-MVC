@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -28,7 +27,7 @@ public class RentDetailServiceImpl implements RentDetailService {
 
     @Override
     public void saveRentalDetail(RentDetailDTO dto) {
-        if (repo.existsById(dto.getRentId())){
+        if (repo.existsById(dto.getRentId())&&repo.existsById(dto.getRegNumber())){
             throw new RuntimeException("Rent "+dto.getRentId()+" Already Exist...!");
         }
         repo.save(mapper.map(dto, RentDetail.class));

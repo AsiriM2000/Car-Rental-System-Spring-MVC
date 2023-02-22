@@ -7,7 +7,6 @@ import lombok.*;
 @Data
 @ToString
 public class CustomerDTO {
-
     private String email;
     private String name;
     private String address;

@@ -548,7 +548,6 @@
                         <th>Free Mileage For Price</th>
                         <th>Extra Price For KM</th>
                         <th>Color</th>
-                        <th>Qty</th>
                     </tr>
                     </thead>
                     <tbody id="tblCar">
@@ -559,7 +558,7 @@
         </section>
     </section>
 </main>
-<!-- item-form-save
+<!-- car-form-save
      ============================================= -->
 <div aria-hidden="true" aria-labelledby="itemLabel" class="modal fade col-lg-8" id="saveItems" tabindex="-1">
     <div class="modal-dialog">
@@ -636,8 +635,8 @@
                         </div>
 
                         <div class="mb-3">
-                            <label class="form-label" for="carQty">Car Qty</label>
-                            <input class="form-control" id="carQty" name="carQty" type="text">
+                            <label class="form-label" for="available">Available</label>
+                            <input class="form-control" id="available" name="available" type="text" placeholder="Yes">
                         </div>
 
                         <div aria-label="Basic mixed styles example" class="btn-group" role="group">
@@ -916,7 +915,7 @@
             dataType: "json",
             success: function (resp) {
                 for (let car of resp.data) {
-                    var row = '<tr><td>' + car.carName + '</td><td>' + car.regNumber + '</td><td>' + car.brand + '</td><td>' + car.type + '</td><td>' + car.noOfPassenger + '</td><td>' + car.transmission + '</td><td>' + car.fuelType + '</td><td>' + car.dailyRate + '</td><td>' + car.monthlyRate + '</td><td>' + car.freePrice + '</td><td>' + car.extraPrice + '</td><td>' + car.color + '</td><td>' + car.carQty + '</td></tr>';
+                    var row = '<tr><td>' + car.carName + '</td><td>' + car.regNumber + '</td><td>' + car.brand + '</td><td>' + car.type + '</td><td>' + car.noOfPassenger + '</td><td>' + car.transmission + '</td><td>' + car.fuelType + '</td><td>' + car.dailyRate + '</td><td>' + car.monthlyRate + '</td><td>' + car.freePrice + '</td><td>' + car.extraPrice + '</td><td>' + car.color + '</td></tr>';
                     $("#tblCar").append(row);
                 }
 
@@ -940,7 +939,6 @@
             let freePrice = $(this).children(":eq(9)").text();
             let extraPrice = $(this).children(":eq(10)").text();
             let color = $(this).children(":eq(11)").text();
-            let carQty = $(this).children(":eq(12)").text();
 
             $("#carName").val(carName);
             $("#regNumber").val(regNumber);
@@ -954,12 +952,11 @@
             $("#freePrice").val(freePrice);
             $("#extraPrice").val(extraPrice);
             $("#color").val(color);
-            $("#carQty").val(carQty);
 
         });
     }
 
-    function clearCar(name, reg, brand, type, passenger, trans, fuel, daily, monthly, freePrice, extraPrice, color, qty) {
+    function clearCar(name, reg, brand, type, passenger, trans, fuel, daily, monthly, freePrice, extraPrice, color) {
         $("#carName").val(name);
         $("#regNumber").val(reg);
         $("#brand").val(brand);
@@ -972,7 +969,6 @@
         $("#freePrice").val(freePrice);
         $("#extraPrice").val(extraPrice);
         $("#color").val(color);
-        $("#carQty").val(qty);
     }
 
     $("#saveDriver").click(function () {

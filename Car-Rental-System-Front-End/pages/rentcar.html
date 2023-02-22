@@ -337,7 +337,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-5">
+                                <div class="col-6">
                                     <div class="form-group">
                                         <label>Fuel Type</label>
                                         <input class="form-control" id="fuelType" readonly type="text">
@@ -377,7 +377,13 @@
                                         <label>Color</label>
                                         <input class="form-control" id="color" readonly type="text">
                                     </div>
+                                </div>
 
+                                <div class="col-3">
+                                    <div class="form-group">
+                                        <label>Available</label>
+                                        <input class="form-control" id="available" readonly type="text">
+                                    </div>
                                 </div>
 
                                 <div class="col-6">
@@ -395,7 +401,7 @@
                                 </div>
 
                                 <div class="col-4 mt-4">
-                                    <button class="btn btn-success" id="rentCar" onclick="rentDetail()" type="button">
+                                    <button class="btn btn-success" id="rentCar" type="button">
                                         Rent Car
                                     </button>
                                 </div>
@@ -416,7 +422,7 @@
         <div class="imgcontainer">
             <span class="close" onclick="document.getElementById('id01').style.display='none'" title="Close Modal">&times;</span>
             <img alt="Avatar" class="avatar" src="../assets/img/user.jpg">
-            <p>Your Profile</p>
+            <p>Enter Yore Email And Press Enter Check Your Profile Or Update Data.</p>
         </div>
 
         <div class="container">
@@ -492,13 +498,18 @@
         }
     }
     let baseUrl = "http://localhost:8080/Car_Rental_System_Back_End_war/";
-
-    loadAll();
     loadAllCars();
 
+    $("#email").keypress(function (event) {
+        if (event.which == 13) {
+            loadAll();
+        }
+    });
+
     function loadAll() {
+        let em = $("#email").val();
         $.ajax({
-            url: baseUrl + "customer?email=",
+            url: baseUrl + "customer?email=" + em,
             dataType: "json",
             success: function (resp) {
                 $("#email").val(resp.data.email);
@@ -508,6 +519,9 @@
                 $("#license").val(resp.data.license);
                 $("#contact").val(resp.data.contact);
                 $("#password").val(resp.data.password);
+            },
+            error: function (error){
+                alert("Yore Email Incorrect!");
             }
         });
     }
@@ -591,6 +605,7 @@
             $("#freePrice").val(res[0].freePrice);
             $("#extraPrice").val(res[0].extraPrice);
             $("#color").val(res[0].color);
+            $("#available").val(res[0].available);
 
         }
 
@@ -612,7 +627,9 @@
         }
         if ($("#returnDate").val() == "") {
             alert("Please Enter Return Date!")
-        } else {
+        }if ($("#available").val() == "No"){
+            alert("Car Is Not Available.Please Choose Another Car!")
+        }else {
             let email = $("#emailRent").val();
             let rentId = $("#rentId").val();
             let rentDate = $("#rentDate").val();
@@ -640,7 +657,8 @@
                 data: JSON.stringify(rentDetail),
                 success: function (resp) {
                     alert(resp.message);
-                    clearData("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+                    carSet();
+                    clearData("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
                 },
                 error: function (error) {
                     alert(JSON.parse(error.responseText).message);
@@ -650,7 +668,7 @@
         }
     });
 
-    function clearData(email, id, name, car, reg, brand, type, passenger, trans, fuel, daily, monthly, freePrice, extraPrice, color, date) {
+    function clearData(email, id, name, car, reg, brand, type, passenger, trans, fuel, daily, monthly, freePrice, extraPrice, color, date, ava) {
         $("#emailRent").val(email);
         $("#rentId").val(id);
         $("#selectCar").val(car);
@@ -668,6 +686,7 @@
         $("#color").val(color);
         $("#pickUpDate").val(date);
         $("#returnDate").val(date);
+        $("#available").val(ava);
     }
 
     $("#search").click(function () {
@@ -678,14 +697,62 @@
             url: baseUrl + "rent?rentId=" + rentId,
             dataType: "json",
             success: function (resp) {
-                let d = resp.data;
-                var row = '<tr><td>' + d.email + '</td><td>' + d.rentId + '</td><td>' + d.regNumber + '</td><td>' + d.date + '</td><td>' + d.pickUpDate + '</td><td>' + d.returnDate + '</td><td>' + d.status + '</td></tr>';
-                $("#tblDetail").append(row);
+                   let d = resp.data;
+                   var row = '<tr><td>' + d.email + '</td><td>' + d.rentId + '</td><td>' + d.regNumber + '</td><td>' + d.date + '</td><td>' + d.pickUpDate + '</td><td>' + d.returnDate + '</td><td>' + d.status + '</td></tr>';
+                   $("#tblDetail").append(row);
             }
 
         });
 
     });
+
+    function carSet() {
+        let carName = $("#selectCar").val();
+        let regNumber = $("#regNumber").val();
+        let brand = $("#brand").val();
+        let type = $("#type").val();
+        let passenger = $("#noOfPassenger").val();
+        let trans = $("#transmission").val();
+        let fuel = $("#fuelType").val();
+        let dailyRate = $("#dailyRate").val();
+        let monthlyRate = $("#monthlyRate").val();
+        let freePrice = $("#freePrice").val();
+        let extraPrice = $("#extraPrice").val();
+        let color = $("#color").val();
+
+        var car = {
+            carName: carName,
+            regNumber: regNumber,
+            brand: brand,
+            type: type,
+            noOfPassenger: passenger,
+            transmission: trans,
+            fuelType: fuel,
+            dailyRate: dailyRate,
+            monthlyRate: monthlyRate,
+            freePrice: freePrice,
+            extraPrice: extraPrice,
+            color: color,
+            available:"No"
+        }
+
+        $.ajax({
+            url: baseUrl + "car",
+            method: "put",
+            contentType: "application/json",
+            data: JSON.stringify(car),
+            dataType: "json",
+            success: function (resp) {
+                alert(resp.message);
+                loadAllCar();
+            },
+            error: function (error) {
+                alert(JSON.parse(error.responseText).message);
+            }
+        });
+
+    }
+
 </script>
 </body>
 </html>

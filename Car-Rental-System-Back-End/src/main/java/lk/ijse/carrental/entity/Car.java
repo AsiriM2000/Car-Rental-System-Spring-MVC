@@ -3,7 +3,6 @@ package lk.ijse.carrental.entity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,7 +11,6 @@ import javax.persistence.Id;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@ToString
 public class Car {
     private String carName;
     @Id
@@ -28,4 +26,6 @@ public class Car {
     private String extraPrice;
     private String color;
     private int carQty;
+    private String available;
+
 }
