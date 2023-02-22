@@ -28,6 +28,12 @@ public class CarController {
         return new ResponseUtil("200","Success...!",allCar);
     }
 
+    @GetMapping("/count")
+    public ResponseUtil getCount(){
+        long count = service.count();
+        return new ResponseUtil("200","Success",count);
+    }
+
     @PutMapping
     public ResponseUtil updateCar(@RequestBody CarDTO dto){
         service.updateCar(dto);
@@ -39,4 +45,5 @@ public class CarController {
         service.deleteCar(regNumber);
         return new ResponseUtil("200", regNumber+" Delete Successful...!",null);
     }
+
 }

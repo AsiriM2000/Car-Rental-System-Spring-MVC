@@ -9,4 +9,5 @@ public interface CarService {
     void updateCar(CarDTO dto);
     void deleteCar(String regNumber);
     ArrayList<CarDTO> getAllCar();
+    long count();
 }

@@ -7,7 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 public interface CustomerRepo extends JpaRepository<Customer,String> {
     Customer findByEmail(String email);
     Customer findByEmailAndPassword(String email,String password);
-
     @Override
     long count();
 

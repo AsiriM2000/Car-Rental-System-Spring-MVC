@@ -30,19 +30,5 @@ class CustomerRepoTest {
 
     @Test
     public void test(){
-        Customer email = repo.findByEmail("asd@gmail.com");
-        System.out.println(email);
     }
-//
-//    @Test
-//    public void test2(){
-//        Customer psw = repo.findByEmailAndPassword("asd@gmail.com", "12345");
-//        System.out.println(psw.toString());
-//    }
-
-//    @Test
-//    void test(){
-//        long count = repo.count();
-//        System.out.println(count);
-//    }
 }

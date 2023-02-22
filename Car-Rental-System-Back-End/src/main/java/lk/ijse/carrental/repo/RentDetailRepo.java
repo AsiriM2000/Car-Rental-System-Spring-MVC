@@ -6,6 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface RentDetailRepo extends JpaRepository<RentDetail,String> {
     @Override
     long count();
-
     RentDetail findByRentId(String rentId);
 }

@@ -48,6 +48,10 @@
             display: none;
         }
 
+        #paymentMain {
+            display: none;
+        }
+
         header {
             width: 100%;
             background-color: #D9D9D9;
@@ -259,6 +263,9 @@
                         <a class="nav-link" href="#" id="driver">Drivers</a>
                     </li>
                     <li class="nav-item">
+                        <a class="nav-link" href="#" id="payment">Payment</a>
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="#" id="order-Detail">Transaction Data</a>
                     </li>
                 </ul>
@@ -280,7 +287,7 @@
                 <img src="assets/img/admin/car.png" width="70px">
                 <br>
                 <br>
-                <p>Available Cars - <span>15</span></p>
+                <p>Available Cars - <span id="carCount"></span></p>
             </a>
             <a href="#">
                 <img src="assets/img/admin/customers.png" width="70px">
@@ -636,7 +643,7 @@
 
                         <div class="mb-3">
                             <label class="form-label" for="available">Available</label>
-                            <input class="form-control" id="available" name="available" type="text" placeholder="Yes">
+                            <input class="form-control" id="available" name="available" placeholder="Yes" type="text">
                         </div>
 
                         <div aria-label="Basic mixed styles example" class="btn-group" role="group">
@@ -687,6 +694,77 @@
     </section>
 </main>
 
+<!-- payment
+   ============================================= -->
+<main class="container-fluid" id="paymentMain">
+    <section class="row">
+        <div class="col-4">
+            <h1>Payment</h1>
+            <form id="customerForm">
+                <div class="mb-2">
+                    <label class="form-label" for="txtCustomerEmail">Customer Email</label>
+                    <select class="form-select" id="txtCustomerEmail"></select>
+                </div>
+
+                <div class="mb-2">
+                    <label class="form-label" for="txtPaymentId">Payment ID</label>
+                    <input class="form-control" id="txtPaymentId" multiple name="payId" type="text">
+                </div>
+
+                <div class="mb-2">
+                    <label class="form-label" for="txtPaymentStatus">Payment Status</label>
+                    <select class="form-select" id="txtPaymentStatus"></select>
+                </div>
+
+                <div class="mb-2">
+                    <label class="form-label" for="txtFullPayment">Full Payment</label>
+                    <input class="form-control" id="txtFullPayment" name="fPayment" type="text">
+                </div>
+
+                <div class="mb-2">
+                    <label class="form-label" for="txtDamageCost">Damage Cost</label>
+                    <input class="form-control" id="txtDamageCost" name="dCost" type="text">
+                </div>
+
+                <div class="mb-2">
+                    <label class="form-label" for="txtExtraMileage">Extra Mileage</label>
+                    <input class="form-control" id="txtExtraMileage" name="eCost" type="text">
+                </div>
+
+                <div class="mb-2">
+                        <label class="form-label" for="txtDate">Date</label>
+                        <input class="form-control" id="txtDate" name="pDate" type="date">
+                </div>
+
+            </form>
+
+            <div aria-label="Basic mixed styles example" class="btn-group" role="group">
+                <button style="width: 200px" class="btn btn-primary save-cus" id="payCustomer" type="button">Pay</button>
+                <button style="width: 200px" class="btn btn-danger delete-cus" id="deletePayCustomer" type="button">Delete</button>
+                <button style="width: 200px" class="btn btn-warning update-cus" id="updatePayCustomer" type="button">Update</button>
+            </div>
+        </div>
+        <div class="col-8">
+            <table class="table table-bordered table-hover">
+                <thead class="bg-danger text-white">
+                <tr>
+                    <th style="width: 300px">Email</th>
+                    <th style="width: 300px">Payment ID</th>
+                    <th style="width: 300px">Payment Status</th>
+                    <th style="width: 300px">Full Payment</th>
+                    <th style="width: 300px">Damage Cost</th>
+                    <th style="width: 300px">Extra Mileage</th>
+                    <th style="width: 300px">Date</th>
+                    <th style="width: 300px">Total</th>
+                </tr>
+                </thead>
+                <tbody id="">
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/jquery-3.6.1.min.js"></script>
 
@@ -700,8 +778,11 @@
     loadAll();
     loadAllCar();
     loadAllDriver();
+    loadAllCust();
+    loadStatus();
     rentDetail();
     count();
+    carCount();
     rentCount();
 
     function loadAll() {
@@ -813,6 +894,16 @@
             dataType: "json",
             success: function (resp) {
                 $("#customerCount").text(resp.data);
+            }
+        });
+    }
+
+    function carCount() {
+        $.ajax({
+            url: baseUrl + "car/count",
+            dataType: "json",
+            success: function (resp) {
+                $("#carCount").text(resp.data);
             }
         });
     }
@@ -1082,7 +1173,7 @@
             dataType: "json",
             success: function (resp) {
                 for (let d of resp.data) {
-                    var row = '<tr><td>' + d.email + '</td><td>'+ d.rentId + '</td><td>' + d.regNumber + '</td><td>' + d.date + '</td><td>' + d.pickUpDate + '</td><td>' + d.returnDate + '</td><td><button class="acceptBtn" type="button">Accept</button></td></tr>';
+                    var row = '<tr><td>' + d.email + '</td><td>' + d.rentId + '</td><td>' + d.regNumber + '</td><td>' + d.date + '</td><td>' + d.pickUpDate + '</td><td>' + d.returnDate + '</td><td><button class="acceptBtn" type="button">Accept</button></td></tr>';
                     $("#tblTransaction").append(row);
                 }
                 bind();
@@ -1109,7 +1200,7 @@
                 regNumber: regNumber,
                 pickUpDate: pickUpDate,
                 returnDate: returnDate,
-                status:status
+                status: status
             }
 
             $.ajax({
@@ -1127,6 +1218,50 @@
             });
             console.log(stat)
         });
+    }
+
+    function loadAllCust() {
+        $("#txtCustomerEmail").empty();
+        $("#txtCustomerEmail").prepend(`<option>--Select Customer--</option>`);
+        $.ajax({
+            url: baseUrl + "customer",
+            dataType: "json",
+            success: function (resp) {
+                for (var cus of resp.data) {
+                    $("#txtCustomerEmail").append(`<option>${cus.email}</option>`);
+                }
+            }
+        });
+    }
+
+    $("#txtCustomerEmail").change(function () {
+        let email = $("#txtCustomerEmail").val();
+        let res = searchCustomer(email);
+        if (res.length > 0) {
+            $("#txtCustomerEmail").val(res[0].email);
+        }
+
+    });
+
+    function searchCustomer(email) {
+        let response = "";
+        $.ajax({
+            url: baseUrl + "customer",
+            dataType: "json",
+            async: false,
+            success: function (resp) {
+                response = resp.data.filter((i) => {
+                    return i.email == email;
+                });
+            }
+        });
+        return response;
+    }
+
+    function loadStatus() {
+        $("#txtPaymentStatus").empty();
+        $("#txtPaymentStatus").prepend(`<option>--Select Payment Status--</option>`);
+        $("#txtPaymentStatus").append(`<option>Daily</option><option>Monthly</option>`);
     }
 </script>
 

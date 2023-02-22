@@ -24,7 +24,5 @@ class RentDetailRepoTest {
 
     @Test
     public void test(){
-        RentDetail id = repo.findByRentId("madhusankaasiri2@gmail.com");
-        System.out.println(id);
     }
 }
