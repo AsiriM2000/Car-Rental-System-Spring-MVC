@@ -17,7 +17,7 @@ public class PaymentController {
     PaymentService service;
 
     @PostMapping
-    public ResponseUtil savePayment(@ModelAttribute PaymentDTO dto){
+    public ResponseUtil savePayment(@RequestBody PaymentDTO dto){
         service.savePayment(dto);
         return new ResponseUtil("200",dto.toString()+" Save Successful...!",null);
     }

@@ -13,9 +13,10 @@ public class PaymentDTO {
 
     private String payId;
     private String email;
-    private String pStatus;
+    private String status;
     private double payment;
-    private double dCost;
-    private double eCost;
+    private double damage;
+    private double extra;
     private String date;
+    private double total;
 }

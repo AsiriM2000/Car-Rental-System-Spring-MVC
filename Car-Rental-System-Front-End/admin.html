@@ -230,6 +230,9 @@
             color: aqua;
         }
 
+        #tblPayment tr {
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -700,48 +703,50 @@
     <section class="row">
         <div class="col-4">
             <h1>Payment</h1>
-            <form id="customerForm">
-                <div class="mb-2">
-                    <label class="form-label" for="txtCustomerEmail">Customer Email</label>
-                    <select class="form-select" id="txtCustomerEmail"></select>
-                </div>
+            <div class="mb-2">
+                <label class="form-label" for="txtCustomerEmail">Customer Email</label>
+                <select class="form-select" id="txtCustomerEmail"></select>
+            </div>
 
-                <div class="mb-2">
-                    <label class="form-label" for="txtPaymentId">Payment ID</label>
-                    <input class="form-control" id="txtPaymentId" multiple name="payId" type="text">
-                </div>
+            <div class="mb-2">
+                <label class="form-label" for="txtPaymentId">Payment ID</label>
+                <input class="form-control" id="txtPaymentId" multiple name="payId" type="text">
+            </div>
 
-                <div class="mb-2">
-                    <label class="form-label" for="txtPaymentStatus">Payment Status</label>
-                    <select class="form-select" id="txtPaymentStatus"></select>
-                </div>
+            <div class="mb-2">
+                <label class="form-label" for="txtPaymentStatus">Payment Status</label>
+                <select class="form-select" id="txtPaymentStatus"></select>
+            </div>
 
-                <div class="mb-2">
-                    <label class="form-label" for="txtFullPayment">Full Payment</label>
-                    <input class="form-control" id="txtFullPayment" name="fPayment" type="text">
-                </div>
+            <div class="mb-2">
+                <label class="form-label" for="txtFullPayment">Full Payment</label>
+                <input class="form-control" id="txtFullPayment" name="fPayment" type="text">
+            </div>
 
-                <div class="mb-2">
-                    <label class="form-label" for="txtDamageCost">Damage Cost</label>
-                    <input class="form-control" id="txtDamageCost" name="dCost" type="text">
-                </div>
+            <div class="mb-2">
+                <label class="form-label" for="txtDamageCost">Damage Cost</label>
+                <input class="form-control" id="txtDamageCost" name="dCost" type="text">
+            </div>
 
-                <div class="mb-2">
-                    <label class="form-label" for="txtExtraMileage">Extra Mileage</label>
-                    <input class="form-control" id="txtExtraMileage" name="eCost" type="text">
-                </div>
+            <div class="mb-2">
+                <label class="form-label" for="txtExtraMileage">Extra Mileage</label>
+                <input class="form-control" id="txtExtraMileage" name="eCost" type="text">
+            </div>
 
-                <div class="mb-2">
-                        <label class="form-label" for="txtDate">Date</label>
-                        <input class="form-control" id="txtDate" name="pDate" type="date">
-                </div>
-
-            </form>
+            <div class="mb-2">
+                <label class="form-label" for="txtDate">Date</label>
+                <input class="form-control" id="txtDate" name="pDate" type="date">
+            </div>
 
             <div aria-label="Basic mixed styles example" class="btn-group" role="group">
-                <button style="width: 200px" class="btn btn-primary save-cus" id="payCustomer" type="button">Pay</button>
-                <button style="width: 200px" class="btn btn-danger delete-cus" id="deletePayCustomer" type="button">Delete</button>
-                <button style="width: 200px" class="btn btn-warning update-cus" id="updatePayCustomer" type="button">Update</button>
+                <button class="btn btn-primary save-cus" id="payCustomer" style="width: 200px" type="button">Pay
+                </button>
+                <button class="btn btn-danger delete-cus" id="deletePayCustomer" style="width: 200px" type="button">
+                    Delete
+                </button>
+                <button class="btn btn-warning update-cus" id="updatePayCustomer" style="width: 200px" type="button">
+                    Update
+                </button>
             </div>
         </div>
         <div class="col-8">
@@ -758,7 +763,7 @@
                     <th style="width: 300px">Total</th>
                 </tr>
                 </thead>
-                <tbody id="">
+                <tbody id="tblPayment">
                 </tbody>
             </table>
         </div>
@@ -780,6 +785,7 @@
     loadAllDriver();
     loadAllCust();
     loadStatus();
+    loadAllPayment();
     rentDetail();
     count();
     carCount();
@@ -1264,7 +1270,146 @@
         $("#txtPaymentStatus").append(`<option>Daily</option><option>Monthly</option>`);
     }
 
-    
+    $("#payCustomer").click(function () {
+        let custEmail = $("#txtCustomerEmail").val();
+        let payId = $("#txtPaymentId").val();
+        let status = $("#txtPaymentStatus").val();
+        let fPayment = parseFloat($("#txtFullPayment").val()) || 0;
+        let dCost = parseFloat($("#txtDamageCost").val()) || 0;
+        let eCost = parseFloat($("#txtExtraMileage").val()) || 0;
+        let pDate = $("#txtDate").val();
+        let total = fPayment + dCost + eCost;
+
+        var payment = {
+            payId: payId,
+            email: custEmail,
+            status: status,
+            payment: fPayment,
+            damage: dCost,
+            extra: eCost,
+            date: pDate,
+            total: total
+        }
+
+        console.log(payment)
+        $.ajax({
+            url: baseUrl + "payment",
+            method: "post",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(payment),
+            success: function (resp) {
+                alert(resp.message);
+                loadAllPayment();
+            },
+            error: function (error) {
+                alert(JSON.parse(error.responseText).message);
+            }
+        });
+    });
+
+    $("#updatePayCustomer").click(function () {
+        let custEmail = $("#txtCustomerEmail").val();
+        let payId = $("#txtPaymentId").val();
+        let status = $("#txtPaymentStatus").val();
+        let fPayment = parseFloat($("#txtFullPayment").val()) || 0;
+        let dCost = parseFloat($("#txtDamageCost").val()) || 0;
+        let eCost = parseFloat($("#txtExtraMileage").val()) || 0;
+        let pDate = $("#txtDate").val();
+        let total = fPayment + dCost + eCost;
+
+        var payment = {
+            payId: payId,
+            email: custEmail,
+            status: status,
+            payment: fPayment,
+            damage: dCost,
+            extra: eCost,
+            date: pDate,
+            total: total
+        }
+
+        console.log(payment)
+        $.ajax({
+            url: baseUrl + "payment",
+            method: "put",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(payment),
+            success: function (resp) {
+                alert(resp.message);
+                loadAllPayment();
+            },
+            error: function (error) {
+                alert(JSON.parse(error.responseText).message);
+            }
+        });
+    });
+
+    $("#deletePayCustomer").click(function () {
+        let payId = $("#txtPaymentId").val();
+        $.ajax({
+            url: baseUrl + "payment?payId=" + payId,
+            method: "delete",
+            dataType: "json",
+            success: function (resp) {
+                alert(resp.message);
+                loadAllPayment();
+            },
+            error: function (error) {
+                alert(JSON.parse(error.responseText).message);
+            }
+        });
+    });
+
+    function loadAllPayment() {
+        $("#tblPayment").empty();
+        $.ajax({
+            url: baseUrl + "payment",
+            dataType: "json",
+            success: function (resp) {
+                for (let pay of resp.data) {
+                    var row = '<tr><td>' + pay.email + '</td><td>' + pay.payId + '</td><td>' + pay.status + '</td><td>' + pay.payment + '</td><td>' + pay.damage + '</td><td>' + pay.extra + '</td><td>' + pay.date + '</td><td>' + pay.total + '</td></tr>';
+                    $("#tblPayment").append(row);
+                }
+                bindRowClickEventsPayment();
+                clearPayment("", "", "", "", "", "", "");
+            }
+        });
+    }
+
+    function clearPayment(email, payId, status, fulPay, dCost, eCost, date) {
+        $("#txtCustomerEmail").val(email);
+        $("#txtPaymentId").val(payId);
+        $("#txtPaymentStatus").val(status);
+        $("#txtFullPayment").val(fulPay);
+        $("#txtDamageCost").val(dCost);
+        $("#txtExtraMileage").val(eCost);
+        $("#txtDate").val(date);
+    }
+
+    function bindRowClickEventsPayment() {
+        $("#tblPayment>tr").click(function () {
+                let custEmail = $(this).children(":eq(0)").text();
+                let payId = $(this).children(":eq(1)").text();
+                let status = $(this).children(":eq(2)").text();
+                let fPayment = $(this).children(":eq(3)").text();
+                let dCost = $(this).children(":eq(4)").text();
+                let eCost = $(this).children(":eq(5)").text();
+                let pDate = $(this).children(":eq(6)").text();
+
+                $("#txtCustomerEmail").val(custEmail);
+                $("#txtPaymentId").val(payId);
+                $("#txtPaymentStatus").val(status);
+                $("#txtFullPayment").val(fPayment);
+                $("#txtDamageCost").val(dCost);
+                $("#txtExtraMileage").val(eCost);
+                $("#txtDate").val(pDate);
+
+            }
+        )
+
+    }
 </script>
 
 </body>
