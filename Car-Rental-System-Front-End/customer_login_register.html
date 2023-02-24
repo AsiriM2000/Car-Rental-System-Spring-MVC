@@ -181,32 +181,46 @@
             <h1>Sign Up</h1>
             <hr>
             <br>
-            <input class="form-control form-control-lg" id="email" name="email" placeholder="Enter Email" required
-                   type="text">
+            <div class="mb-3">
+                <input class="form-control" id="email" name="email" type="text" placeholder="Enter Email">
+                <span class="control-error" id="lblCusEmail"></span>
+            </div>
 
-            <input class="form-control form-control-lg" id="name" name="name" placeholder="Enter Name" required
-                   type="text">
+            <div class="mb-3">
+                <input class="form-control" id="name" name="name" type="text" placeholder="Enter Name">
+                <span class="control-error" id="lblCusName"></span>
+            </div>
 
-            <input class="form-control form-control-lg" id="address" name="address" placeholder="Enter Address" required
-                   type="text">
+            <div class="mb-3">
+                <input class="form-control" id="address" name="address" type="text" placeholder="Enter Address">
+                <span class="control-error" id="lblCusAddress"></span>
+            </div>
 
-            <input class="form-control form-control-lg" id="nicNum" name="nic" placeholder="Enter NIC Number" required
-                   type="text">
+            <div class="mb-3">
+                <input class="form-control" id="nicNum" name="nic" type="text" placeholder="Enter NIC Number">
+                <span class="control-error" id="lblCusNic"></span>
+            </div>
 
-            <label for="nicImg" class="btn">Select NIC Image</label>
-            <input class="form-control" id="nicImg" name="myFile" type="file" title="">
+            <label class="btn" for="nicImg">Select NIC Image</label>
+            <input class="form-control" id="nicImg" name="myFile" title="" type="file">
 
-            <input class="form-control form-control-lg" id="drivingNum" name="license" placeholder="Enter License Number" required
-                   type="text">
+            <div class="mb-3">
+                <input class="form-control" id="drivingNum" name="license" type="text" placeholder="Enter License Number">
+                <span class="control-error" id="lblCusLicense"></span>
+            </div>
 
-            <label for="nicImg" class="btn">Select License Image</label>
-            <input class="form-control" id="licenseImg" name="" type="file" title="">
+            <label class="btn" for="nicImg">Select License Image</label>
+            <input class="form-control" id="licenseImg" name="" title="" type="file">
 
-            <input class="form-control form-control-lg" id="contact" name="contact" placeholder="Enter Contact Number" required
-                   type="text">
+            <div class="mb-3">
+                <input class="form-control" id="contact" name="contact" type="text" placeholder="Enter Contact Number">
+                <span class="control-error" id="lblCusContact"></span>
+            </div>
 
-            <input class="form-control form-control-lg" id="password" name="password" placeholder="Enter Password" required
-                   type="password">
+            <div class="mb-3">
+                <input class="form-control" id="password" name="password" type="text" placeholder="Enter Password">
+                <span class="control-error" id="lblCusPassword"></span>
+            </div>
 
             <div class="clearfix">
                 <button id="signupBtn" type="button">Sign Up</button>
@@ -217,6 +231,8 @@
 
 <script src="assets/js/jquery-3.6.1.min.js"></script>
 <script src="assets/js/bootstrap.min.js"></script>
+<!--validation-->
+<script src="assets/js/util/validation/CustomerSignUpValidation.js"></script>
 <script type="text/javascript">
     var modal = document.getElementById('id02');
     window.onclick = function (event) {
@@ -253,6 +269,7 @@
         $("#lusername").val("");
         $("#lpassword").val("");
     }
+
     $("#signupBtn").click(function () {
         saveCustomer();
         var data = new FormData();
@@ -276,17 +293,18 @@
         });
 
     });
-    function saveCustomer(){
+
+    function saveCustomer() {
         var formData = $("#signUpForm").serialize();
         $.ajax({
-            url: baseUrl+"customer",
+            url: baseUrl + "customer",
             method: "post",
             data: formData,
             dataType: "json",
             success: function (resp) {
                 alert(resp.message)
                 console.log(resp.message);
-                setTextFieldValues("","","","","","","");
+                setTextFieldValues("", "", "", "", "", "", "");
             },
             error: function (error) {
                 alert(JSON.parse(error.responseText).message);
@@ -294,6 +312,7 @@
         });
 
     }
+
     function setTextFieldValues(email, name, address, nic, license, contact, password) {
         $("#email").val(email);
         $("#name").val(name);
@@ -305,6 +324,7 @@
         $("#nicImg").val("");
         $("#drivingImg").val("");
     }
+
 </script>
 </body>
 </html>
