@@ -30,11 +30,9 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     CustomerVerificationImgRepo customerVerificationImgRepo;
-    @Autowired
-    ModelMapper mapper;
 
     @Autowired
-    private ObjectMapper objectMapper;
+    ModelMapper mapper;
 
     @Override
     public void saveCustomer(CustomerDTO dto) {
@@ -104,6 +102,11 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public long count() {
         return repo.count();
+    }
+
+    @Override
+    public ArrayList<CustomerVerificationImgDTO> getAllImg() {
+        return mapper.map(customerVerificationImgRepo.findAll(),new TypeToken<ArrayList<CustomerVerificationImgDTO>>(){}.getType());
     }
 
 }

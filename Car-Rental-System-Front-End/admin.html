@@ -583,25 +583,21 @@
                         <div class="mb-3">
                             <label class="form-label" for="carName">Car Name</label>
                             <input class="form-control" id="carName" name="carName" type="text">
-                            <span class="control-error" id="lblItemCode"></span>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label" for="regNumber">Register Number</label>
                             <input class="form-control" id="regNumber" multiple name="regNumber" type="text">
-                            <span class="control-error" id="lblItemName"></span>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label" for="brand">Brand</label>
                             <input class="form-control" id="brand" name="brand" type="text">
-                            <span class="control-error" id="lblItemQty"></span>
                         </div>
 
                         <div class="mb-3">
                             <label class="form-label" for="type">Type</label>
                             <input class="form-control" id="type" name="type" type="text">
-                            <span class="control-error" id="lblItemUnitPrice"></span>
                         </div>
 
                         <div class="mb-3">
@@ -647,6 +643,11 @@
                         <div class="mb-3">
                             <label class="form-label" for="available">Available</label>
                             <input class="form-control" id="available" name="available" placeholder="Yes" type="text">
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label" for="losDamage">Loss Damage Waive</label>
+                            <input class="form-control" id="losDamage" name="losDamage" type="text">
                         </div>
 
                         <div aria-label="Basic mixed styles example" class="btn-group" role="group">
@@ -791,8 +792,6 @@
     carCount();
     rentCount();
 
-    // loadTheLastUploadedImage();
-
     function loadAll() {
         $("#tblCustomer").empty();
         $.ajax({
@@ -803,7 +802,6 @@
                     var row = '<tr><td>' + cus.email + '</td><td>' + cus.name + '</td><td>' + cus.address + '</td><td>' + cus.nic + '</td><td>' + cus.license + '</td><td>' + cus.contact + '</td><td>' + cus.password + '</td></tr>';
                     $("#tblCustomer").append(row);
                 }
-
                 bindRowClickEvents();
             }
         });
@@ -860,21 +858,6 @@
         });
     });
 
-    // function loadTheLastUploadedImage() {
-    //     $("#tblCustomer").empty();
-    //     $.ajax({
-    //         url: baseUrl + "customer/image",
-    //         method: "get",
-    //         dataType: 'json',
-    //         success: function (resp) {
-    //             for (let i in resp) {
-    //                 let row = `<tr><td><img src="${baseUrl + resp[i]}" width="100px"></td></tr>`;
-    //                 $("#tblCustomer").append(row);
-    //                 console.log(row)
-    //             }
-    //         }
-    //     });
-    // }
 
     function bindRowClickEvents() {
         $("#tblCustomer>tr").click(function () {

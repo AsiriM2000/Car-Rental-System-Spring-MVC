@@ -1,6 +1,7 @@
 package lk.ijse.carrental.service;
 
 import lk.ijse.carrental.dto.CustomerDTO;
+import lk.ijse.carrental.dto.CustomerVerificationImgDTO;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
@@ -14,4 +15,5 @@ public interface CustomerService {
     CustomerDTO searchByCustomerEmail(String email);
     CustomerDTO searchByCustomerEmailAndPassword(String email,String password);
     long count();
+    ArrayList<CustomerVerificationImgDTO> getAllImg();
 }

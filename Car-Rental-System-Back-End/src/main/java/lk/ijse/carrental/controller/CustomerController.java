@@ -1,6 +1,7 @@
 package lk.ijse.carrental.controller;
 
 import lk.ijse.carrental.dto.CustomerDTO;
+import lk.ijse.carrental.dto.CustomerVerificationImgDTO;
 import lk.ijse.carrental.entity.Customer;
 import lk.ijse.carrental.repo.CustomerRepo;
 import lk.ijse.carrental.service.CustomerService;
@@ -54,40 +55,10 @@ public class CustomerController {
         return new ResponseUtil("200", " Register Successful...!", null);
     }
 
-
-    @PutMapping(path = "/file",consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity uploadFile(@RequestPart("myFile") MultipartFile myFile, @RequestPart("myFile") byte[] isFile, @RequestPart("myFile") Part myPart) {
-        System.out.println(isFile);
-        System.out.println(myPart.getSubmittedFileName());
-
-        System.out.println("================================");
-
-        System.out.println(myFile.getOriginalFilename());
-        System.out.println(myPart.getSubmittedFileName());
-
-        try {
-            String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getParentFile().getAbsolutePath();
-
-            File uploadsDir = new File(projectPath + "/uploads");
-            uploadsDir.mkdir();
-
-            myFile.transferTo(new File(uploadsDir.getAbsolutePath() + "/" + myFile.getOriginalFilename()));
-
-            return new ResponseEntity("Successfully Uploaded", HttpStatus.OK);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-
-
-    }
-
     @GetMapping(path = "/image",produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity getAllImagesFromDatabase() {
-        return null;
+    public ResponseUtil getAllImagesFromDatabase() {
+        ArrayList<CustomerVerificationImgDTO> allImg = service.getAllImg();
+        return new ResponseUtil("200","Success",allImg);
     }
 
     @GetMapping

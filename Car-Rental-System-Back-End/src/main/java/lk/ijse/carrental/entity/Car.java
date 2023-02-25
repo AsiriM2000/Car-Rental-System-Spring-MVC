@@ -25,7 +25,7 @@ public class Car {
     private String freePrice;
     private String extraPrice;
     private String color;
-    private int carQty;
+    private String losDamage;
     private String available;
 
 }
