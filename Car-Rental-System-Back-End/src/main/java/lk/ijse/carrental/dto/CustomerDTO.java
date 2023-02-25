@@ -9,7 +9,6 @@ import java.util.List;
 @Data
 @ToString
 public class CustomerDTO {
-    private String regUserId;
     private String email;
     private String name;
     private String address;
@@ -17,4 +16,5 @@ public class CustomerDTO {
     private String license;
     private String contact;
     private String password;
+
 }

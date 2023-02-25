@@ -34,6 +34,9 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     ModelMapper mapper;
 
+    @Autowired
+    ObjectMapper objectMapper;
+
     @Override
     public void saveCustomer(CustomerDTO dto) {
         if(repo.existsById(dto.getEmail())){
@@ -72,16 +75,16 @@ public class CustomerServiceImpl implements CustomerService {
                 File uploadDir = new File(projectPath + "/uploads");
                 uploadDir.mkdir();
                 file.transferTo(new File(uploadDir.getAbsolutePath()+"/"+nicNum+"_"+file.getOriginalFilename()));
-                path="uploads/"+file.getOriginalFilename();
+                path="uploads/"+nicNum+"_"+file.getOriginalFilename();
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
             CustomerVerificationImgDTO imgDTO = new CustomerVerificationImgDTO();
-            imgDTO.setNicNum(nicNum);
             imgDTO.setPath(path);
-            System.out.println(nicNum+"-"+imgDTO.getPath());
+            imgDTO.setNicNum(nicNum);
+            System.out.println(imgDTO.getPath());
             customerVerificationImgRepo.save(mapper.map(imgDTO,CustomerVarificationImg.class));
 
         }else {

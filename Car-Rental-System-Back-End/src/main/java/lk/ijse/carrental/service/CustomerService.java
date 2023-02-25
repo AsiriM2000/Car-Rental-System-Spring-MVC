@@ -13,7 +13,7 @@ public interface CustomerService {
     ArrayList<CustomerDTO> getAllCustomer();
     void saveCustomerWithImg(String nicNum, MultipartFile file);
     CustomerDTO searchByCustomerEmail(String email);
-    CustomerDTO searchByCustomerEmailAndPassword(String email,String password);
+    CustomerDTO searchByCustomerEmailAndPassword(String nicNum,String password);
     long count();
     ArrayList<CustomerVerificationImgDTO> getAllImg();
 }

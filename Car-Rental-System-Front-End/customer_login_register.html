@@ -182,10 +182,6 @@
             <hr>
             <br>
             <div class="mb-3">
-                <input class="form-control" id="regUserId" name="regUserId" placeholder="Enter UserId" type="text">
-            </div>
-
-            <div class="mb-3">
                 <input class="form-control" id="email" name="email" placeholder="Enter Email" type="text">
                 <span class="control-error" id="lblCusEmail"></span>
             </div>
@@ -279,7 +275,6 @@
         var formData = $("#signUpForm").serialize();
         let nicNum = $("#nicNum").val();
         uploadNicImage(nicNum);
-        console.log(nicNum)
         $.ajax({
             url: baseUrl + "customer",
             method: "post",

@@ -16,7 +16,6 @@ import java.util.List;
 public class Customer {
 
     @Id
-    private String regUserId;
     private String email;
     private String name;
     private String address;
@@ -24,4 +23,5 @@ public class Customer {
     private String license;
     private String contact;
     private String password;
+
 }
