@@ -1,5 +1,6 @@
 package lk.ijse.carrental.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lk.ijse.carrental.service.impl.CustomerServiceImpl;
 import org.modelmapper.ModelMapper;
 import org.springframework.context.annotation.Bean;
@@ -15,10 +16,14 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @Import(JPAConfig.class)
 @ComponentScan(basePackageClasses = {CustomerServiceImpl.class})
 public class WebRootConfig implements WebMvcConfigurer {
-
     @Bean
     public ModelMapper modelMapper(){
         return new ModelMapper();
+    }
+
+    @Bean
+    public ObjectMapper objectMapper() {
+        return new ObjectMapper();
     }
 
     @Bean

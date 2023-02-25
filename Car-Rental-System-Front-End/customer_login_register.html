@@ -182,22 +182,26 @@
             <hr>
             <br>
             <div class="mb-3">
-                <input class="form-control" id="email" name="email" type="text" placeholder="Enter Email">
+                <input class="form-control" id="regUserId" name="regUserId" placeholder="Enter UserId" type="text">
+            </div>
+
+            <div class="mb-3">
+                <input class="form-control" id="email" name="email" placeholder="Enter Email" type="text">
                 <span class="control-error" id="lblCusEmail"></span>
             </div>
 
             <div class="mb-3">
-                <input class="form-control" id="name" name="name" type="text" placeholder="Enter Name">
+                <input class="form-control" id="name" name="name" placeholder="Enter Name" type="text">
                 <span class="control-error" id="lblCusName"></span>
             </div>
 
             <div class="mb-3">
-                <input class="form-control" id="address" name="address" type="text" placeholder="Enter Address">
+                <input class="form-control" id="address" name="address" placeholder="Enter Address" type="text">
                 <span class="control-error" id="lblCusAddress"></span>
             </div>
 
             <div class="mb-3">
-                <input class="form-control" id="nicNum" name="nic" type="text" placeholder="Enter NIC Number">
+                <input class="form-control" id="nicNum" name="nic" placeholder="Enter NIC Number" type="text">
                 <span class="control-error" id="lblCusNic"></span>
             </div>
 
@@ -205,7 +209,8 @@
             <input class="form-control" id="nicImg" name="myFile" title="" type="file">
 
             <div class="mb-3">
-                <input class="form-control" id="drivingNum" name="license" type="text" placeholder="Enter License Number">
+                <input class="form-control" id="drivingNum" name="license" placeholder="Enter License Number"
+                       type="text">
                 <span class="control-error" id="lblCusLicense"></span>
             </div>
 
@@ -213,12 +218,12 @@
             <input class="form-control" id="licenseImg" name="" title="" type="file">
 
             <div class="mb-3">
-                <input class="form-control" id="contact" name="contact" type="text" placeholder="Enter Contact Number">
+                <input class="form-control" id="contact" name="contact" placeholder="Enter Contact Number" type="text">
                 <span class="control-error" id="lblCusContact"></span>
             </div>
 
             <div class="mb-3">
-                <input class="form-control" id="password" name="password" type="text" placeholder="Enter Password">
+                <input class="form-control" id="password" name="password" placeholder="Enter Password" type="text">
                 <span class="control-error" id="lblCusPassword"></span>
             </div>
 
@@ -256,7 +261,7 @@
             url: baseUrl + "customer?email=" + username + "&password=" + password,
             dataType: "json",
             success: function (resp) {
-                location.href = './pages/rentcar.html';
+                // location.href = 'pages/rentcar.html';
                 clear();
             },
             error: function (error) {
@@ -271,31 +276,10 @@
     }
 
     $("#signupBtn").click(function () {
-        saveCustomer();
-        var data = new FormData();
-        let file = $("#nicImg")[0].files[0];
-        let fileName = $("#nicImg")[0].files[0].name;
-        data.append("myFile", file, fileName);
-
-        $.ajax({
-            url: baseUrl + "customer/file",
-            method: 'post',
-            async: true,
-            contentType: false,
-            processData: false,
-            data: data,
-            success: function (resp) {
-                alert("Successfully Uploaded");
-            },
-            error: function (err) {
-                console.log(err);
-            }
-        });
-
-    });
-
-    function saveCustomer() {
         var formData = $("#signUpForm").serialize();
+        let nicNum = $("#nicNum").val();
+        uploadNicImage(nicNum);
+        console.log(nicNum)
         $.ajax({
             url: baseUrl + "customer",
             method: "post",
@@ -310,7 +294,28 @@
                 alert(JSON.parse(error.responseText).message);
             }
         });
+    });
 
+    function uploadNicImage(nicNum) {
+        var data = new FormData();
+        let file = $("#nicImg")[0].files[0];
+        let fileName = $("#nicImg")[0].files[0].name;
+        data.append("myFile", file, fileName);
+
+        $.ajax({
+            url: baseUrl + "customer/upload/" + nicNum,
+            method: 'post',
+            async: true,
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (resp) {
+                alert("Successfully Uploaded");
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
     }
 
     function setTextFieldValues(email, name, address, nic, license, contact, password) {

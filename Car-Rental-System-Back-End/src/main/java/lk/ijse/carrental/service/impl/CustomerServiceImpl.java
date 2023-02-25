@@ -1,15 +1,24 @@
 package lk.ijse.carrental.service.impl;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import lk.ijse.carrental.dto.CustomerDTO;
+import lk.ijse.carrental.dto.CustomerVerificationImgDTO;
 import lk.ijse.carrental.entity.Customer;
+import lk.ijse.carrental.entity.CustomerVarificationImg;
 import lk.ijse.carrental.repo.CustomerRepo;
+import lk.ijse.carrental.repo.CustomerVerificationImgRepo;
 import lk.ijse.carrental.service.CustomerService;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.transaction.Transactional;
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 
 @Service
@@ -20,7 +29,12 @@ public class CustomerServiceImpl implements CustomerService {
     CustomerRepo repo;
 
     @Autowired
+    CustomerVerificationImgRepo customerVerificationImgRepo;
+    @Autowired
     ModelMapper mapper;
+
+    @Autowired
+    private ObjectMapper objectMapper;
 
     @Override
     public void saveCustomer(CustomerDTO dto) {
@@ -52,6 +66,32 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public void saveCustomerWithImg(String nicNum, MultipartFile file) {
+        String path = null;
+        if (!repo.existsById(nicNum)){
+            try {
+                String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getParentFile().getAbsolutePath();
+                File uploadDir = new File(projectPath + "/uploads");
+                uploadDir.mkdir();
+                file.transferTo(new File(uploadDir.getAbsolutePath()+"/"+nicNum+"_"+file.getOriginalFilename()));
+                path="uploads/"+file.getOriginalFilename();
+            } catch (URISyntaxException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            CustomerVerificationImgDTO imgDTO = new CustomerVerificationImgDTO();
+            imgDTO.setNicNum(nicNum);
+            imgDTO.setPath(path);
+            System.out.println(nicNum+"-"+imgDTO.getPath());
+            customerVerificationImgRepo.save(mapper.map(imgDTO,CustomerVarificationImg.class));
+
+        }else {
+            throw new RuntimeException("Customer Already Exist");
+        }
+    }
+
+    @Override
     public CustomerDTO searchByCustomerEmail(String email) {
         return mapper.map(repo.findByEmail(email),CustomerDTO.class);
     }
@@ -65,4 +105,5 @@ public class CustomerServiceImpl implements CustomerService {
     public long count() {
         return repo.count();
     }
+
 }

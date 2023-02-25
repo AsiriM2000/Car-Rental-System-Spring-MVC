@@ -791,6 +791,8 @@
     carCount();
     rentCount();
 
+    // loadTheLastUploadedImage();
+
     function loadAll() {
         $("#tblCustomer").empty();
         $.ajax({
@@ -858,20 +860,21 @@
         });
     });
 
-    function loadTheLastUploadedImage() {
-        $("#tblCustomer").empty();
-        $.ajax({
-            url: baseUrl + "customer/image",
-            method: "get",
-            dataType: 'json',
-            success: function (resp) {
-                for (let i in resp) {
-                    let row = `<tr><td><img src="${baseUrl + resp[i]}" width="100px"></td></tr>`;
-                    $("#tblCustomer").append(row);
-                }
-            }
-        });
-    }
+    // function loadTheLastUploadedImage() {
+    //     $("#tblCustomer").empty();
+    //     $.ajax({
+    //         url: baseUrl + "customer/image",
+    //         method: "get",
+    //         dataType: 'json',
+    //         success: function (resp) {
+    //             for (let i in resp) {
+    //                 let row = `<tr><td><img src="${baseUrl + resp[i]}" width="100px"></td></tr>`;
+    //                 $("#tblCustomer").append(row);
+    //                 console.log(row)
+    //             }
+    //         }
+    //     });
+    // }
 
     function bindRowClickEvents() {
         $("#tblCustomer>tr").click(function () {

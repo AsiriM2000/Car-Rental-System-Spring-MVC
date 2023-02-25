@@ -26,8 +26,6 @@ public class CustomerController {
     @Autowired
     CustomerService service;
 
-    private static final ArrayList<String> allImages = new ArrayList<>();
-
     @PostMapping
     public ResponseUtil saveCustomer(@ModelAttribute CustomerDTO dto){
         service.saveCustomer(dto);
@@ -46,26 +44,17 @@ public class CustomerController {
         return new ResponseUtil("200", email +" Delete Successful...!",null);
     }
 
-    @PostMapping(path = "/file",consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity uploadFileWithSpringWay(@RequestPart("myFile") MultipartFile myFile ) {
-        try {
-            String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getParentFile().getAbsolutePath();
-            File uploadsDir = new File(projectPath + "/uploads");
-            System.out.println(projectPath);
-            uploadsDir.mkdir();
-            myFile.transferTo(new File(uploadsDir.getAbsolutePath() + "/" + myFile.getOriginalFilename()));
+    @PostMapping(value = "/upload/{nicNum}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil uploadFile(@RequestParam("myFile") MultipartFile myFile, @PathVariable("nicNum") String nicNum){
+        System.out.println("Hey");
+        System.out.println(nicNum);
+        System.out.println(myFile.getName());
 
-            allImages.add("uploads/" + myFile.getOriginalFilename());
-
-            return  ResponseEntity.ok(HttpStatus.OK);
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        } catch (IOException e) {
-            e.printStackTrace();
-            return new ResponseEntity(e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
-        }
+        service.saveCustomerWithImg(nicNum,myFile);
+        return new ResponseUtil("200", " Register Successful...!", null);
     }
+
+
     @PutMapping(path = "/file",consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity uploadFile(@RequestPart("myFile") MultipartFile myFile, @RequestPart("myFile") byte[] isFile, @RequestPart("myFile") Part myPart) {
         System.out.println(isFile);
@@ -95,9 +84,10 @@ public class CustomerController {
 
 
     }
+
     @GetMapping(path = "/image",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getAllImagesFromDatabase() {
-        return new ResponseEntity(allImages, HttpStatus.OK);
+        return null;
     }
 
     @GetMapping
@@ -123,4 +113,5 @@ public class CustomerController {
         long count = service.count();
         return new ResponseUtil("200"," Success",count);
     }
+
 }
