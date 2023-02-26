@@ -16,6 +16,115 @@
     <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
           name="viewport">
     <style>
+        input[type=text], input[type=password] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .imgcontainer {
+            text-align: center;
+            margin: 24px 0 12px 0;
+            position: relative;
+        }
+
+        .container {
+            padding: 16px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 2;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgb(0, 0, 0);
+            background-color: rgba(0, 0, 0, 0.4);
+            padding-top: 60px;
+            overflow: hidden;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto 15% auto;
+            border: 1px solid #888;
+            width: 50%;
+        }
+
+        .close {
+            position: absolute;
+            right: 25px;
+            top: 0;
+            color: #000;
+            font-size: 35px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: red;
+            cursor: pointer;
+        }
+
+        img.avatar {
+            border-radius: 50%;
+        }
+
+        .imgcontainer img {
+            width: 100px;
+            height: 100px;
+            border: 5px solid #555;
+        }
+
+        .animate {
+            -webkit-animation: animatezoom 0.6s;
+            animation: animatezoom 0.6s
+        }
+
+        button {
+            background-color: #04AA6D;
+            color: white;
+            padding: 14px 20px;
+            margin: 6px 0;
+            border: none;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        button:hover {
+            opacity: 0.8;
+        }
+
+        #allCar {
+            margin-top: 22px;
+        }
+
+        .rentNow {
+            background-color: #008CBA;
+            border: none;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        @-webkit-keyframes animatezoom {
+            from {
+                -webkit-transform: scale(0)
+            }
+            to {
+                -webkit-transform: scale(1)
+            }
+        }
     </style>
 </head>
 <body>
@@ -31,7 +140,7 @@
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
                 <ul class="navbar-nav justify-content-center">
                     <li class="nav-item">
-                        <a aria-current="page" class="nav-link" href="../customer_login_register.html"
+                        <a aria-current="page" class="nav-link" href="#"
                            id="home">Home</a>
                     </li>
                 </ul>
@@ -47,55 +156,258 @@
     </nav>
 </header>
 <main id="rentCarMain">
-        <section class="customer-head"></section>
-        <div class="row order-detail">
-            <div class="col-lg-12 mt-lg-0 mt-3">
-                <div class="card">
-                    <div class="card-body">
-                        <form id="myForm">
-                            <div class="row">
-                                <div class="col-1">
-                                    <div class="form-group">
-                                    </div>
-                                </div>
+    <section class="customer-head"></section>
+    <div class="col-lg-12 mt-lg-0 mt-3">
+        <div class="card">
+            <div class="card-body">
+                <form id="myForm">
+                    <div class="row">
 
-                                <div class="col-3">
-                                    <div class="form-group">
-                                        <label>Choose Car Name</label>
-                                        <select class="form-select" id="selectCarName">
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-3">
-                                    <div class="form-group">
-                                        <label>Choose Car Brand</label>
-                                        <select class="form-select" id="selectCarBrand">
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-3">
-                                    <div class="form-group">
-                                        <label>Choose Car Type</label>
-                                        <select class="form-select" id="selectCarType">
-                                        </select>
-                                    </div>
-                                </div>
-
-                                <div class="col-2">
-                                    <br>
-                                    <button class="btn btn-success" id="rentCar" type="button">All Cars
-                                    </button>
-                                </div>
-
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label>Choose Car Name</label>
+                                <select class="form-select" id="selectCarName">
+                                </select>
                             </div>
-                        </form>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label>Choose Car Brand</label>
+                                <select class="form-select" id="selectCarBrand">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label>Choose Car Type</label>
+                                <select class="form-select" id="selectCarType">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-2">
+                            <button class="btn btn-success" id="allCar" type="button">All Cars
+                            </button>
+                        </div>
+
+                        <section class="item-table">
+                            <div class="col-md-12 mt-4" div style="height:430px; overflow-y: scroll">
+                                <table class="table table-bordered">
+                                    <thead class="bg-danger text-white">
+                                    <tr>
+                                        <th style="width: 200px">Car Name</th>
+                                        <th style="width: 200px">Reg Number</th>
+                                        <th style="width: 70px">Brand</th>
+                                        <th style="width: 70px">Type</th>
+                                        <th style="width: 200px">Passenger</th>
+                                        <th style="width: 200px">Transmission</th>
+                                        <th style="width: 200px">Fuel Type</th>
+                                        <th style="width: 200px">Daily Rate</th>
+                                        <th style="width: 200px">Monthly Rate</th>
+                                        <th style="width: 200px">Mileage Price</th>
+                                        <th style="width: 200px">Extra PriceKM</th>
+                                        <th style="width: 200px">Loss Damage</th>
+                                        <th style="width: 70px">Color</th>
+                                        <th style="width: 30px">Available</th>
+                                        <th style="width: 200px">Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody id="tblCar">
+
+                                    </tbody>
+                                </table>
+                            </div>
+                        </section>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
+    </div>
 </main>
 
+<div class="modal" id="id01">
+    <form class="modal-content animate" id="profileData">
+        <div class="imgcontainer">
+            <span class="close" onclick="document.getElementById('id01').style.display='none'" title="Close Modal">&times;</span>
+            <img alt="Avatar" class="avatar" src="../assets/img/user.jpg">
+            <p>Enter Yore Email And Press Enter Check Your Profile Or Update Data.</p>
+        </div>
+
+        <div class="container">
+
+            <input id="email" name="email" placeholder="Email" type="text">
+
+            <input id="name" name="name" placeholder="Name" type="text">
+
+
+            <input id="address" name="address" placeholder="Address" type="text">
+
+
+            <input id="nic" name="nic" placeholder="NIC Number" type="text">
+
+
+            <input id="license" name="license" placeholder="Driving License Number" type="text">
+
+
+            <input id="contact" name="contact" placeholder="Contact Number" type="text">
+
+
+            <input id="password" name="password" placeholder="Password" type="password">
+
+            <button id="update" type="button">Update Information</button>
+        </div>
+    </form>
+</div>
+
+<script src="../assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/jquery-3.6.1.min.js"></script>
+<script src="../assets/js/util/DashBoardControllerUser.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"
+        type="text/javascript"></script>
+<script>
+    var modal = document.getElementById('id01');
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+    let baseUrl = "http://localhost:8081/Car_Rental_System_Back_End_war/";
+
+    loadAllCarName();
+    loadAllCarBrand();
+    loadAllCarType();
+
+    $("#allCar").click(function () {
+        $("#tblCar").empty();
+        $.ajax({
+            url: baseUrl + "car",
+            dataType: "json",
+            success: function (resp) {
+                for (let car of resp.data) {
+                    var row = '<tr><td>' + car.carName + '</td><td>' + car.regNumber + '</td><td>' + car.brand + '</td><td>' + car.type + '</td><td>' + car.noOfPassenger + '</td><td>' + car.transmission + '</td><td>' + car.fuelType + '</td><td>' + car.dailyRate + '</td><td>' + car.monthlyRate + '</td><td>' + car.freePrice + '</td><td>' + car.extraPrice + '</td><td>' + car.losDamage + '</td><td>' + car.color + '</td><td>' + car.available + '</td><td><button class="rentNow" type="button">Add To Cart</button></td></tr>';
+                    $("#tblCar").append(row);
+                }
+                addToCart();
+            }
+        });
+    });
+
+    function loadAllCarName() {
+        $("#selectCarName").empty();
+        $("#selectCarName").prepend(`<option>--Select Car--</option>`);
+        $.ajax({
+            url: baseUrl + "car",
+            dataType: "json",
+            success: function (resp) {
+                for (var car of resp.data) {
+                    $("#selectCarName").append(`<option>${car.carName}</option>`);
+                }
+            }
+        });
+    }
+
+    function loadAllCarBrand() {
+        $("#selectCarBrand").empty();
+        $("#selectCarBrand").prepend(`<option>--Select Brand--</option>`);
+        $("#selectCarBrand").append(`<option>Toyota</option><option>Audi</option><option>BMW</option><option>Nissan</option><option>Volvo</option>`);
+    }
+
+    function loadAllCarType() {
+        $("#selectCarType").empty();
+        $("#selectCarType").prepend(`<option>--Select Brand--</option>`);
+        $("#selectCarType").append(`<option>General</option><option>Premium</option><option>Luxury</option>`);
+    }
+
+    $("#selectCarName").change(function () {
+        let carName = $("#selectCarName").val();
+        $("#tblCar").empty();
+        $.ajax({
+            url: baseUrl + "car?carName=" + carName,
+            dataType: "json",
+            success: function (resp) {
+                let car = resp.data;
+                var row = '<tr><td>' + car.carName + '</td><td>' + car.regNumber + '</td><td>' + car.brand + '</td><td>' + car.type + '</td><td>' + car.noOfPassenger + '</td><td>' + car.transmission + '</td><td>' + car.fuelType + '</td><td>' + car.dailyRate + '</td><td>' + car.monthlyRate + '</td><td>' + car.freePrice + '</td><td>' + car.extraPrice + '</td><td>' + car.losDamage + '</td><td>' + car.color + '</td><td>' + car.available + '</td><td><button class="rentNow" type="button">Add To Cart</button></td></tr>';
+                $("#tblCar").append(row);
+                addToCart();
+            }
+        });
+    });
+
+    $("#selectCarBrand").change(function () {
+        let brand = $("#selectCarBrand").val();
+        $("#tblCar").empty();
+        $.ajax({
+            url: baseUrl + "car?brand=" + brand,
+            dataType: "json",
+            success: function (resp) {
+                for (let car of resp.data) {
+                    var row = '<tr><td>' + car.carName + '</td><td>' + car.regNumber + '</td><td>' + car.brand + '</td><td>' + car.type + '</td><td>' + car.noOfPassenger + '</td><td>' + car.transmission + '</td><td>' + car.fuelType + '</td><td>' + car.dailyRate + '</td><td>' + car.monthlyRate + '</td><td>' + car.freePrice + '</td><td>' + car.extraPrice + '</td><td>' + car.losDamage + '</td><td>' + car.color + '</td><td>' + car.available + '</td><td><button class="rentNow" type="button">Add To Cart</button></td></tr>';
+                    $("#tblCar").append(row);
+                }
+                addToCart();
+            }
+        });
+    });
+
+    $("#selectCarType").change(function () {
+        let type = $("#selectCarType").val();
+        $("#tblCar").empty();
+        $.ajax({
+            url: baseUrl + "car?type=" + type,
+            dataType: "json",
+            success: function (resp) {
+                for (let car of resp.data) {
+                    var row = '<tr><td>' + car.carName + '</td><td>' + car.regNumber + '</td><td>' + car.brand + '</td><td>' + car.type + '</td><td>' + car.noOfPassenger + '</td><td>' + car.transmission + '</td><td>' + car.fuelType + '</td><td>' + car.dailyRate + '</td><td>' + car.monthlyRate + '</td><td>' + car.freePrice + '</td><td>' + car.extraPrice + '</td><td>' + car.losDamage + '</td><td>' + car.color + '</td><td>' + car.available + '</td><td><button class="rentNow" type="button">Add To Cart</button></td></tr>';
+                    $("#tblCar").append(row);
+                }
+                addToCart();
+            }
+        });
+    });
+
+    function addToCart() {
+        $("#tblCar>tr").click(function () {
+            let carName = $(this).children(":eq(0)").text();
+            let regNumber = $(this).children(":eq(1)").text();
+            let brand = $(this).children(":eq(2)").text();
+            let type = $(this).children(":eq(3)").text();
+            let passenger = $(this).children(":eq(4)").text();
+            let trans = $(this).children(":eq(5)").text();
+            let fuel = $(this).children(":eq(6)").text();
+            let dailyRate = $(this).children(":eq(7)").text();
+            let monthlyRate = $(this).children(":eq(8)").text();
+            let mileage = $(this).children(":eq(9)").text();
+            let extra = $(this).children(":eq(10)").text();
+            let lossDamage = $(this).children(":eq(11)").text();
+            let color = $(this).children(":eq(12)").text();
+            let available = $(this).children(":eq(13)").text();
+
+            var array = new Array();
+            localStorage.clear();
+            array.push({
+                carName,
+                regNumber,
+                brand,
+                type,
+                passenger,
+                trans,
+                fuel,
+                dailyRate,
+                monthlyRate,
+                mileage,
+                extra,
+                lossDamage,
+                color,
+                available
+            });
+                localStorage.setItem("myValue", JSON.stringify(array));
+                window.location.href="../pages/checkout.html";
+
+        });
+    }
+
+</script>
 </body>
 </html>

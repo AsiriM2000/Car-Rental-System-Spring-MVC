@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -56,4 +57,20 @@ public class CarServiceImpl implements CarService {
     public long count() {
         return repo.count();
     }
+
+    @Override
+    public CarDTO searchByCarName(String carName) {
+        return mapper.map(repo.findByCarName(carName),CarDTO.class);
+    }
+
+    @Override
+    public ArrayList<CarDTO> searchCarBrand(String brand) {
+        return mapper.map(repo.searchCarBrand(brand),new TypeToken<ArrayList<CarDTO>>(){}.getType());
+    }
+
+    @Override
+    public ArrayList<CarDTO> searchCarType(String type) {
+        return mapper.map(repo.searchCarType(type),new TypeToken<ArrayList<CarDTO>>(){}.getType());
+    }
+
 }

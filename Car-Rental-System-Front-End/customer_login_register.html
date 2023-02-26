@@ -247,7 +247,7 @@
             modal.style.display = "none";
         }
     }
-    let baseUrl = "http://localhost:8080/Car_Rental_System_Back_End_war/";
+    let baseUrl = "http://localhost:8081/Car_Rental_System_Back_End_war/";
 
     $("#logBtn").click(function () {
         var username = $("#lusername").val();
@@ -257,7 +257,7 @@
             url: baseUrl + "customer?email=" + username + "&password=" + password,
             dataType: "json",
             success: function (resp) {
-                // location.href = 'pages/rentcar.html';
+                location.href = './pages/rentcar.html';
                 clear();
             },
             error: function (error) {

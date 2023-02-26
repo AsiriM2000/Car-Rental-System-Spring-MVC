@@ -1,8 +1,6 @@
 package lk.ijse.carrental.repo;
 
 import lk.ijse.carrental.config.WebRootConfig;
-import lk.ijse.carrental.dto.CustomerDTO;
-import lk.ijse.carrental.entity.Customer;
 import lk.ijse.carrental.service.CustomerService;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

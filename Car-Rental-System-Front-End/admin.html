@@ -774,12 +774,11 @@
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/jquery-3.6.1.min.js"></script>
 
-
 <script src="assets/js/util/DashboardController.js"></script>
 
 <script>
 
-    let baseUrl = "http://localhost:8080/Car_Rental_System_Back_End_war/";
+    let baseUrl = "http://localhost:8081/Car_Rental_System_Back_End_war/";
 
     loadAll();
     loadAllCar();
@@ -941,6 +940,7 @@
         let extraPrice = $("#extraPrice").val();
         let color = $("#color").val();
         let losDamage = $("#losDamage").val();
+        let available = $("#available").val();
 
         var car = {
             carName: carName,
@@ -955,7 +955,8 @@
             freePrice: freePrice,
             extraPrice: extraPrice,
             color: color,
-            losDamage: losDamage
+            losDamage: losDamage,
+            available: available
         }
 
         $.ajax({

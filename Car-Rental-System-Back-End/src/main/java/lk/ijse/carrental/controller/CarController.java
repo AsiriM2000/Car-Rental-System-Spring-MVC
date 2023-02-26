@@ -1,12 +1,14 @@
 package lk.ijse.carrental.controller;
 
 import lk.ijse.carrental.dto.CarDTO;
+import lk.ijse.carrental.entity.Car;
 import lk.ijse.carrental.service.CarService;
 import lk.ijse.carrental.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/car")
@@ -33,6 +35,25 @@ public class CarController {
         long count = service.count();
         return new ResponseUtil("200","Success",count);
     }
+
+    @GetMapping(params = "carName")
+    public ResponseUtil getAllCarName(String carName){
+        CarDTO carNameD = service.searchByCarName(carName);
+        return new ResponseUtil("200","Success",carNameD);
+    }
+
+    @GetMapping(params = "brand")
+    public ResponseUtil getAllCarBrand(String brand){
+        ArrayList<CarDTO> carBrand = service.searchCarBrand(brand);
+        return new ResponseUtil("200","Success",carBrand);
+    }
+
+    @GetMapping(params = "type")
+    public ResponseUtil getAllCarType(String type){
+        ArrayList<CarDTO> carType = service.searchCarType(type);
+        return new ResponseUtil("200","Success",carType);
+    }
+
 
     @PutMapping
     public ResponseUtil updateCar(@RequestBody CarDTO dto){
