@@ -45,13 +45,13 @@ public class CustomerController {
         return new ResponseUtil("200", email +" Delete Successful...!",null);
     }
 
-    @PostMapping(value = "/upload/{nicNum}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil uploadFile(@RequestParam("myFile") MultipartFile myFile, @PathVariable("nicNum") String nicNum){
+    @PostMapping(value = "/upload/{customer}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil uploadFile(@RequestParam("myFile") MultipartFile myFile, @PathVariable("customer") String customer){
         System.out.println("Hey");
-        System.out.println(nicNum);
+        System.out.println(customer);
         System.out.println(myFile.getName());
 
-        service.saveCustomerWithImg(nicNum,myFile);
+//        service.saveCustomerWithImg(customer,myFile);
         return new ResponseUtil("200", " Register Successful...!", null);
     }
 

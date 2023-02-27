@@ -1,20 +1,20 @@
 package lk.ijse.carrental.entity;
 
+
+import lk.ijse.carrental.dto.CustomerVerificationImgDTO;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
+@Entity
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-@ToString
-@Entity
 public class Customer {
-
     @Id
     private String email;
     private String name;
@@ -23,5 +23,4 @@ public class Customer {
     private String license;
     private String contact;
     private String password;
-
 }

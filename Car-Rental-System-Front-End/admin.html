@@ -1162,7 +1162,7 @@
     function rentDetail() {
         $("#tblTransaction").empty();
         $.ajax({
-            url: baseUrl + "rent",
+            url: baseUrl+"rent/rentDetail",
             dataType: "json",
             success: function (resp) {
                 for (let d of resp.data) {

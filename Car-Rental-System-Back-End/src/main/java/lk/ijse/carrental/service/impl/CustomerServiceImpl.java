@@ -1,6 +1,7 @@
 package lk.ijse.carrental.service.impl;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lk.ijse.carrental.dto.CustomerDTO;
 import lk.ijse.carrental.dto.CustomerVerificationImgDTO;
@@ -67,15 +68,18 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void saveCustomerWithImg(String nicNum, MultipartFile file) {
+    public void saveCustomerWithImg(String customer, MultipartFile file) {
+        CustomerDTO dto = null;
         String path = null;
-        if (!repo.existsById(nicNum)){
+        dto = mapper.map(customer,CustomerDTO.class);
+
+        if (!repo.existsById(dto.getEmail())){
             try {
                 String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getParentFile().getAbsolutePath();
                 File uploadDir = new File(projectPath + "/uploads");
                 uploadDir.mkdir();
-                file.transferTo(new File(uploadDir.getAbsolutePath()+"/"+nicNum+"_"+file.getOriginalFilename()));
-                path="uploads/"+nicNum+"_"+file.getOriginalFilename();
+                file.transferTo(new File(uploadDir.getAbsolutePath()+"/"+dto.getEmail()+"_"+file.getOriginalFilename()));
+                path="uploads/"+dto.getEmail()+"_"+file.getOriginalFilename();
             } catch (URISyntaxException e) {
                 e.printStackTrace();
             } catch (IOException e) {
@@ -83,9 +87,10 @@ public class CustomerServiceImpl implements CustomerService {
             }
             CustomerVerificationImgDTO imgDTO = new CustomerVerificationImgDTO();
             imgDTO.setPath(path);
-            imgDTO.setNicNum(nicNum);
+            ArrayList<CustomerVerificationImgDTO> arrayList = new ArrayList<>();
+            arrayList.add(imgDTO);
             System.out.println(imgDTO.getPath());
-            customerVerificationImgRepo.save(mapper.map(imgDTO,CustomerVarificationImg.class));
+//            repo.save(mapper.map(dto,Customer.class));
 
         }else {
             throw new RuntimeException("Customer Already Exist");

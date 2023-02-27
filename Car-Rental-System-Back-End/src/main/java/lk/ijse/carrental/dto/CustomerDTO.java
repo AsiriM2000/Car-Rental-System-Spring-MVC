@@ -16,5 +16,4 @@ public class CustomerDTO {
     private String license;
     private String contact;
     private String password;
-
 }

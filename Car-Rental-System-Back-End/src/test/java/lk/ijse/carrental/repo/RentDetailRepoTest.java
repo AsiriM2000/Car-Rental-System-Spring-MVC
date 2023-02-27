@@ -12,6 +12,8 @@ import org.springframework.test.context.web.WebAppConfiguration;
 
 import javax.transaction.Transactional;
 
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 @WebAppConfiguration
@@ -24,5 +26,7 @@ class RentDetailRepoTest {
 
     @Test
     public void test(){
+        List<RentDetail> all = repo.getAll();
+        System.out.println(all.toString());
     }
 }

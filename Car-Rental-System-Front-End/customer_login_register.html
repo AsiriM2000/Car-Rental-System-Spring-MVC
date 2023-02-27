@@ -274,7 +274,7 @@
     $("#signupBtn").click(function () {
         var formData = $("#signUpForm").serialize();
         let nicNum = $("#nicNum").val();
-        uploadNicImage(nicNum);
+        uploadNicImage(formData);
         $.ajax({
             url: baseUrl + "customer",
             method: "post",
@@ -291,14 +291,14 @@
         });
     });
 
-    function uploadNicImage(nicNum) {
+    function uploadNicImage(formData) {
         var data = new FormData();
         let file = $("#nicImg")[0].files[0];
         let fileName = $("#nicImg")[0].files[0].name;
-        data.append("myFile", file, fileName);
+        data.append("myFile",file, fileName);
 
         $.ajax({
-            url: baseUrl + "customer/upload/" + nicNum,
+            url: baseUrl + "customer/upload/"+formData,
             method: 'post',
             async: true,
             contentType: false,

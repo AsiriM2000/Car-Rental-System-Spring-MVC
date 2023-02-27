@@ -155,6 +155,7 @@
         </div>
     </nav>
 </header>
+
 <main id="rentCarMain">
     <section class="customer-head"></section>
     <div class="col-lg-12 mt-lg-0 mt-3">
@@ -191,41 +192,45 @@
                             <button class="btn btn-success" id="allCar" type="button">All Cars
                             </button>
                         </div>
-
-                        <section class="item-table">
-                            <div class="col-md-12 mt-4" div style="height:430px; overflow-y: scroll">
-                                <table class="table table-bordered">
-                                    <thead class="bg-danger text-white">
-                                    <tr>
-                                        <th style="width: 200px">Car Name</th>
-                                        <th style="width: 200px">Reg Number</th>
-                                        <th style="width: 70px">Brand</th>
-                                        <th style="width: 70px">Type</th>
-                                        <th style="width: 200px">Passenger</th>
-                                        <th style="width: 200px">Transmission</th>
-                                        <th style="width: 200px">Fuel Type</th>
-                                        <th style="width: 200px">Daily Rate</th>
-                                        <th style="width: 200px">Monthly Rate</th>
-                                        <th style="width: 200px">Mileage Price</th>
-                                        <th style="width: 200px">Extra PriceKM</th>
-                                        <th style="width: 200px">Loss Damage</th>
-                                        <th style="width: 70px">Color</th>
-                                        <th style="width: 30px">Available</th>
-                                        <th style="width: 200px">Action</th>
-                                    </tr>
-                                    </thead>
-                                    <tbody id="tblCar">
-
-                                    </tbody>
-                                </table>
-                            </div>
-                        </section>
                     </div>
                 </form>
             </div>
         </div>
     </div>
 </main>
+<div class="right">
+        <div class="split right">
+            <section class="item-table">
+                <div class="col-md-12 mt-4" div style="height:430px; overflow-y: scroll">
+                    <table class="table table-bordered">
+                        <thead class="bg-danger text-white">
+                        <tr>
+                            <th style="width: 200px">Car Name</th>
+                            <th style="width: 200px">Reg Number</th>
+                            <th style="width: 70px">Brand</th>
+                            <th style="width: 70px">Type</th>
+                            <th style="width: 200px">Passenger</th>
+                            <th style="width: 200px">Transmission</th>
+                            <th style="width: 200px">Fuel Type</th>
+                            <th style="width: 200px">Daily Rate</th>
+                            <th style="width: 200px">Monthly Rate</th>
+                            <th style="width: 200px">Mileage Price</th>
+                            <th style="width: 200px">Extra PriceKM</th>
+                            <th style="width: 200px">Loss Damage</th>
+                            <th style="width: 70px">Color</th>
+                            <th style="width: 30px">Available</th>
+                            <th style="width: 200px">Action</th>
+                        </tr>
+                        </thead>
+                        <tbody id="tblCar">
+
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+        </div>
+</div>
+
 
 <div class="modal" id="id01">
     <form class="modal-content animate" id="profileData">
@@ -260,26 +265,68 @@
         </div>
     </form>
 </div>
-
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/jquery-3.6.1.min.js"></script>
 <script src="../assets/js/util/DashBoardControllerUser.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.5/jquery.validate.min.js"
         type="text/javascript"></script>
 <script>
+    let baseUrl = "http://localhost:8081/Car_Rental_System_Back_End_war/";
+
+    // var cueData={
+    //     persons:[
+    //     ],
+    //     nextPerson:function(){
+    //         var lastPerson= this.persons.pop();
+    //         this.persons.unshift(lastPerson);
+    //     }
+    // }
+
+    // renderDivs();
+    // function renderDivs(){
+    //     $("#container").empty();
+    //     $.ajax({
+    //         url: baseUrl + "car",
+    //         dataType: "json",
+    //         success: function (resp) {
+    //             for (let car of resp.data) {
+    //                 var row = '<div><div>Car Name: ' + car.carName + '</div><div>Register Number: ' + car.regNumber + '</div><div>Brand: ' + car.brand + '</div><div>Type: ' + car.type + '</div><div>No Of Passenger: ' + car.noOfPassenger + '</div><div>Transmission: ' + car.transmission + '</div><div>Fuel Type: ' + car.fuelType + '</div><div>Daily Rate: ' + car.dailyRate + '</div><div> Monthly Rate: ' + car.monthlyRate + '</div><div>Free Mileage Price' + car.freePrice + '</div><div>Extra Price KM: ' + car.extraPrice + '</div><div>Loss Damage: ' + car.losDamage + '</div><div>COlor: ' + car.color + '</div><div>Available: ' + car.available + '</div><div><button class="rentNow" id="rent" type="button">Add To Cart</button></div></div>';
+    //                 $("#container").append(row);
+    //             }
+    //         }
+    //     });
+    //     cueData.nextPerson();
+    // }
+    //
     var modal = document.getElementById('id01');
     window.onclick = function (event) {
         if (event.target == modal) {
             modal.style.display = "none";
         }
     }
-    let baseUrl = "http://localhost:8081/Car_Rental_System_Back_End_war/";
 
+
+    all();
     loadAllCarName();
     loadAllCarBrand();
     loadAllCarType();
 
     $("#allCar").click(function () {
+        $("#tblCar").empty();
+        $.ajax({
+            url: baseUrl + "car",
+            dataType: "json",
+            success: function (resp) {
+                for (let car of resp.data) {
+                    var row = '<tr><td>' + car.carName + '</td><td>' + car.regNumber + '</td><td>' + car.brand + '</td><td>' + car.type + '</td><td>' + car.noOfPassenger + '</td><td>' + car.transmission + '</td><td>' + car.fuelType + '</td><td>' + car.dailyRate + '</td><td>' + car.freePrice + '</td><td>' + car.extraPrice + '</td><td>' + car.losDamage + '</td><td>' + car.losDamage + '</td><td>' + car.color + '</td><td>' + car.available +'</td><td><button class="rentNow" type="button">Add To Cart</button></td></tr>';
+                    $("#tblCar").append(row);
+                }
+                addToCart();
+            }
+        });
+    });
+
+    function all(){
         $("#tblCar").empty();
         $.ajax({
             url: baseUrl + "car",
@@ -292,7 +339,7 @@
                 addToCart();
             }
         });
-    });
+    }
 
     function loadAllCarName() {
         $("#selectCarName").empty();
@@ -404,7 +451,6 @@
             });
                 localStorage.setItem("myValue", JSON.stringify(array));
                 window.location.href="../pages/checkout.html";
-
         });
     }
 

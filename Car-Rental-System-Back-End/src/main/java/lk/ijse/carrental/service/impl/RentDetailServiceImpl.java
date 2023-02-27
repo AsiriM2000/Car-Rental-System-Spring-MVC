@@ -1,5 +1,7 @@
 package lk.ijse.carrental.service.impl;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lk.ijse.carrental.dto.CarDTO;
 import lk.ijse.carrental.dto.CustomerDTO;
 import lk.ijse.carrental.dto.RentDetailDTO;
 import lk.ijse.carrental.entity.Car;
@@ -27,7 +29,7 @@ public class RentDetailServiceImpl implements RentDetailService {
 
     @Override
     public void saveRentalDetail(RentDetailDTO dto) {
-        if (repo.existsById(dto.getRentId())&&repo.existsById(dto.getRegNumber())){
+        if (repo.existsById(dto.getRentId())){
             throw new RuntimeException("Rent "+dto.getRentId()+" Already Exist...!");
         }
         repo.save(mapper.map(dto, RentDetail.class));
@@ -43,13 +45,8 @@ public class RentDetailServiceImpl implements RentDetailService {
     }
 
     @Override
-    public ArrayList<RentDetailDTO> getAllRentalDetail() {
-        return mapper.map(repo.findAll(),new TypeToken<ArrayList<RentDetailDTO>>(){}.getType());
-    }
-
-    @Override
-    public RentDetailDTO searchRentDetail(String rentId) {
-        return mapper.map(repo.findByRentId(rentId),RentDetailDTO.class);
+    public ArrayList<RentDetailDTO> getAllRentDetail() {
+        return mapper.map(repo.getAll(),new TypeToken<ArrayList<RentDetailDTO>>(){}.getType());
     }
 
     @Override

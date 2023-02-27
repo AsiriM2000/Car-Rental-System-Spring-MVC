@@ -1,379 +1,472 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <!-- Document Title
-   ============================================= -->
-  <title>CheckOut</title>
+    <!-- Document Title
+     ============================================= -->
+    <title>CheckOut</title>
 
-  <!-- Stylesheets
-   ============================================= -->
-  <link href="../assets/fonts/css/all.min.css" rel="stylesheet">
-  <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Stylesheets
+     ============================================= -->
+    <link href="../assets/fonts/css/all.min.css" rel="stylesheet">
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
 
-  <!-- Meta tags
-    ============================================= -->
-  <meta charset="UTF-8">
-  <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
-        name="viewport">
+    <!-- Meta tags
+      ============================================= -->
+    <meta charset="UTF-8">
+    <meta content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+          name="viewport">
 
-  <style>
-    #back{
-      background-color: #4CAF50;
-      border: none;
-      color: white;
-      padding: 12px 40px;
-      text-align: center;
-      text-decoration: none;
-      display: inline-block;
-      font-size: 14px;
-      margin: 4px 2px;
-      cursor: pointer;
-      border-radius: 30px;
-    }
-    .split {
-      height: 100%;
-      width: 50%;
-      position: fixed;
-      z-index: 1;
-      margin-top: 0px;
-      overflow-x: hidden;
-      padding-top: 20px;
-    }
-    .left {
-      left: 0;
-      background-color: #ffffff;
-    }
-    .right {
-      right: 0;
-      background-color: #ffffff;
-    }
+    <style>
+        #back {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 12px 40px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 14px;
+            margin: 4px 2px;
+            cursor: pointer;
+            border-radius: 30px;
+        }
 
-  </style>
+        .split {
+            height: 100%;
+            width: 50%;
+            position: fixed;
+            z-index: 1;
+            margin-top: 0px;
+            overflow-x: hidden;
+            padding-top: 20px;
+        }
+
+        .left {
+            left: 0;
+            background-color: #ffffff;
+        }
+
+        .right {
+            right: 0;
+            background-color: #ffffff;
+        }
+
+    </style>
 </head>
 <body>
 <header>
-  <nav class="navbar navbar-expand-lg bg-warning">
-    <div class="container-fluid">
-      <button aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"
-              class="navbar-toggler"
-              data-bs-target="#navbarNavDropdown" data-bs-toggle="collapse" type="button">
-        <span class="navbar-toggler-icon"></span>
-      </button>
+    <nav class="navbar navbar-expand-lg bg-warning">
+        <div class="container-fluid">
+            <button aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler"
+                    data-bs-target="#navbarNavDropdown" data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
 
-      <div class="collapse navbar-collapse" id="navbarNavDropdown">
-        <ul class="navbar-nav justify-content-center">
-          <li class="nav-item">
-            <button id="back" type="button" onclick="location.href='rentcar.html'">Back</button>
-          </li>
-        </ul>
-      </div>
-      <a class="navbar-brand" href="#">
-        <img alt="Logo" class="d-inline-block align-text-top" height="30"
-             src="../assets/img/login.png"
-             width="30">
-      </a>
-    </div>
-  </nav>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav justify-content-center">
+                    <li class="nav-item">
+                        <button id="back" onclick="location.href='rentcar.html'" type="button">Back</button>
+                    </li>
+                </ul>
+            </div>
+            <a class="navbar-brand" href="#">
+                <img alt="Logo" class="d-inline-block align-text-top" height="30"
+                     src="../assets/img/login.png"
+                     width="30">
+            </a>
+        </div>
+    </nav>
 </header>
 
 <div class="split left">
-  <section class="main-section">
-    <section class="customer-head"></section>
-    <div class="row order-detail">
-      <div class="col-lg-12 mt-lg-0 mt-3">
-        <div class="card">
-          <div class="card-body">
-            <form id="myForm">
-              <div class="row">
+    <section class="main-section">
+        <section class="customer-head"></section>
+        <div class="row order-detail">
+            <div class="col-lg-12 mt-lg-0 mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <form id="myForm">
+                            <div class="row">
 
-                <div class="col-6">
-                  <div class="form-group">
-                    <label>Car Name</label>
-                    <input class="form-control" id="carName" readonly type="text">
-                  </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Car Name</label>
+                                        <input class="form-control" id="carName" readonly type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Register Number</label>
+                                        <input class="form-control" id="regNumber" readonly type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Brand</label>
+                                        <input class="form-control" id="brand" readonly type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Type</label>
+                                        <input class="form-control" id="type" readonly type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>No Of Passenger</label>
+                                        <input class="form-control" id="noOfPassenger" readonly type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Transmission Type</label>
+                                        <input class="form-control" id="transmission" readonly type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Fuel Type</label>
+                                        <input class="form-control" id="fuelType" readonly type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Daily Rate</label>
+                                        <input class="form-control" id="dailyRate" readonly type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>Monthly Rate</label>
+                                        <input class="form-control" id="monthlyRate" readonly type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>Free Mileage For Price</label>
+                                        <input class="form-control" id="freePrice" readonly type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>Extra Price For KM</label>
+                                        <input class="form-control" id="extraPrice" readonly type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>Color</label>
+                                        <input class="form-control" id="color" readonly type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>Loss Damage For Price</label>
+                                        <input class="form-control" id="lossDamage" readonly type="text">
+                                    </div>
+                                </div>
+
+                                <div class="col-4">
+                                    <div class="form-group">
+                                        <label>Available</label>
+                                        <input class="form-control" id="available" readonly type="text">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-
-                <div class="col-6">
-                  <div class="form-group">
-                    <label>Register Number</label>
-                    <input class="form-control" id="regNumber" readonly type="text">
-                  </div>
-                </div>
-
-                <div class="col-6">
-                  <div class="form-group">
-                    <label>Brand</label>
-                    <input class="form-control" id="brand" readonly type="text">
-                  </div>
-                </div>
-
-                <div class="col-6">
-                  <div class="form-group">
-                    <label>Type</label>
-                    <input class="form-control" id="type" readonly type="text">
-                  </div>
-                </div>
-
-                <div class="col-6">
-                  <div class="form-group">
-                    <label>No Of Passenger</label>
-                    <input class="form-control" id="noOfPassenger" readonly type="text">
-                  </div>
-                </div>
-
-                <div class="col-6">
-                  <div class="form-group">
-                    <label>Transmission Type</label>
-                    <input class="form-control" id="transmission" readonly type="text">
-                  </div>
-                </div>
-
-                <div class="col-6">
-                  <div class="form-group">
-                    <label>Fuel Type</label>
-                    <input class="form-control" id="fuelType" readonly type="text">
-                  </div>
-                </div>
-
-                <div class="col-6">
-                  <div class="form-group">
-                    <label>Daily Rate</label>
-                    <input class="form-control" id="dailyRate" readonly type="text">
-                  </div>
-                </div>
-
-                <div class="col-4">
-                  <div class="form-group">
-                    <label>Monthly Rate</label>
-                    <input class="form-control" id="monthlyRate" readonly type="text">
-                  </div>
-                </div>
-
-                <div class="col-4">
-                  <div class="form-group">
-                    <label>Free Mileage For Price</label>
-                    <input class="form-control" id="freePrice" readonly type="text">
-                  </div>
-                </div>
-
-                <div class="col-4">
-                  <div class="form-group">
-                    <label>Extra Price For KM</label>
-                    <input class="form-control" id="extraPrice" readonly type="text">
-                  </div>
-                </div>
-
-                <div class="col-4">
-                  <div class="form-group">
-                    <label>Color</label>
-                    <input class="form-control" id="color" readonly type="text">
-                  </div>
-                </div>
-
-                <div class="col-4">
-                  <div class="form-group">
-                    <label>Loss Damage For Price</label>
-                    <input class="form-control" id="lossDamage" readonly type="text">
-                  </div>
-                </div>
-
-                <div class="col-4">
-                  <div class="form-group">
-                    <label>Available</label>
-                    <input class="form-control" id="available" readonly type="text">
-                  </div>
-                </div>
-
-              </div>
-            </form>
-          </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
-
+    </section>
 </div>
 
 <div class="split right">
-  <section class="main-section">
-    <section class="customer-head"></section>
+    <section class="main-section">
+        <section class="customer-head"></section>
+        <div class="row order-detail">
+            <div class="col-lg-12 mt-lg-0 mt-3">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Email</label>
+                                    <input class="form-control" id="emailRent" type="text">
+                                </div>
+                            </div>
 
-    <div class="row order-detail">
-      <div class="col-lg-12 mt-lg-0 mt-3">
-        <div class="card">
-          <div class="card-body">
-              <div class="row">
-                <div class="col-6">
-                  <div class="form-group">
-                    <label>Email</label>
-                    <input class="form-control" id="emailRent" type="text">
-                  </div>
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Rent Id</label>
+                                    <input class="form-control" id="rentId" type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Date</label>
+                                    <input class="form-control" id="rentDate" type="date">
+                                </div>
+                            </div>
+
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>PickUp-Date</label>
+                                    <input class="form-control" id="pickUpDate" type="date">
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <div class="form-group">
+                                    <label>Return-Date</label>
+                                    <input class="form-control" id="returnDate" type="date">
+                                </div>
+                            </div>
+
+                            <div class="col-6">
+                                <label>Upload Bank Slip</label>
+                                <div class="form-group">
+                                    <input id="bankSlip" name="bankSlip" type="file">
+                                </div>
+                            </div>
+
+                            <div class="col-4 mt-4">
+                                <button class="btn btn-success" id="rentCar" type="button">
+                                    Rent Car
+                                </button>
+                            </div>
+                            <div class="col-4 mt-4">
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                            </div>
+                            <div class="col-4 mt-4">
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                                <br>
+                            </div>
+                                <p></p>
+                        </div>
+                    </div>
                 </div>
-
-                <div class="col-6">
-                  <div class="form-group">
-                    <label>Rent Id</label>
-                    <input class="form-control" id="rentId" type="text">
-                  </div>
-                </div>
-
-                <div class="col-6">
-                  <div class="form-group">
-                    <label>Date</label>
-                    <input class="form-control" id="rentDate" type="date">
-                  </div>
-                </div>
-
-
-                <div class="col-6">
-                  <div class="form-group">
-                    <label>PickUp-Date</label>
-                    <input class="form-control" id="pickUpDate" type="date">
-                  </div>
-                </div>
-
-                <div class="col-6">
-                  <div class="form-group">
-                    <label>Return-Date</label>
-                    <input class="form-control" id="returnDate" type="date">
-                  </div>
-                </div>
-
-                <div class="col-6">
-                  <label>Upload Bank Slip</label>
-                  <div class="form-group">
-                    <input type="file" id="myFile" name="filename">
-                  </div>
-                </div>
-
-                <div class="col-4 mt-4">
-                  <button class="btn btn-success" id="rentCar" type="button">
-                    Rent Car
-                  </button>
-                </div>
-              </div>
-          </div>
+            </div>
         </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
 </div>
+
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/jquery-3.6.1.min.js"></script>
 <script>
-  var a = localStorage.getItem("myValue");
-  let parse = JSON.parse(a);
-  for (var i =0;i<parse.length;i++){
-    let carName = parse[i].carName;
-    let regNumber = parse[i].regNumber;
-    let brand = parse[i].brand;
-    let type = parse[i].type;
-    let passenger = parse[i].passenger;
-    let transmission = parse[i].trans;
-    let fuelType = parse[i].fuel;
-    let dailyRate = parse[i].dailyRate;
-    let monthlyRate = parse[i].monthlyRate;
-    let mileage = parse[i].mileage;
-    let extra = parse[i].extra;
-    let color = parse[i].color;
-    let lossDamage = parse[i].lossDamage;
-    let available = parse[i].available;
+    let baseUrl = "http://localhost:8081/Car_Rental_System_Back_End_war/";
 
-    $("#carName").val(carName);
-    $("#regNumber").val(regNumber);
-    $("#brand").val(brand);
-    $("#type").val(type);
-    $("#noOfPassenger").val(passenger);
-    $("#transmission").val(transmission);
-    $("#fuelType").val(fuelType);
-    $("#dailyRate").val(dailyRate);
-    $("#monthlyRate").val(monthlyRate);
-    $("#freePrice").val(mileage);
-    $("#extraPrice").val(extra);
-    $("#color").val(color);
-    $("#lossDamage").val(lossDamage);
-    $("#available").val(available);
-  }
+    var a = localStorage.getItem("myValue");
+    let parse = JSON.parse(a);
+    for (var i = 0; i < parse.length; i++) {
+        let carName = parse[i].carName;
+        let regNumber = parse[i].regNumber;
+        let brand = parse[i].brand;
+        let type = parse[i].type;
+        let passenger = parse[i].passenger;
+        let transmission = parse[i].trans;
+        let fuelType = parse[i].fuel;
+        let dailyRate = parse[i].dailyRate;
+        let monthlyRate = parse[i].monthlyRate;
+        let mileage = parse[i].mileage;
+        let extra = parse[i].extra;
+        let color = parse[i].color;
+        let lossDamage = parse[i].lossDamage;
+        let available = parse[i].available;
 
-  $("#rentCar").click(function () {
-
-    if ($("#emailRent").val() == "") {
-      alert("Please Enter Email!");
+        $("#carName").val(carName);
+        $("#regNumber").val(regNumber);
+        $("#brand").val(brand);
+        $("#type").val(type);
+        $("#noOfPassenger").val(passenger);
+        $("#transmission").val(transmission);
+        $("#fuelType").val(fuelType);
+        $("#dailyRate").val(dailyRate);
+        $("#monthlyRate").val(monthlyRate);
+        $("#freePrice").val(mileage);
+        $("#extraPrice").val(extra);
+        $("#color").val(color);
+        $("#lossDamage").val(lossDamage);
+        $("#available").val(available);
     }
-    if ($("#rentId").val() == "") {
-      alert("Please Enter Rent ID!");
+
+    $("#rentCar").click(function () {
+
+        if ($("#emailRent").val() == "") {
+            alert("Please Enter Email!");
+        }
+        if ($("#rentId").val() == "") {
+            alert("Please Enter Rent ID!");
+        }
+        if ($("#rentDate").val() == "") {
+            alert("Please Enter Date!")
+        }
+        if ($("#pickUpDate").val() == "") {
+            alert("Please Enter PickUp Date!")
+        }
+        if ($("#returnDate").val() == "") {
+            alert("Please Enter Return Date!")
+        }
+        if ($("#available").val() == "No") {
+            alert("Car Is Not Available.Please Choose Another Car!")
+        } else {
+            let email = $("#emailRent").val();
+            let rentId = $("#rentId").val();
+            let rentDate = $("#rentDate").val();
+            let regNumber = $("#regNumber").val();
+            let pickUpDate = $("#pickUpDate").val();
+            let returnDate = $("#returnDate").val();
+
+
+            var rentDetail = {
+                email: email,
+                rentId: rentId,
+                date: rentDate,
+                regNumber: regNumber,
+                pickUpDate: pickUpDate,
+                returnDate: returnDate,
+                status: "Pending"
+            }
+
+            console.log(rentDetail)
+            $.ajax({
+                url: baseUrl + "rent",
+                method: "post",
+                dataType: "json",
+                contentType: "application/json",
+                data: JSON.stringify(rentDetail),
+                success: function (resp) {
+                    alert(resp.message);
+                    carSet();
+                    bankSlip();
+                    clearData("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+                },
+                error: function (error) {
+                    alert(JSON.parse(error.responseText).message);
+                }
+            });
+            console.log(rentDetail)
+        }
+    });
+
+    function bankSlip() {
+        var data = new FormData();
+        let file = $("#bankSlip")[0].files[0];
+        let fileName = $("#bankSlip")[0].files[0].name;
+        data.append("bankSlip", file, fileName);
+
+        $.ajax({
+            url: baseUrl + "rent/file",
+            method: 'post',
+            async: true,
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (resp) {
+                alert("Successfully Uploaded");
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
     }
-    if ($("#rentDate").val() == "") {
-      alert("Please Enter Date!")
+
+    function clearData(name, email, id, name, car, reg, brand, type, passenger, trans, fuel, daily, monthly, freePrice, extraPrice, color, date, ava) {
+        $("#carName").val(name);
+        $("#emailRent").val(email);
+        $("#rentId").val(id);
+        $("#selectCar").val(car);
+        $("#rentDate").val(name);
+        $("#regNumber").val(reg);
+        $("#brand").val(brand);
+        $("#type").val(type);
+        $("#noOfPassenger").val(passenger);
+        $("#transmission").val(trans);
+        $("#fuelType").val(fuel);
+        $("#dailyRate").val(daily);
+        $("#monthlyRate").val(monthly);
+        $("#freePrice").val(freePrice);
+        $("#extraPrice").val(extraPrice);
+        $("#color").val(color);
+        $("#pickUpDate").val(date);
+        $("#returnDate").val(date);
+        $("#available").val(ava);
+        $("#lossDamage").val(ava);
     }
-    if ($("#pickUpDate").val() == "") {
-      alert("Please Enter PickUp Date!")
+
+    function carSet() {
+        let carName = $("#carName").val();
+        let regNumber = $("#regNumber").val();
+        let brand = $("#brand").val();
+        let type = $("#type").val();
+        let passenger = $("#noOfPassenger").val();
+        let trans = $("#transmission").val();
+        let fuel = $("#fuelType").val();
+        let dailyRate = $("#dailyRate").val();
+        let monthlyRate = $("#monthlyRate").val();
+        let freePrice = $("#freePrice").val();
+        let extraPrice = $("#extraPrice").val();
+        let color = $("#color").val();
+        let lossDamage = $("#lossDamage").val();
+
+        var car = {
+            carName: carName,
+            regNumber: regNumber,
+            brand: brand,
+            type: type,
+            noOfPassenger: passenger,
+            transmission: trans,
+            fuelType: fuel,
+            dailyRate: dailyRate,
+            monthlyRate: monthlyRate,
+            freePrice: freePrice,
+            extraPrice: extraPrice,
+            color: color,
+            losDamage: lossDamage,
+            available: "No"
+        }
+
+        $.ajax({
+            url: baseUrl + "car",
+            method: "put",
+            contentType: "application/json",
+            data: JSON.stringify(car),
+            dataType: "json",
+            success: function (resp) {
+                alert(resp.message);
+                loadAllCar();
+            },
+            error: function (error) {
+                alert(JSON.parse(error.responseText).message);
+            }
+        });
+
     }
-    if ($("#returnDate").val() == "") {
-      alert("Please Enter Return Date!")
-    }if ($("#available").val() == "No"){
-      alert("Car Is Not Available.Please Choose Another Car!")
-    }else {
-      let email = $("#emailRent").val();
-      let rentId = $("#rentId").val();
-      let rentDate = $("#rentDate").val();
-      let regNumber = $("#regNumber").val();
-      let pickUpDate = $("#pickUpDate").val();
-      let returnDate = $("#returnDate").val();
 
-
-      var rentDetail = {
-        email: email,
-        rentId: rentId,
-        date: rentDate,
-        regNumber: regNumber,
-        pickUpDate: pickUpDate,
-        returnDate: returnDate,
-        status: "Pending"
-      }
-
-      // console.log(rentDetail)
-      // $.ajax({
-      //   url: baseUrl + "rent",
-      //   method: "post",
-      //   dataType: "json",
-      //   contentType: "application/json",
-      //   data: JSON.stringify(rentDetail),
-      //   success: function (resp) {
-      //     alert(resp.message);
-      // clearData("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
-      //   },
-      //   error: function (error) {
-      //     alert(JSON.parse(error.responseText).message);
-      //   }
-      // });
-
-    }
-  });
-
-  function clearData(name,email, id, name, car, reg, brand, type, passenger, trans, fuel, daily, monthly, freePrice, extraPrice, color, date, ava) {
-    $("#carName").val(name);
-    $("#emailRent").val(email);
-    $("#rentId").val(id);
-    $("#selectCar").val(car);
-    $("#rentDate").val(name);
-    $("#regNumber").val(reg);
-    $("#brand").val(brand);
-    $("#type").val(type);
-    $("#noOfPassenger").val(passenger);
-    $("#transmission").val(trans);
-    $("#fuelType").val(fuel);
-    $("#dailyRate").val(daily);
-    $("#monthlyRate").val(monthly);
-    $("#freePrice").val(freePrice);
-    $("#extraPrice").val(extraPrice);
-    $("#color").val(color);
-    $("#pickUpDate").val(date);
-    $("#returnDate").val(date);
-    $("#available").val(ava);
-    $("#lossDamage").val(ava);
-  }
 </script>
 </body>
 </html>

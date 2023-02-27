@@ -10,6 +10,6 @@ import lombok.ToString;
 @Data
 @ToString
 public class CustomerVerificationImgDTO {
-    private String nicNum;
+    private String imgId;
     private String path;
 }
