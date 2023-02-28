@@ -678,20 +678,20 @@
      ============================================= -->
 <main class="container-fluid" id="orderDetailContent">
     <section class="row">
-        <div class="col-4">
+        <div class="col-3">
             <div class="mb-2">
                 <label class="form-label" for="rentEmail">Customer Email</label>
-                <input class="form-control" id="rentEmail" multiple name="rentEmail" type="text" readonly>
+                <input class="form-control" id="rentEmail" multiple name="rentEmail" readonly type="text">
             </div>
 
             <div class="mb-2">
                 <label class="form-label" for="rentId">Rent ID</label>
-                <input class="form-control" id="rentId" multiple name="rentId" type="text" readonly>
+                <input class="form-control" id="rentId" multiple name="rentId" readonly type="text">
             </div>
 
             <div class="mb-2">
                 <label class="form-label" for="regNumberR">Register Number</label>
-                <input class="form-control" id="regNumberR" name="regNumberR" type="text" readonly>
+                <input class="form-control" id="regNumberR" name="regNumberR" readonly type="text">
             </div>
 
             <div class="mb-2">
@@ -841,9 +841,11 @@
 
     let baseUrl = "http://localhost:8081/Car_Rental_System_Back_End_war/";
 
+
     loadAll();
     loadAllCar();
     loadAllDriver();
+    loadDriverName();
     loadAllCust();
     loadStatus();
     loadAllPayment();
@@ -1059,7 +1061,7 @@
             dataType: "json",
             success: function (resp) {
                 for (let car of resp.data) {
-                    var row = '<tr><td>' + car.carName + '</td><td>' + car.regNumber + '</td><td>' + car.brand + '</td><td>' + car.type + '</td><td>' + car.noOfPassenger + '</td><td>' + car.transmission + '</td><td>' + car.fuelType + '</td><td>' + car.dailyRate + '</td><td>' + car.monthlyRate + '</td><td>' + car.freePrice + '</td><td>' + car.extraPrice + '</td><td>' + car.color+ '</td><td>' + car.losDamage  + '</td><td>' + car.available + '</td></tr>';
+                    var row = '<tr><td>' + car.carName + '</td><td>' + car.regNumber + '</td><td>' + car.brand + '</td><td>' + car.type + '</td><td>' + car.noOfPassenger + '</td><td>' + car.transmission + '</td><td>' + car.fuelType + '</td><td>' + car.dailyRate + '</td><td>' + car.monthlyRate + '</td><td>' + car.freePrice + '</td><td>' + car.extraPrice + '</td><td>' + car.color + '</td><td>' + car.losDamage + '</td><td>' + car.available + '</td></tr>';
                     $("#tblCar").append(row);
                 }
 
@@ -1234,20 +1236,20 @@
             url: baseUrl + "rent/rentDetail",
             dataType: "json",
             success: function (resp) {
-                    for (var i=0;i<resp.data.length;i++){
-                        let email = resp.data[i].email.email;
-                        let rentId = resp.data[i].rentId;
-                        let regNumber = resp.data[i].regNumber.regNumber;
-                        let date = resp.data[i].date;
-                        let pickUpDate = resp.data[i].pickUpDate;
-                        let returnDate = resp.data[i].returnDate;
-                        let status = resp.data[i].status;
-                        let driveStatus = resp.data[i].driveStatus;
+                for (var i = 0; i < resp.data.length; i++) {
+                    let email = resp.data[i].email.email;
+                    let rentId = resp.data[i].rentId;
+                    let regNumber = resp.data[i].regNumber.regNumber;
+                    let date = resp.data[i].date;
+                    let pickUpDate = resp.data[i].pickUpDate;
+                    let returnDate = resp.data[i].returnDate;
+                    let status = resp.data[i].status;
+                    let driveStatus = resp.data[i].driveStatus;
 
-                        var row = '<tr><td>' + email + '</td><td>' + rentId + '</td><td>' + regNumber + '</td><td>' + date + '</td><td>' + pickUpDate + '</td><td>' + returnDate + '</td><td>' + status + '</td><td>' + driveStatus +'</td></tr>';
-                        $("#tblTransaction").append(row);
+                    var row = '<tr><td>' + email + '</td><td>' + rentId + '</td><td>' + regNumber + '</td><td>' + date + '</td><td>' + pickUpDate + '</td><td>' + returnDate + '</td><td>' + status + '</td><td>' + driveStatus + '</td></tr>';
+                    $("#tblTransaction").append(row);
 
-                    }
+                }
                 bind();
             }
 
@@ -1278,7 +1280,7 @@
         });
     }
 
-    $("#acceptRent").click(function (){
+    $("#acceptRent").click(function () {
         let email = $("#rentEmail").val();
         let rentId = $("#rentId").val();
         let rentDate = $("#date").val();
@@ -1286,6 +1288,7 @@
         let pickUpDate = $("#pickUpDate").val();
         let returnDate = $("#returnDate").val();
         let driverStatus = $("#driveStatus").val();
+        let driverEmail = $("#selectDriver").val();
 
         var stat = {
             email: email,
@@ -1295,7 +1298,8 @@
             pickUpDate: pickUpDate,
             returnDate: returnDate,
             status: "Accept",
-            driveStatus: driverStatus
+            driveStatus: driverStatus,
+            driverEmail: driverEmail
         }
 
         $.ajax({
@@ -1307,6 +1311,7 @@
             success: function (resp) {
                 alert(resp.message);
                 rentDetail();
+                setData();
             },
             error: function (error) {
                 alert(JSON.parse(error.responseText).message);
@@ -1314,6 +1319,53 @@
         });
         console.log(stat)
     });
+
+    $("#selectDriver").change(function () {
+        let driverEmail = $("#selectDriver").val();
+        $.ajax({
+            url: baseUrl + "driver?driverEmail=" + driverEmail,
+            dataType: "json",
+            success: function (resp) {
+                for (let driver of resp.data) {
+                    let driverEmail = driver.driverEmail;
+                    let driverName = driver.driverName;
+                    let driverAddress = driver.driverAddress;
+                    let driverAge = driver.driverAge;
+                    let driverContact = driver.driverContact;
+
+                   updateDrivers(driverEmail, driverName, driverAddress, driverAge, driverContact);
+                }
+            }
+        });
+    });
+
+    var driver = [];
+    function updateDrivers(driverEmail, driverName, driverAddress, driverAge, driverContact) {
+         driver= {
+            driverEmail:driverEmail,
+            driverName:driverName,
+            driverAddress:driverAddress,
+            driverAge:driverAge,
+            driverContact:driverContact,
+            driverAvailable:"No"
+        }
+    }
+
+    function setData() {
+        $.ajax({
+            url: baseUrl+"driver",
+            method: "put",
+            contentType:"application/json",
+            dataType: "json",
+            data: JSON.stringify(driver),
+            success: function (resp){
+                alert(resp.message);
+            },
+            error: function (error){
+                alert(JSON.parse(error.responseText).message);
+            }
+        });
+    }
 
     function loadAllCust() {
         $("#txtCustomerEmail").empty();
@@ -1499,6 +1551,47 @@
         )
 
     }
+
+    function loadDriverName() {
+        $("#selectDriver").empty();
+        $("#selectDriver").prepend(`<option>--Select Driver--</option>`);
+        $.ajax({
+            url: baseUrl + "driver",
+            dataType: "json",
+            success: function (resp) {
+                for (var dri of resp.data) {
+                    $("#selectDriver").append(`<option>${dri.driverEmail}</option>`);
+                }
+            }
+        });
+    }
+
+    $("#selectDriver").change(function () {
+        let email = $("#selectDriver").val();
+        let res = searchDriver(email);
+        if (res.length > 0) {
+            $("#driverAvailable").val(res[0].driverAvailable);
+        }
+
+
+    });
+
+    function searchDriver(email) {
+        let response = "";
+        $.ajax({
+            url: baseUrl + "driver",
+            dataType: "json",
+            async: false,
+            success: function (resp) {
+                response = resp.data.filter((e) => {
+                    return e.driverEmail == email;
+                });
+
+            }
+        });
+        return response;
+    }
+
 </script>
 
 </body>

@@ -39,4 +39,10 @@ public class DriverController {
         ArrayList<DriverDTO> allDriver = service.getAllDriver();
         return new ResponseUtil("200","Success",allDriver);
     }
+
+    @GetMapping(params = "driverEmail")
+    public ResponseUtil searchDriverEmail(String driverEmail){
+        ArrayList<DriverDTO> driverDTOS = service.searchDriverEmail(driverEmail);
+        return new ResponseUtil("200","Success",driverDTOS);
+    }
 }
