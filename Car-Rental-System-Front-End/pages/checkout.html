@@ -217,7 +217,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>Rent Id</label>
-                                    <input class="form-control" id="rentId" type="text">
+                                    <input class="form-control" id="rentId" type="text" readonly>
                                 </div>
                             </div>
 
@@ -244,6 +244,14 @@
                             </div>
 
                             <div class="col-6">
+                                <div class="form-group">
+                                    <label>Drive Method</label>
+                                    <select class="form-select" id="selectMethod">
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-6">
                                 <label>Upload Bank Slip</label>
                                 <div class="form-group">
                                     <input id="bankSlip" name="bankSlip" type="file">
@@ -261,15 +269,6 @@
                                 <br>
                                 <br>
                             </div>
-                            <div class="col-4 mt-4">
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                                <br>
-                            </div>
-                                <p></p>
                         </div>
                     </div>
                 </div>
@@ -283,6 +282,26 @@
 <script src="../assets/js/jquery-3.6.1.min.js"></script>
 <script>
     let baseUrl = "http://localhost:8081/Car_Rental_System_Back_End_war/";
+
+    generateRentId();
+    loadAllDriveMethod();
+
+    function loadAllDriveMethod() {
+        $("#selectMethod").empty();
+        $("#selectMethod").prepend(`<option>--Select Drive Method--</option>`);
+        $("#selectMethod").append(`<option>Self Drive</option><option>Driver</option>`);
+    }
+
+    function generateRentId(){
+        $("#rentId").empty();
+        $.ajax({
+            url: baseUrl+"rent/generateRentId",
+            dataType: "json",
+            success: function (resp){
+                    $("#rentId").val(resp.data);
+            }
+        });
+    }
 
     var a = localStorage.getItem("myValue");
     let parse = JSON.parse(a);
@@ -344,7 +363,8 @@
             let regNumber = $("#regNumber").val();
             let pickUpDate = $("#pickUpDate").val();
             let returnDate = $("#returnDate").val();
-
+            let driverStatus = $("#selectMethod").val();
+            console.log(driverStatus)
 
             var rentDetail = {
                 email: email,
@@ -353,7 +373,8 @@
                 regNumber: regNumber,
                 pickUpDate: pickUpDate,
                 returnDate: returnDate,
-                status: "Pending"
+                status: "Pending",
+                driveStatus: driverStatus
             }
 
             console.log(rentDetail)
@@ -366,15 +387,16 @@
                 success: function (resp) {
                     alert(resp.message);
                     carSet();
-                    bankSlip();
                     clearData("", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "", "");
+                    bankSlip();
                 },
                 error: function (error) {
                     alert(JSON.parse(error.responseText).message);
                 }
             });
-            console.log(rentDetail)
+
         }
+
     });
 
     function bankSlip() {
@@ -462,7 +484,6 @@
             dataType: "json",
             success: function (resp) {
                 alert(resp.message);
-                loadAllCar();
             },
             error: function (error) {
                 alert(JSON.parse(error.responseText).message);

@@ -53,4 +53,26 @@ public class RentDetailServiceImpl implements RentDetailService {
     public long count() {
         return repo.count();
     }
+
+    @Override
+    public String generateRentId() {
+        long count = repo.count();
+        String id = "R00-001";
+
+        if (count != 0) {
+            String generateCustomerId = repo.generateRentId();
+            int tempId = Integer.parseInt(generateCustomerId.split("-")[1]);
+            tempId += 1;
+            if (tempId < 10) {
+                id = "R00-00" + tempId;
+            } else if (tempId < 100) {
+                id = "R00-0" + tempId;
+            } else if (tempId < 1000) {
+                id = "R00-" + tempId;
+            }
+        } else {
+            id = "R00-001";
+        }
+        return id;
+    }
 }

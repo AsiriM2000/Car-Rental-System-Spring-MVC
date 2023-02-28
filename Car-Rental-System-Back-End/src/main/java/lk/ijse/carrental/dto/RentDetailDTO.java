@@ -1,6 +1,5 @@
 package lk.ijse.carrental.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,4 +19,5 @@ public class RentDetailDTO {
     private String email;
     private String regNumber;
     private String driverEmail;
+    private String driveStatus;
 }

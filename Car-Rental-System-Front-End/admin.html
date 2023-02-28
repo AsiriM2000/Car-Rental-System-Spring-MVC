@@ -233,6 +233,10 @@
         #tblPayment tr {
             color: black;
         }
+
+        #tblTransaction tr {
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -266,10 +270,10 @@
                         <a class="nav-link" href="#" id="driver">Drivers</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="payment">Payment</a>
+                        <a class="nav-link" href="#" id="payment">Payments</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="#" id="order-Detail">Transaction Data</a>
+                        <a class="nav-link" href="#" id="order-Detail">Rentals</a>
                     </li>
                 </ul>
             </div>
@@ -440,7 +444,7 @@
                 <button class="btn btn-secondary add-cus" data-bs-target="#addDrivers" data-bs-toggle="modal"
                         type="button">
                     <img src="" width="20px">
-                    Add Driver
+                    Add Or Update Driver
                 </button>
                 <button class="btn btn-secondary" id="delete-driver" type="button">Delete Driver</button>
             </div>
@@ -456,6 +460,7 @@
                         <th style="width: 300px">Driver Address</th>
                         <th style="width: 300px">Driver Age</th>
                         <th style="width: 300px">Driver Contact</th>
+                        <th style="width: 300px">Driver Available</th>
                     </tr>
                     </thead>
                     <tbody id="tblDriver">
@@ -465,7 +470,6 @@
             </div>
         </section>
     </section>
-
     <!-- driver-form-save
    ============================================= -->
     <div aria-hidden="true" aria-labelledby="customerLabelEdit" class="modal fade" id="addDrivers" tabindex="-1">
@@ -501,6 +505,11 @@
                                 <input class="form-control" id="driverContact" name="driverContact" type="text">
                             </div>
 
+                            <div class="mb-3">
+                                <label class="form-label" for="dAvailable">Driver Available</label>
+                                <input class="form-control" id="dAvailable" name="driverAvailable" type="text">
+                            </div>
+
 
                             <div aria-label="Basic mixed styles example" class="btn-group" role="group">
                                 <button class="btn btn-success save-cus" id="saveDriver" type="button">Save</button>
@@ -534,7 +543,7 @@
                 <button class="btn btn-secondary add-cus" data-bs-target="#saveItems" data-bs-toggle="modal"
                         type="button">
                     <img src="" width="20px">
-                    Add Car
+                    Add Or Update Car
                 </button>
                 <button class="btn btn-secondary" id="delete-car" type="button">Delete Car</button>
             </div>
@@ -558,6 +567,8 @@
                         <th>Free Mileage For Price</th>
                         <th>Extra Price For KM</th>
                         <th>Color</th>
+                        <th>Loss Damage</th>
+                        <th>Available</th>
                     </tr>
                     </thead>
                     <tbody id="tblCar">
@@ -665,36 +676,86 @@
 
 <!-- rent-detail
      ============================================= -->
-<main id="orderDetailContent">
-    <section class="main-section">
-        <section class="item-head">
-            <ul class="breadcrumb">
-                <img src="assets/img/admin/report.png" width="35px">
-                <li><a href="#">Dashboard /</a></li>
-                <li class="active">Transaction Data</li>
-            </ul>
-        </section>
-
-        <section class="Order-Detail">
-            <div class="col-md-12 mt-4" div style="height:430px; overflow-y: scroll">
-                <table class="table table-bordered">
-                    <thead class="bg-danger text-white">
-                    <tr>
-                        <th style="width: 300px">Customer Email</th>
-                        <th style="width: 300px">Rent ID</th>
-                        <th style="width: 300px">Register Number</th>
-                        <th style="width: 300px">Date</th>
-                        <th style="width: 300px">PickUp Date</th>
-                        <th style="width: 300px">Return Date</th>
-                        <th style="width: 300px">Status</th>
-                    </tr>
-                    </thead>
-                    <tbody id="tblTransaction">
-
-                    </tbody>
-                </table>
+<main class="container-fluid" id="orderDetailContent">
+    <section class="row">
+        <div class="col-4">
+            <div class="mb-2">
+                <label class="form-label" for="rentEmail">Customer Email</label>
+                <input class="form-control" id="rentEmail" multiple name="rentEmail" type="text" readonly>
             </div>
-        </section>
+
+            <div class="mb-2">
+                <label class="form-label" for="rentId">Rent ID</label>
+                <input class="form-control" id="rentId" multiple name="rentId" type="text" readonly>
+            </div>
+
+            <div class="mb-2">
+                <label class="form-label" for="regNumberR">Register Number</label>
+                <input class="form-control" id="regNumberR" name="regNumberR" type="text" readonly>
+            </div>
+
+            <div class="mb-2">
+                <label class="form-label" for="date">Date</label>
+                <input class="form-control" id="date" name="date" type="date">
+            </div>
+
+            <div class="mb-2">
+                <label class="form-label" for="pickUpDate">PickUp Date</label>
+                <input class="form-control" id="pickUpDate" name="pickUpDate" type="date">
+            </div>
+
+            <div class="mb-2">
+                <label class="form-label" for="returnDate">PickUp Date</label>
+                <input class="form-control" id="returnDate" name="returnDate" type="date">
+            </div>
+
+            <div class="mb-2">
+                <label class="form-label" for="status">Status</label>
+                <input class="form-control" id="status" name="status" type="text">
+            </div>
+
+            <div class="mb-2">
+                <label class="form-label" for="driveStatus">Drive Status</label>
+                <input class="form-control" id="driveStatus" name="driveStatus" type="text">
+            </div>
+
+            <div class="mb-2">
+                <label class="form-label" for="selectDriver">Driver</label>
+                <select class="form-select" id="selectDriver">
+                </select>
+            </div>
+
+            <div class="mb-2">
+                <label class="form-label" for="driverAvailable">Driver Available</label>
+                <input class="form-control" id="driverAvailable" name="date" type="text">
+            </div>
+
+            <div aria-label="Basic mixed styles example" class="btn-group" role="group">
+                <button class="btn btn-primary save-cus" id="acceptRent" style="width: 200px" type="button">Accept
+                </button>
+                <button class="btn btn-danger delete-cus" id="deleteRent" style="width: 200px" type="button">
+                    Delete
+                </button>
+            </div>
+        </div>
+        <div class="col-8">
+            <table class="table table-bordered table-hover">
+                <thead class="bg-danger text-white">
+                <tr>
+                    <th style="width: 300px">Customer Email</th>
+                    <th style="width: 300px">Rent ID</th>
+                    <th style="width: 300px">Register Number</th>
+                    <th style="width: 300px">Date</th>
+                    <th style="width: 300px">PickUp Date</th>
+                    <th style="width: 300px">Return Date</th>
+                    <th style="width: 300px">Status</th>
+                    <th style="width: 300px">Drive Status</th>
+                </tr>
+                </thead>
+                <tbody id="tblTransaction">
+                </tbody>
+            </table>
+        </div>
     </section>
 </main>
 
@@ -857,7 +918,6 @@
         });
     });
 
-
     function bindRowClickEvents() {
         $("#tblCustomer>tr").click(function () {
             let email = $(this).children(":eq(0)").text();
@@ -999,7 +1059,7 @@
             dataType: "json",
             success: function (resp) {
                 for (let car of resp.data) {
-                    var row = '<tr><td>' + car.carName + '</td><td>' + car.regNumber + '</td><td>' + car.brand + '</td><td>' + car.type + '</td><td>' + car.noOfPassenger + '</td><td>' + car.transmission + '</td><td>' + car.fuelType + '</td><td>' + car.dailyRate + '</td><td>' + car.monthlyRate + '</td><td>' + car.freePrice + '</td><td>' + car.extraPrice + '</td><td>' + car.color + '</td></tr>';
+                    var row = '<tr><td>' + car.carName + '</td><td>' + car.regNumber + '</td><td>' + car.brand + '</td><td>' + car.type + '</td><td>' + car.noOfPassenger + '</td><td>' + car.transmission + '</td><td>' + car.fuelType + '</td><td>' + car.dailyRate + '</td><td>' + car.monthlyRate + '</td><td>' + car.freePrice + '</td><td>' + car.extraPrice + '</td><td>' + car.color+ '</td><td>' + car.losDamage  + '</td><td>' + car.available + '</td></tr>';
                     $("#tblCar").append(row);
                 }
 
@@ -1023,6 +1083,8 @@
             let freePrice = $(this).children(":eq(9)").text();
             let extraPrice = $(this).children(":eq(10)").text();
             let color = $(this).children(":eq(11)").text();
+            let lossDamage = $(this).children(":eq(12)").text();
+            let available = $(this).children(":eq(13)").text();
 
             $("#carName").val(carName);
             $("#regNumber").val(regNumber);
@@ -1036,6 +1098,8 @@
             $("#freePrice").val(freePrice);
             $("#extraPrice").val(extraPrice);
             $("#color").val(color);
+            $("#losDamage").val(lossDamage);
+            $("#available").val(available);
 
         });
     }
@@ -1077,13 +1141,15 @@
         let address = $("#driverAddress").val();
         let age = $("#driverAge").val();
         let contact = $("#driverContact").val();
+        let available = $("#dAvailable").val();
 
         var driver = {
             driverEmail: email,
             driverName: name,
             driverAddress: address,
             driverAge: age,
-            driverContact: contact
+            driverContact: contact,
+            driverAvailable: available
         }
 
         $.ajax({
@@ -1125,7 +1191,7 @@
             dataType: "json",
             success: function (resp) {
                 for (let driver of resp.data) {
-                    var row = '<tr><td>' + driver.driverEmail + '</td><td>' + driver.driverName + '</td><td>' + driver.driverAddress + '</td><td>' + driver.driverAge + '</td><td>' + driver.driverContact + '</td><tr>';
+                    var row = '<tr><td>' + driver.driverEmail + '</td><td>' + driver.driverName + '</td><td>' + driver.driverAddress + '</td><td>' + driver.driverAge + '</td><td>' + driver.driverContact + '</td><td>' + driver.driverAvailable + '</td><tr>';
                     $("#tblDriver").append(row);
                 }
                 bindRowClickEventsDriver();
@@ -1141,34 +1207,47 @@
             let driAddress = $(this).children(":eq(2)").text();
             let driAge = $(this).children(":eq(3)").text();
             let driContact = $(this).children(":eq(4)").text();
+            let driAvailable = $(this).children(":eq(5)").text();
 
             $("#driverEmail").val(driEmail);
             $("#driverName").val(driName);
             $("#driverAddress").val(driAddress);
             $("#driverAge").val(driAge);
             $("#driverContact").val(driContact);
+            $("#dAvailable").val(driAvailable);
 
         });
     }
 
-    function clearDriver(email, name, address, age, contact) {
+    function clearDriver(email, name, address, age, contact, available) {
         $("#driverEmail").val(email);
         $("#driverName").val(name);
         $("#driverAddress").val(address);
         $("#driverAge").val(age);
         $("#driverContact").val(contact);
+        $("#dAvailable").val(available);
     }
 
     function rentDetail() {
         $("#tblTransaction").empty();
         $.ajax({
-            url: baseUrl+"rent/rentDetail",
+            url: baseUrl + "rent/rentDetail",
             dataType: "json",
             success: function (resp) {
-                for (let d of resp.data) {
-                    var row = '<tr><td>' + d.email + '</td><td>' + d.rentId + '</td><td>' + d.regNumber + '</td><td>' + d.date + '</td><td>' + d.pickUpDate + '</td><td>' + d.returnDate + '</td><td><button class="acceptBtn" type="button">Accept</button></td></tr>';
-                    $("#tblTransaction").append(row);
-                }
+                    for (var i=0;i<resp.data.length;i++){
+                        let email = resp.data[i].email.email;
+                        let rentId = resp.data[i].rentId;
+                        let regNumber = resp.data[i].regNumber.regNumber;
+                        let date = resp.data[i].date;
+                        let pickUpDate = resp.data[i].pickUpDate;
+                        let returnDate = resp.data[i].returnDate;
+                        let status = resp.data[i].status;
+                        let driveStatus = resp.data[i].driveStatus;
+
+                        var row = '<tr><td>' + email + '</td><td>' + rentId + '</td><td>' + regNumber + '</td><td>' + date + '</td><td>' + pickUpDate + '</td><td>' + returnDate + '</td><td>' + status + '</td><td>' + driveStatus +'</td></tr>';
+                        $("#tblTransaction").append(row);
+
+                    }
                 bind();
             }
 
@@ -1185,33 +1264,56 @@
             let pickUpDate = $(this).children(":eq(4)").text();
             let returnDate = $(this).children(":eq(5)").text();
             let status = $(this).children(":eq(6)").text();
+            let driveStatus = $(this).children(":eq(7)").text();
 
-            var stat = {
-                email: email,
-                rentId: rentId,
-                date: rentDate,
-                regNumber: regNumber,
-                pickUpDate: pickUpDate,
-                returnDate: returnDate,
-                status: status
-            }
+            $("#rentEmail").val(email);
+            $("#rentId").val(rentId);
+            $("#regNumberR").val(regNumber);
+            $("#date").val(rentDate);
+            $("#pickUpDate").val(pickUpDate);
+            $("#returnDate").val(returnDate);
+            $("#status").val(status);
+            $("#driveStatus").val(driveStatus);
 
-            $.ajax({
-                url: baseUrl + "rent",
-                method: "put",
-                contentType: "application/json",
-                dataType: "json",
-                data: JSON.stringify(stat),
-                success: function (resp) {
-                    alert(resp.message);
-                },
-                error: function (error) {
-                    alert(JSON.parse(error.responseText).message);
-                }
-            });
-            console.log(stat)
         });
     }
+
+    $("#acceptRent").click(function (){
+        let email = $("#rentEmail").val();
+        let rentId = $("#rentId").val();
+        let rentDate = $("#date").val();
+        let regNumber = $("#regNumberR").val();
+        let pickUpDate = $("#pickUpDate").val();
+        let returnDate = $("#returnDate").val();
+        let driverStatus = $("#driveStatus").val();
+
+        var stat = {
+            email: email,
+            rentId: rentId,
+            date: rentDate,
+            regNumber: regNumber,
+            pickUpDate: pickUpDate,
+            returnDate: returnDate,
+            status: "Accept",
+            driveStatus: driverStatus
+        }
+
+        $.ajax({
+            url: baseUrl + "rent",
+            method: "put",
+            contentType: "application/json",
+            dataType: "json",
+            data: JSON.stringify(stat),
+            success: function (resp) {
+                alert(resp.message);
+                rentDetail();
+            },
+            error: function (error) {
+                alert(JSON.parse(error.responseText).message);
+            }
+        });
+        console.log(stat)
+    });
 
     function loadAllCust() {
         $("#txtCustomerEmail").empty();

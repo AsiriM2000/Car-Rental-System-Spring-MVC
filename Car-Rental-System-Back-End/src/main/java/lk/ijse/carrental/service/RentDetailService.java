@@ -9,4 +9,5 @@ public interface RentDetailService {
     void updateRentalDetail(RentDetailDTO dto);
     ArrayList<RentDetailDTO> getAllRentDetail();
     long count();
+    String generateRentId();
 }

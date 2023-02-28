@@ -126,7 +126,7 @@
             }
         }
         .item-table{
-            background-color: #858585;
+            background-color:white;
         }
         body{
             background-image: url("../assets/img/bk/blue-jeep-parking-public-zone.jpg");
@@ -147,12 +147,12 @@
             </button>
 
             <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                <ul class="navbar-nav justify-content-center">
-                    <li class="nav-item">
-                        <a aria-current="page" class="nav-link" href="#"
-                           id="home">Home</a>
-                    </li>
-                </ul>
+                <a class="navbar-brand" href="#">
+                    <img alt="Logo" class="d-inline-block align-text-top" height="30"
+                         onclick="location.href='../customer_login_register.html'"
+                         src="../assets/img/admin/shutdown.png"
+                         width="30">
+                </a>
             </div>
             <marquee direction="left">Easy Car Rental (Pvt) Ltd.Looking to Rent a Car.Rebut with 3 Easy steps.</marquee>
             <a class="navbar-brand" href="#">
@@ -208,10 +208,11 @@
         </div>
     </div>
 </main>
+
 <div class="right">
         <div class="split right">
             <section class="item-table">
-                <div class="col-md-12 mt-4" div style="height:430px; overflow-y: scroll">
+                <div class="col-md-12 mt-4" div style="height:380px; overflow-y: scroll">
                     <table class="table table-bordered">
                         <thead class="bg-danger text-white">
                         <tr>
@@ -240,7 +241,6 @@
             </section>
         </div>
 </div>
-
 
 <div class="modal" id="id01">
     <form class="modal-content animate" id="profileData">
@@ -275,6 +275,7 @@
         </div>
     </form>
 </div>
+
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/jquery-3.6.1.min.js"></script>
 <script src="../assets/js/util/DashBoardControllerUser.js"></script>
@@ -328,7 +329,7 @@
             dataType: "json",
             success: function (resp) {
                 for (let car of resp.data) {
-                    var row = '<tr><td>' + car.carName + '</td><td>' + car.regNumber + '</td><td>' + car.brand + '</td><td>' + car.type + '</td><td>' + car.noOfPassenger + '</td><td>' + car.transmission + '</td><td>' + car.fuelType + '</td><td>' + car.dailyRate + '</td><td>' + car.freePrice + '</td><td>' + car.extraPrice + '</td><td>' + car.losDamage + '</td><td>' + car.losDamage + '</td><td>' + car.color + '</td><td>' + car.available +'</td><td><button class="rentNow" type="button">Add To Cart</button></td></tr>';
+                    var row = '<tr><td>' + car.carName + '</td><td>' + car.regNumber + '</td><td>' + car.brand + '</td><td>' + car.type + '</td><td>' + car.noOfPassenger + '</td><td>' + car.transmission + '</td><td>' + car.fuelType + '</td><td>' + car.dailyRate + '</td><td>' + car.monthlyRate + '</td><td>' + car.freePrice  + '</td><td>' + car.extraPrice + '</td><td>' + car.losDamage + '</td><td>' + car.color + '</td><td>' + car.available +'</td><td><button class="rentNow" type="button">Add To Cart</button></td></tr>';
                     $("#tblCar").append(row);
                 }
                 addToCart();
@@ -343,7 +344,7 @@
             dataType: "json",
             success: function (resp) {
                 for (let car of resp.data) {
-                    var row = '<tr><td>' + car.carName + '</td><td>' + car.regNumber + '</td><td>' + car.brand + '</td><td>' + car.type + '</td><td>' + car.noOfPassenger + '</td><td>' + car.transmission + '</td><td>' + car.fuelType + '</td><td>' + car.dailyRate + '</td><td>' + car.monthlyRate + '</td><td>' + car.freePrice + '</td><td>' + car.extraPrice + '</td><td>' + car.losDamage + '</td><td>' + car.color + '</td><td>' + car.available + '</td><td><button class="rentNow" type="button">Add To Cart</button></td></tr>';
+                    var row = '<tr><td>' + car.carName + '</td><td>' + car.regNumber + '</td><td>' + car.brand + '</td><td>' + car.type + '</td><td>' + car.noOfPassenger + '</td><td>' + car.transmission + '</td><td>' + car.fuelType + '</td><td>' + car.dailyRate + '</td><td>' + car.monthlyRate + '</td><td>' + car.freePrice  + '</td><td>' + car.extraPrice + '</td><td>' + car.losDamage + '</td><td>' + car.color + '</td><td>' + car.available +'</td><td><button class="rentNow" type="button">Add To Cart</button></td></tr>';
                     $("#tblCar").append(row);
                 }
                 addToCart();
@@ -416,10 +417,10 @@
             dataType: "json",
             success: function (resp) {
                 for (let car of resp.data) {
-                    var row = '<tr><td>' + car.carName + '</td><td>' + car.regNumber + '</td><td>' + car.brand + '</td><td>' + car.type + '</td><td>' + car.noOfPassenger + '</td><td>' + car.transmission + '</td><td>' + car.fuelType + '</td><td>' + car.dailyRate + '</td><td>' + car.monthlyRate + '</td><td>' + car.freePrice + '</td><td>' + car.extraPrice + '</td><td>' + car.losDamage + '</td><td>' + car.color + '</td><td>' + car.available + '</td><td><button class="rentNow" type="button">Add To Cart</button></td></tr>';
+                    var row = '<tr><td>' + car.carName + '</td><td>' + car.regNumber + '</td><td>' + car.brand + '</td><td>' + car.type + '</td><td>' + car.noOfPassenger + '</td><td>' + car.transmission + '</td><td>' + car.fuelType + '</td><td>' + car.dailyRate + '</td><td>' + car.monthlyRate + '</td><td>' + car.freePrice + '</td><td>' + car.extraPrice + '</td><td>' + car.losDamage + '</td><td>' + car.color + '</td><td>' + car.available + '</td><td><button class="rentNow" type="button" onclick="addToCart()">Add To Cart</button></td></tr>';
                     $("#tblCar").append(row);
                 }
-                addToCart();
+                // addToCart();
             }
         });
     });

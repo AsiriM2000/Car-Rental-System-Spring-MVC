@@ -24,6 +24,7 @@ public class Driver {
     private String driverAddress;
     private String driverAge;
     private String driverContact;
+    private String driverAvailable;
 //    @OneToMany(mappedBy = "driverEmail", cascade = CascadeType.ALL)
 //    private List<RentDetail> rental_details = new ArrayList<>();
 }

@@ -76,9 +76,15 @@ public class RentDetailController {
         }
     }
 
-    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
+    @GetMapping(path = "/bankSlip",produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity getAllImagesFromDatabase() {
         return new ResponseEntity(bankSlips, HttpStatus.OK);
+    }
+
+    @GetMapping("/generateRentId")
+    public ResponseUtil generateRentId(){
+        String id = service.generateRentId();
+        return new ResponseUtil("200","Success",id);
     }
 
 }
