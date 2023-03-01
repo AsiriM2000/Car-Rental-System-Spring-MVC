@@ -15,4 +15,7 @@ public interface RentDetailRepo extends JpaRepository<RentDetail,String> {
 
     @Query(value = "SELECT rentId FROM RentDetail ORDER BY rentId DESC LIMIT 1", nativeQuery = true)
     String generateRentId();
+
+    @Query(value = "select * from RentDetail where email=?1 and rentId=?2",nativeQuery = true)
+    List<RentDetail>userDetails(String email,String rentId);
 }

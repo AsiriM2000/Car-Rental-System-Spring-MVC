@@ -22,4 +22,5 @@ public class Payment {
     private double extra;
     private String date;
     private double total;
+
 }

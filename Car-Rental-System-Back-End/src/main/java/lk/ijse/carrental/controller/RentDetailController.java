@@ -44,6 +44,11 @@ public class RentDetailController {
         return new ResponseUtil("200","Success",all);
     }
 
+    @GetMapping("/userDetail")
+    public ResponseUtil userDetails(String email,String rentId){
+        List<RentDetail> rentDetails = repo.userDetails(email, rentId);
+        return new ResponseUtil("200","Success",rentDetails);
+    }
     @PutMapping
     public ResponseUtil updateRentD(@RequestBody RentDetailDTO dto){
         service.updateRentalDetail(dto);
