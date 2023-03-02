@@ -28,9 +28,10 @@ class PaymentRepoTest {
 
     @Test
     public void test() throws SQLException, ClassNotFoundException {
-        List<PaymentDTO> monthlyIncome = repo.getMonthlyIncome();
-        for (PaymentDTO dto: monthlyIncome){
-            System.out.println(dto.getTotal());
-        }
+        List<Payment> monthlyIncome = repo.getMonthlyIncome();
+       for (Payment payment: monthlyIncome){
+           System.out.println(payment);
+       }
+
     }
 }

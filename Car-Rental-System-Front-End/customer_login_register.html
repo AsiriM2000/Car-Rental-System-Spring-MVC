@@ -148,6 +148,7 @@
 <div class="copyright">
     <p>&#169; Design By : <span style="color:#d58700;">Asiri</span> Madhusanka</p>
 </div>
+
 <!--Login-->
 <div class="modal" id="id01">
     <form class="modal-content animate" id="loginForm">
@@ -173,7 +174,7 @@
 <div class="modal" id="id02">
     <span class="close" onclick="document.getElementById('id02').style.display='none'"
           title="Close Modal">&times;</span>
-    <form class="modal-content" id="signUpForm">
+    <form class="modal-content animate" id="signUpForm">
         <div class="imgcontainer">
             <span class="close" onclick="document.getElementById('id02').style.display='none'" title="Close Modal">&times;</span>
         </div>
@@ -273,8 +274,7 @@
 
     $("#signupBtn").click(function () {
         var formData = $("#signUpForm").serialize();
-        let nicNum = $("#nicNum").val();
-        uploadNicImage(formData);
+        uploadNicImage();
         $.ajax({
             url: baseUrl + "customer",
             method: "post",
@@ -291,14 +291,14 @@
         });
     });
 
-    function uploadNicImage(formData) {
+    function uploadNicImage() {
         var data = new FormData();
         let file = $("#nicImg")[0].files[0];
         let fileName = $("#nicImg")[0].files[0].name;
         data.append("myFile",file, fileName);
 
         $.ajax({
-            url: baseUrl + "customer/upload/"+formData,
+            url: baseUrl + "customer/upload",
             method: 'post',
             async: true,
             contentType: false,

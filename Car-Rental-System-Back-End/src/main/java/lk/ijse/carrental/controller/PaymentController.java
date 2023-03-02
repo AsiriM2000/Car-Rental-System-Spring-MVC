@@ -1,11 +1,13 @@
 package lk.ijse.carrental.controller;
 
+import lk.ijse.carrental.dto.IncomeDTO;
 import lk.ijse.carrental.dto.PaymentDTO;
 import lk.ijse.carrental.service.PaymentService;
 import lk.ijse.carrental.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 @RestController
@@ -39,4 +41,12 @@ public class PaymentController {
         ArrayList<PaymentDTO> allPayment = service.getAllPayment();
         return new ResponseUtil("200","Success",allPayment);
     }
+
+
+    @GetMapping("/generatePayId")
+    public ResponseUtil generateRentId(){
+        String payId = service.generatePayId();
+        return new ResponseUtil("200","Success",payId);
+    }
+
 }

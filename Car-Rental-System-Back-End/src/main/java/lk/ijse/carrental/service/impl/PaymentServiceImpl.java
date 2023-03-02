@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.sql.*;
 import java.util.ArrayList;
 
 @Service
@@ -50,4 +51,27 @@ public class PaymentServiceImpl implements PaymentService {
     public ArrayList<PaymentDTO> getAllPayment() {
         return mapper.map(repo.findAll(), new TypeToken<ArrayList<PaymentDTO>>(){}.getType());
     }
+
+    @Override
+    public String generatePayId() {
+        long count = repo.count();
+        String payId = "P00-001";
+
+        if (count != 0) {
+            String generateCustomerId = repo.generatePayId();
+            int tempId = Integer.parseInt(generateCustomerId.split("-")[1]);
+            tempId += 1;
+            if (tempId < 10) {
+                payId = "P00-00" + tempId;
+            } else if (tempId < 100) {
+                payId = "P00-0" + tempId;
+            } else if (tempId < 1000) {
+                payId = "P00-" + tempId;
+            }
+        } else {
+            payId = "P00-001";
+        }
+        return payId;
+    }
+
 }

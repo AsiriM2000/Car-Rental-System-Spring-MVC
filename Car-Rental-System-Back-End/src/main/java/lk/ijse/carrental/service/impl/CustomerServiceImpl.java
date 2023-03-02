@@ -30,13 +30,8 @@ public class CustomerServiceImpl implements CustomerService {
     CustomerRepo repo;
 
     @Autowired
-    CustomerVerificationImgRepo customerVerificationImgRepo;
-
-    @Autowired
     ModelMapper mapper;
 
-    @Autowired
-    ObjectMapper objectMapper;
 
     @Override
     public void saveCustomer(CustomerDTO dto) {
@@ -68,36 +63,6 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void saveCustomerWithImg(String customer, MultipartFile file) {
-        CustomerDTO dto = null;
-        String path = null;
-        dto = mapper.map(customer,CustomerDTO.class);
-
-        if (!repo.existsById(dto.getEmail())){
-            try {
-                String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getParentFile().getAbsolutePath();
-                File uploadDir = new File(projectPath + "/uploads");
-                uploadDir.mkdir();
-                file.transferTo(new File(uploadDir.getAbsolutePath()+"/"+dto.getEmail()+"_"+file.getOriginalFilename()));
-                path="uploads/"+dto.getEmail()+"_"+file.getOriginalFilename();
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            CustomerVerificationImgDTO imgDTO = new CustomerVerificationImgDTO();
-            imgDTO.setPath(path);
-            ArrayList<CustomerVerificationImgDTO> arrayList = new ArrayList<>();
-            arrayList.add(imgDTO);
-            System.out.println(imgDTO.getPath());
-//            repo.save(mapper.map(dto,Customer.class));
-
-        }else {
-            throw new RuntimeException("Customer Already Exist");
-        }
-    }
-
-    @Override
     public CustomerDTO searchByCustomerEmail(String email) {
         return mapper.map(repo.findByEmail(email),CustomerDTO.class);
     }
@@ -110,11 +75,6 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public long count() {
         return repo.count();
-    }
-
-    @Override
-    public ArrayList<CustomerVerificationImgDTO> getAllImg() {
-        return mapper.map(customerVerificationImgRepo.findAll(),new TypeToken<ArrayList<CustomerVerificationImgDTO>>(){}.getType());
     }
 
 }

@@ -13,10 +13,10 @@ let customerValidations = [];
 customerValidations.push({reg: cusEmailRegEx, field: $('#email'),error:'Customer Email Pattern is Wrong : asiri@gmail.com'});
 customerValidations.push({reg: cusNameRegEx, field: $('#name'),error:'Customer Name Pattern is Wrong : A-z'});
 customerValidations.push({reg: cusAddressRegEx, field: $('#address'),error:'Customer Address Pattern is Wrong : A-z 0-9 ,/'});
-customerValidations.push({reg: cusNicRegEx, field: $('#nicNum'),error:'Customer Nic Pattern is Wrong : 0-9 ,/'});
-customerValidations.push({reg: cusLicenseRegEx, field: $('#drivingNum'),error:'Customer License Pattern is Wrong : 0-9 ,/'});
-customerValidations.push({reg: cusContactRegEx, field: $('#contact'),error:'Customer Contact Pattern is Wrong : 0-9 ,/'});
-customerValidations.push({reg: cusPasswordRegEx, field: $('#password'),error:'Customer Password Pattern is Wrong : A-Z a-z 0-9 ,/'});
+customerValidations.push({reg: cusNicRegEx, field: $('#nicNum'),error:'Customer Nic Pattern is Wrong : 0-9,A-z'});
+customerValidations.push({reg: cusLicenseRegEx, field: $('#drivingNum'),error:'Customer License Pattern is Wrong : 0-9'});
+customerValidations.push({reg: cusContactRegEx, field: $('#contact'),error:'Customer Contact Pattern is Wrong : 0-9'});
+customerValidations.push({reg: cusPasswordRegEx, field: $('#password'),error:'Customer Password Pattern is Wrong : A-Z a-z 0-9'});
 
 
 $("#email,#name,#address,#nicNum,#drivingNum,#contact,#password").on('keydown', function (event) {

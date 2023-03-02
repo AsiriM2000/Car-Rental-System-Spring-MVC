@@ -11,9 +11,7 @@ public interface CustomerService {
     void updateCustomer(CustomerDTO dto);
     void deleteCustomer(String email);
     ArrayList<CustomerDTO> getAllCustomer();
-    void saveCustomerWithImg(String customer, MultipartFile file);
     CustomerDTO searchByCustomerEmail(String email);
     CustomerDTO searchByCustomerEmailAndPassword(String nicNum,String password);
     long count();
-    ArrayList<CustomerVerificationImgDTO> getAllImg();
 }
