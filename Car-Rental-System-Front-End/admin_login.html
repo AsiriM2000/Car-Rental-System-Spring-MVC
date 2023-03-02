@@ -25,7 +25,12 @@
         }
 
         body{
-            background-color: #B3B3B3!important;
+           background-color: #d4d4d4;
+        }
+
+        body img{
+            width: 100%;
+            height: auto;
         }
         header{
             width: 100%;
@@ -39,6 +44,9 @@
         .card{
             margin-top: 14rem!important;
             background-color: #D9D9D9 !important;
+            box-shadow: 0 2px 8px rgb(0 0 0/20%), 0 10px 10px rgb(0 0 0/30%), 0 10px 30px 1px rgb(0 0 0/50%);
+            ackground: -webkit-linear-gradient(to right,#267871,#136a8a);
+            background: linear-gradient(to right,#267871,#136a8a);
         }
 
         .collapse a{
@@ -55,11 +63,6 @@
             height: 700px;
             margin: 50px auto;
             margin-top: 150px;
-        }
-        .col{
-            width: 200px;
-            background-color: #D9D9D9;
-
         }
 
         main section section{
@@ -92,13 +95,17 @@
             transition: .3s;
         }
 
+        #AdminSignUp{
+            display: none;
+        }
+
     </style>
 
 </head>
 <body>
 <!-- Login Page
       ============================================= -->
-<main>
+<main id="AdminLogin">
     <div>
         <div class="col-lg-3 m-auto">
             <div class="card">
@@ -117,7 +124,42 @@
                         <div class="mb-3 form-check">
                             <input type="checkbox" class="form-check-input" id="checkBox">
                             <label class="text-black" for="checkBox">Remember Me</label>
+                            <button type="button" class="btn btn-success float-end" id="signUpA" style="margin-left: 10px">Sign Up</button>
                             <button type="button" class="btn btn-success float-end" id="login">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- SignUp Page
+      ============================================= -->
+<main id="AdminSignUp">
+    <div>
+        <div class="col-lg-3 m-auto">
+            <div class="card">
+                <div class="card-title text-center mt-3">
+                    <img src="assets/img/admin/user.png">
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="mb-3">
+                            <span style="height:30px; width:25px;" class="add-on"><i class="icon-user icon-2x"></i></span>
+                            <input type="text" class="form-control" placeholder="Id" id="adminId" name="adminId">
+                        </div>
+
+                        <div class="mb-3">
+                            <span style="height:30px; width:25px;" class="add-on"><i class="icon-user icon-2x"></i></span>
+                            <input type="text" class="form-control" placeholder="Username" id="adminUsername" name="adminUsername">
+                        </div>
+
+                        <div class="mb-3">
+                            <input type="password" class="form-control" placeholder="Password" id="adminPassword" name="adminPassword">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <button type="button" class="btn btn-success float-end" id="signup">Sign Up</button>
                         </div>
                     </form>
                 </div>
@@ -128,10 +170,29 @@
 
 <script src="assets/js/bootstrap.min.js"></script>
 <script src="assets/js/jquery-3.6.1.min.js"></script>
+<script src="assets/js/util/AdminLoginController.js"></script>
 <script>
     $("#login").click(function (){
-        alert("Done")
+        var username = $("#username").val();
+        var password = $("#password").val();
+
+        $.ajax({
+            url: baseUrl + "admin?email=" + username + "&password=" + password,
+            dataType: "json",
+            success: function (resp) {
+                location.href = './pages/admin.html';
+                clear();
+            },
+            error: function (error) {
+                alert("Username Or Password Incorrect")
+            }
+        });
     });
+
+    function clear() {
+        $("#username").val("");
+        $("#password").val("");
+    }
 </script>
 </body>
 </html>
