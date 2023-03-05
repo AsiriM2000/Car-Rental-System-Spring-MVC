@@ -89,4 +89,9 @@ public class PaymentServiceImpl implements PaymentService {
         return mapper.map(repo.getMonthlyIncome(),String.class);
     }
 
+    @Override
+    public String getAnnuallyIncome() {
+        return mapper.map(repo.getAnnuallyIncome(),String.class);
+    }
+
 }

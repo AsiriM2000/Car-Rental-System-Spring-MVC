@@ -21,6 +21,9 @@ public interface PaymentRepo extends JpaRepository<Payment, String> {
     @Query(value = "SELECT YEAR(date),MONTH(date),SUM(total)  Total FROM payment  GROUP BY YEAR(date), MONTH(date)", nativeQuery = true)
     String getMonthlyIncome();
 
+    @Query(value = "SELECT YEAR(date)AS Year,SUM(total)AS Total FROM Payment GROUP BY YEAR(date)",nativeQuery = true)
+    String getAnnuallyIncome();
+
     @Query(value = "SELECT payId FROM Payment ORDER BY payId DESC LIMIT 1", nativeQuery = true)
     String generatePayId();
 }

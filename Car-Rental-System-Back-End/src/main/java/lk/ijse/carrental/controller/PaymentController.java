@@ -65,4 +65,10 @@ public class PaymentController {
         return new ResponseUtil("200","Success",monthlyIncome);
     }
 
+    @GetMapping("/annuallyIncome")
+    public ResponseUtil getAnnuallyIncome(){
+        String annuallyIncome = service.getAnnuallyIncome();
+        return new ResponseUtil("200","Success",annuallyIncome);
+    }
+
 }

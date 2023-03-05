@@ -26,7 +26,7 @@ class PaymentRepoTest {
 
     @Test
     public void test(){
-        String monthlyIncome = repo.getMonthlyIncome();
-        System.out.println(monthlyIncome);
+        String annuallyIncome = repo.getAnnuallyIncome();
+        System.out.println(annuallyIncome);
     }
 }

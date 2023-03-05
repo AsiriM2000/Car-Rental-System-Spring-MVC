@@ -15,4 +15,5 @@ public interface PaymentService {
     double allIncome();
     double getDailyIncome(String date);
     String getMonthlyIncome();
+    String getAnnuallyIncome();
 }

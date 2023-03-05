@@ -325,7 +325,7 @@
                 <img src="../assets/img/admin/completed-task.png" width="70px">
                 <br>
                 <br>
-                <p>Income - RS: <span id="allIncome"></span>.00</p>
+                <p>Income - Rs: <span id="allIncome"></span>.00</p>
             </a>
             <a href="#">
                 <img src="../assets/img/admin/report.png" width="70px">
@@ -900,8 +900,10 @@
         <div class="col-md-8 mt-4" div style="height:250px; overflow-y: scroll">
             <table class="table table-bordered table-hover">
                 <thead class="bg-danger text-white">
+                <h3>Annually Income</h3>
                 <tr>
-                    <th style="width: 300px">Annually Income</th>
+                    <th style="width: 300px">Year</th>
+                    <th style="width: 300px">Total (Rs)</th>
                 </tr>
                 </thead>
                 <tbody id="annuallyIncome">
@@ -935,6 +937,7 @@
     generatePayId();
     allIncome();
     monthlyIncome();
+    annuallyIncome();
 
     function loadAll() {
         $("#tblCustomer").empty();
@@ -1739,6 +1742,30 @@
 
 
             }
+        });
+    }
+
+    function annuallyIncome(){
+        $("#annuallyIncome").empty();
+        $.ajax({
+            url: baseUrl+"payment/annuallyIncome",
+            dataType: "json",
+            success: function (resp){
+                let year2 = null;
+                let total2 = null;
+
+                let data = resp.data;
+                let split = data.split(",",2);
+                for (var i=0;i<split.length;i++){
+                    let year = split[i,0];
+                    let total = split[i,1];
+                    year2 = year;
+                    total2 = total;
+                }
+                var row = '<tr><td>' +year2+ '</td><td>' + total2 + '0</td></tr>';
+                $("#annuallyIncome").append(row);
+            }
+
         });
     }
 
