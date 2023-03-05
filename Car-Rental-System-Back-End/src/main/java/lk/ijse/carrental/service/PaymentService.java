@@ -12,5 +12,7 @@ public interface PaymentService {
     void deletePayment(String payId);
     ArrayList<PaymentDTO> getAllPayment();
     String generatePayId();
-
+    double allIncome();
+    double getDailyIncome(String date);
+    String getMonthlyIncome();
 }

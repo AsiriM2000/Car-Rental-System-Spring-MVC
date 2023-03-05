@@ -19,12 +19,4 @@ public class PaymentDTO {
     private double extra;
     private String date;
     private double total;
-    private String year;
-    private String month;
-
-    public PaymentDTO(String year, String month, double total){
-        this.year = year;
-        this.month = month;
-        this.total = total;
-    }
 }

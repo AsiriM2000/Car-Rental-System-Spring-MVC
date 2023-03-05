@@ -5,6 +5,7 @@ $("#home").click(function () {
     $("#driverContent").css("display","none")
     $("#orderDetailContent").css("display","none")
     $("#paymentMain").css("display","none")
+    $("#incomeContent").css("display","none")
 });
 
 $("#customer").click(function () {
@@ -14,6 +15,7 @@ $("#customer").click(function () {
     $("#driverContent").css("display","none")
     $("#orderDetailContent").css("display","none")
     $("#paymentMain").css("display","none")
+    $("#incomeContent").css("display","none")
 });
 
 $("#item").click(function () {
@@ -23,6 +25,7 @@ $("#item").click(function () {
     $("#driverContent").css("display","none")
     $("#orderDetailContent").css("display","none")
     $("#paymentMain").css("display","none")
+    $("#incomeContent").css("display","none")
 });
 
 $("#driver").click(function () {
@@ -32,6 +35,7 @@ $("#driver").click(function () {
     $("#driverContent").css("display","flex")
     $("#orderDetailContent").css("display","none")
     $("#paymentMain").css("display","none")
+    $("#incomeContent").css("display","none")
 });
 
 $("#order-Detail").click(function () {
@@ -41,6 +45,7 @@ $("#order-Detail").click(function () {
     $("#driverContent").css("display","none")
     $("#orderDetailContent").css("display","flex")
     $("#paymentMain").css("display","none")
+    $("#incomeContent").css("display","none")
 });
 
 $("#payment").click(function () {
@@ -50,5 +55,16 @@ $("#payment").click(function () {
     $("#driverContent").css("display","none")
     $("#orderDetailContent").css("display","none");
     $("#paymentMain").css("display","block")
+    $("#incomeContent").css("display","none")
+});
+
+$("#income").click(function () {
+    $("#dashboardContent").css("display","none")
+    $("#customerContent").css("display","none")
+    $("#itemContent").css("display","none")
+    $("#driverContent").css("display","none")
+    $("#orderDetailContent").css("display","none");
+    $("#paymentMain").css("display","none")
+    $("#incomeContent").css("display","block")
 });
 

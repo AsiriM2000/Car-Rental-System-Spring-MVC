@@ -74,4 +74,19 @@ public class PaymentServiceImpl implements PaymentService {
         return payId;
     }
 
+    @Override
+    public double allIncome() {
+        return mapper.map(repo.allIncome(),double.class);
+    }
+
+    @Override
+    public double getDailyIncome(String date) {
+        return mapper.map(repo.dailyIncome(date),double.class);
+    }
+
+    @Override
+    public String getMonthlyIncome() {
+        return mapper.map(repo.getMonthlyIncome(),String.class);
+    }
+
 }

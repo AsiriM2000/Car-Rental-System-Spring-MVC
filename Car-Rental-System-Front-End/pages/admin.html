@@ -24,6 +24,10 @@
             display: none;
         }
 
+        #incomeContent {
+            display: none;
+        }
+
         .acceptBtn {
             background-color: #008CBA;
             border: none;
@@ -237,6 +241,18 @@
         #tblTransaction tr {
             color: black;
         }
+
+        #dailyIncome tr {
+            color: black;
+        }
+
+        #monthlyIncome tr {
+            color: black;
+        }
+
+        #annuallyIncome tr {
+            color: black;
+        }
     </style>
 </head>
 <body>
@@ -275,6 +291,9 @@
                     <li class="nav-item">
                         <a class="nav-link" href="#" id="order-Detail">Rentals</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#" id="income">Income</a>
+                    </li>
                 </ul>
             </div>
             <a class="navbar-brand" href="#">
@@ -306,7 +325,7 @@
                 <img src="../assets/img/admin/completed-task.png" width="70px">
                 <br>
                 <br>
-                <p>Transaction - <span id="transactionAll"></span></p>
+                <p>Income - RS: <span id="allIncome"></span>.00</p>
             </a>
             <a href="#">
                 <img src="../assets/img/admin/report.png" width="70px">
@@ -772,7 +791,7 @@
 
             <div class="mb-2">
                 <label class="form-label" for="txtPaymentId">Payment ID</label>
-                <input class="form-control" id="txtPaymentId" multiple name="payId" type="text" readonly>
+                <input class="form-control" id="txtPaymentId" multiple name="payId" readonly type="text">
             </div>
 
             <div class="mb-2">
@@ -832,6 +851,62 @@
     </section>
 </main>
 
+
+<main class="container-fluid" id="incomeContent">
+    <section class="row">
+        <div class="col-3">
+            <div class="mb-2">
+                <label class="form-label" for="incomeDate">Choose Date</label>
+                <input class="form-control" id="incomeDate" name="incomeDate" type="date">
+            </div>
+
+            <div aria-label="Basic mixed styles example" class="btn-group" role="group">
+                <button class="btn btn-primary save-cus" id="checkIncome" style="width: 200px" type="button">Check
+                </button>
+            </div>
+        </div>
+        <div class="col-md-8 mt-4" div style="height:200px; overflow-y: scroll">
+            <table class="table table-bordered table-hover">
+                <thead class="bg-danger text-white">
+                <tr>
+                    <th style="width: 300px">Daily Income</th>
+                </tr>
+                </thead>
+                <tbody id="dailyIncome">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-3">
+        </div>
+        <div class="col-md-8 mt-4" div style="height:250px; overflow-y: scroll">
+            <table class="table table-bordered table-hover">
+                <thead class="bg-danger text-white">
+                <tr>
+                    <th style="width: 300px">Monthly Income / Year,Month,Total</th>
+                </tr>
+                </thead>
+                <tbody id="monthlyIncome">
+                </tbody>
+            </table>
+        </div>
+
+        <div class="col-3">
+        </div>
+        <div class="col-md-8 mt-4" div style="height:250px; overflow-y: scroll">
+            <table class="table table-bordered table-hover">
+                <thead class="bg-danger text-white">
+                <tr>
+                    <th style="width: 300px">Annually Income</th>
+                </tr>
+                </thead>
+                <tbody id="annuallyIncome">
+                </tbody>
+            </table>
+        </div>
+    </section>
+</main>
+
 <script src="../assets/js/bootstrap.min.js"></script>
 <script src="../assets/js/jquery-3.6.1.min.js"></script>
 
@@ -854,6 +929,8 @@
     carCount();
     rentCount();
     generatePayId();
+    allIncome();
+    monthlyIncome();
 
     function loadAll() {
         $("#tblCustomer").empty();
@@ -939,6 +1016,16 @@
             $('#contact').val(contact);
             $('#password').val(password);
 
+        });
+    }
+
+    function allIncome(){
+        $.ajax({
+            url: baseUrl+"payment/allIncome",
+            dataType: "json",
+            success: function (resp){
+                $("#allIncome").text(resp.data);
+            }
         });
     }
 
@@ -1282,43 +1369,46 @@
     }
 
     $("#acceptRent").click(function () {
-        let email = $("#rentEmail").val();
-        let rentId = $("#rentId").val();
-        let rentDate = $("#date").val();
-        let regNumber = $("#regNumberR").val();
-        let pickUpDate = $("#pickUpDate").val();
-        let returnDate = $("#returnDate").val();
-        let driverStatus = $("#driveStatus").val();
-        let driverEmail = $("#selectDriver").val();
+        if ($("#driverAvailable").val() == "No") {
+            alert("This Driver Not Available!")
+        } else {
+            let email = $("#rentEmail").val();
+            let rentId = $("#rentId").val();
+            let rentDate = $("#date").val();
+            let regNumber = $("#regNumberR").val();
+            let pickUpDate = $("#pickUpDate").val();
+            let returnDate = $("#returnDate").val();
+            let driverStatus = $("#driveStatus").val();
+            let driverEmail = $("#selectDriver").val();
 
-        var stat = {
-            email: email,
-            rentId: rentId,
-            date: rentDate,
-            regNumber: regNumber,
-            pickUpDate: pickUpDate,
-            returnDate: returnDate,
-            status: "Accept",
-            driveStatus: driverStatus,
-            driverEmail: driverEmail
-        }
-
-        $.ajax({
-            url: baseUrl + "rent",
-            method: "put",
-            contentType: "application/json",
-            dataType: "json",
-            data: JSON.stringify(stat),
-            success: function (resp) {
-                alert(resp.message);
-                rentDetail();
-                setData();
-            },
-            error: function (error) {
-                alert(JSON.parse(error.responseText).message);
+            var stat = {
+                email: email,
+                rentId: rentId,
+                date: rentDate,
+                regNumber: regNumber,
+                pickUpDate: pickUpDate,
+                returnDate: returnDate,
+                status: "Accept",
+                driveStatus: driverStatus,
+                driverEmail: driverEmail
             }
-        });
-        console.log(stat)
+
+            $.ajax({
+                url: baseUrl + "rent",
+                method: "put",
+                contentType: "application/json",
+                dataType: "json",
+                data: JSON.stringify(stat),
+                success: function (resp) {
+                    alert(resp.message);
+                    rentDetail();
+                    setData();
+                },
+                error: function (error) {
+                    alert(JSON.parse(error.responseText).message);
+                }
+            });
+        }
     });
 
     $("#selectDriver").change(function () {
@@ -1334,35 +1424,36 @@
                     let driverAge = driver.driverAge;
                     let driverContact = driver.driverContact;
 
-                   updateDrivers(driverEmail, driverName, driverAddress, driverAge, driverContact);
+                    updateDrivers(driverEmail, driverName, driverAddress, driverAge, driverContact);
                 }
             }
         });
     });
 
     var driver = [];
+
     function updateDrivers(driverEmail, driverName, driverAddress, driverAge, driverContact) {
-         driver= {
-            driverEmail:driverEmail,
-            driverName:driverName,
-            driverAddress:driverAddress,
-            driverAge:driverAge,
-            driverContact:driverContact,
-            driverAvailable:"No"
+        driver = {
+            driverEmail: driverEmail,
+            driverName: driverName,
+            driverAddress: driverAddress,
+            driverAge: driverAge,
+            driverContact: driverContact,
+            driverAvailable: "No"
         }
     }
 
     function setData() {
         $.ajax({
-            url: baseUrl+"driver",
+            url: baseUrl + "driver",
             method: "put",
-            contentType:"application/json",
+            contentType: "application/json",
             dataType: "json",
             data: JSON.stringify(driver),
-            success: function (resp){
+            success: function (resp) {
                 alert(resp.message);
             },
-            error: function (error){
+            error: function (error) {
                 alert(JSON.parse(error.responseText).message);
             }
         });
@@ -1504,12 +1595,12 @@
         });
     });
 
-    function generatePayId(){
+    function generatePayId() {
         $("#txtPaymentId").empty();
         $.ajax({
-            url: baseUrl+"payment/generatePayId",
+            url: baseUrl + "payment/generatePayId",
             dataType: "json",
-            success: function (resp){
+            success: function (resp) {
                 $("#txtPaymentId").val(resp.data);
             }
         });
@@ -1604,6 +1695,33 @@
         return response;
     }
 
+    $("#checkIncome").click(function () {
+        $("#dailyIncome").empty();
+        let incomeDate = $("#incomeDate").val();
+        $.ajax({
+            url: baseUrl + "payment?date=" + incomeDate,
+            dataType: "json",
+            success: function (resp) {
+                let total = resp.data;
+                var row = '<tr><td>RS : ' + total + '.00</td></tr>';
+                $("#dailyIncome").append(row);
+            }
+        });
+    });
+
+    function monthlyIncome() {
+        $("#monthlyIncome").empty();
+        $.ajax({
+            url: baseUrl + "payment/monthlyIncome",
+            dataType: "json",
+            success: function (resp) {
+                var row = '<tr><td>' +resp.data+ '</td></tr>';
+                $("#monthlyIncome").append(row);
+
+
+            }
+        });
+    }
 </script>
 
 </body>
