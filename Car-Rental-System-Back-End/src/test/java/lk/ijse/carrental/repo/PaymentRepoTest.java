@@ -13,6 +13,7 @@ import javax.transaction.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.StringJoiner;
 
 @WebAppConfiguration
 @ContextConfiguration(classes = WebRootConfig.class)
@@ -25,7 +26,7 @@ class PaymentRepoTest {
 
     @Test
     public void test(){
-        double v = repo.allIncome();
-        System.out.println(v);
+        String monthlyIncome = repo.getMonthlyIncome();
+        System.out.println(monthlyIncome);
     }
 }
