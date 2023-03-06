@@ -757,18 +757,20 @@
                 </button>
             </div>
         </div>
-        <div class="col-8">
+        <div class="col-9">
             <table class="table table-bordered table-hover">
                 <thead class="bg-danger text-white">
                 <tr>
                     <th style="width: 300px">Customer Email</th>
                     <th style="width: 300px">Rent ID</th>
-                    <th style="width: 300px">Register Number</th>
+                    <th style="width: 300px">Reg Number</th>
                     <th style="width: 300px">Date</th>
                     <th style="width: 300px">PickUp Date</th>
                     <th style="width: 300px">Return Date</th>
                     <th style="width: 300px">Status</th>
-                    <th style="width: 300px">Drive Status</th>
+                    <th style="width: 300px">D Status</th>
+                    <th style="width: 300px">D Name</th>
+                    <th style="width: 300px">D Contact</th>
                 </tr>
                 </thead>
                 <tbody id="tblTransaction">
@@ -1046,6 +1048,7 @@
         });
     }
 
+
     function carCount() {
         $.ajax({
             url: baseUrl + "car/count",
@@ -1055,7 +1058,6 @@
             }
         });
     }
-
     function rentCount() {
         $.ajax({
             url: baseUrl + "rent/allCount",
@@ -1340,8 +1342,10 @@
                     let returnDate = resp.data[i].returnDate;
                     let status = resp.data[i].status;
                     let driveStatus = resp.data[i].driveStatus;
+                    let driveName = resp.data[i].driverEmail.driverName;
+                    let driveCon = resp.data[i].driverEmail.driverContact;
 
-                    var row = '<tr><td>' + email + '</td><td>' + rentId + '</td><td>' + regNumber + '</td><td>' + date + '</td><td>' + pickUpDate + '</td><td>' + returnDate + '</td><td>' + status + '</td><td>' + driveStatus + '</td></tr>';
+                    var row = '<tr><td>' + email + '</td><td>' + rentId + '</td><td>' + regNumber + '</td><td>' + date + '</td><td>' + pickUpDate + '</td><td>' + returnDate + '</td><td>' + status + '</td><td>' + driveStatus +'</td><td>' + driveName + '</td><td>' + driveCon +'</td></tr>';
                     $("#tblTransaction").append(row);
 
                 }
