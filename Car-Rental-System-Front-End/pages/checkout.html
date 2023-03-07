@@ -48,7 +48,8 @@
         .right {
             right: 0;
         }
-        body{
+
+        body {
             background-image: url("../assets/img/bk/blue-jeep-parking-public-zone.jpg");
             height: 100%;
             background-repeat: no-repeat;
@@ -217,7 +218,7 @@
                             <div class="col-6">
                                 <div class="form-group">
                                     <label>Rent Id</label>
-                                    <input class="form-control" id="rentId" type="text" readonly>
+                                    <input class="form-control" id="rentId" readonly type="text">
                                 </div>
                             </div>
 
@@ -292,17 +293,18 @@
         $("#selectMethod").append(`<option>Self Drive</option><option>Driver</option>`);
     }
 
-    function generateRentId(){
+    function generateRentId() {
         $("#rentId").empty();
         $.ajax({
-            url: baseUrl+"rent/generateRentId",
+            url: baseUrl + "rent/generateRentId",
             dataType: "json",
-            success: function (resp){
-                    $("#rentId").val(resp.data);
+            success: function (resp) {
+                $("#rentId").val(resp.data);
             }
         });
     }
 
+    var array=[];
     var a = localStorage.getItem("myValue");
     let parse = JSON.parse(a);
     for (var i = 0; i < parse.length; i++) {
@@ -335,28 +337,25 @@
         $("#color").val(color);
         $("#lossDamage").val(lossDamage);
         $("#available").val(available);
+        buttonDisable();
     }
 
     $("#rentCar").click(function () {
-
         if ($("#emailRent").val() == "") {
             alert("Please Enter Email!");
-        }
-        if ($("#rentId").val() == "") {
+        }if ($("#rentId").val() == "") {
             alert("Please Enter Rent ID!");
-        }
-        if ($("#rentDate").val() == "") {
+        }if ($("#rentDate").val() == "") {
             alert("Please Enter Date!")
-        }
-        if ($("#pickUpDate").val() == "") {
+        }if ($("#pickUpDate").val() == "") {
             alert("Please Enter PickUp Date!")
-        }
-        if ($("#returnDate").val() == "") {
+        }if ($("#returnDate").val() == "") {
             alert("Please Enter Return Date!")
-        }
-        if ($("#available").val() == "No") {
+        }if ($("#selectMethod").val() == "--Select Drive Method--") {
+            alert("Please Select Driver Method!")
+        }if ($("#available").val() == "No") {
             alert("Car Is Not Available.Please Choose Another Car!")
-        } else {
+        }else {
             let email = $("#emailRent").val();
             let rentId = $("#rentId").val();
             let rentDate = $("#rentDate").val();
@@ -492,6 +491,12 @@
 
     }
 
+    function buttonDisable() {
+      let available = $("#available").val();
+      if (available == "No"){
+          $("#rentCar").prop('disabled',true);
+      }
+    }
 </script>
 </body>
 </html>
