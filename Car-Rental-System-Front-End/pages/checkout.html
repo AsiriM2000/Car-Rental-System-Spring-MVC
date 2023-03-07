@@ -55,6 +55,15 @@
             background-repeat: no-repeat;
             background-size: cover;
         }
+
+        #pick {
+            display: none;
+        }
+
+        #drop {
+            display: none;
+        }
+
     </style>
 </head>
 <body>
@@ -259,15 +268,26 @@
                                 </div>
                             </div>
 
+                            <div class="col-6" id="pick">
+                                <div class="form-group">
+                                    <label>PickUp Location</label>
+                                    <input class="form-control" id="pickupLocation" type="text">
+                                </div>
+                            </div>
+
+                            <div class="col-6" id="drop">
+                                <div class="form-group">
+                                    <label>Drop Location</label>
+                                    <input class="form-control" id="dropLocation" type="text">
+                                </div>
+                            </div>
+
                             <div class="col-4 mt-4">
                                 <button class="btn btn-success" id="rentCar" type="button">
                                     Rent Car
                                 </button>
                             </div>
                             <div class="col-4 mt-4">
-                                <br>
-                                <br>
-                                <br>
                                 <br>
                             </div>
                         </div>
@@ -304,7 +324,7 @@
         });
     }
 
-    var array=[];
+    var array = [];
     var a = localStorage.getItem("myValue");
     let parse = JSON.parse(a);
     for (var i = 0; i < parse.length; i++) {
@@ -343,19 +363,25 @@
     $("#rentCar").click(function () {
         if ($("#emailRent").val() == "") {
             alert("Please Enter Email!");
-        }if ($("#rentId").val() == "") {
+        }
+        if ($("#rentId").val() == "") {
             alert("Please Enter Rent ID!");
-        }if ($("#rentDate").val() == "") {
+        }
+        if ($("#rentDate").val() == "") {
             alert("Please Enter Date!")
-        }if ($("#pickUpDate").val() == "") {
+        }
+        if ($("#pickUpDate").val() == "") {
             alert("Please Enter PickUp Date!")
-        }if ($("#returnDate").val() == "") {
+        }
+        if ($("#returnDate").val() == "") {
             alert("Please Enter Return Date!")
-        }if ($("#selectMethod").val() == "--Select Drive Method--") {
+        }
+        if ($("#selectMethod").val() == "--Select Drive Method--") {
             alert("Please Select Driver Method!")
-        }if ($("#available").val() == "No") {
+        }
+        if ($("#available").val() == "No") {
             alert("Car Is Not Available.Please Choose Another Car!")
-        }else {
+        } else {
             let email = $("#emailRent").val();
             let rentId = $("#rentId").val();
             let rentDate = $("#rentDate").val();
@@ -363,7 +389,9 @@
             let pickUpDate = $("#pickUpDate").val();
             let returnDate = $("#returnDate").val();
             let driverStatus = $("#selectMethod").val();
-            console.log(driverStatus)
+            let pickUpLocation = $("#pickupLocation").val();
+            let dropLocation = $("#dropLocation").val();
+
 
             var rentDetail = {
                 email: email,
@@ -373,7 +401,9 @@
                 pickUpDate: pickUpDate,
                 returnDate: returnDate,
                 status: "Pending",
-                driveStatus: driverStatus
+                driveStatus: driverStatus,
+                pickUpLocation:pickUpLocation,
+                dropLocation:dropLocation
             }
 
             console.log(rentDetail)
@@ -492,11 +522,23 @@
     }
 
     function buttonDisable() {
-      let available = $("#available").val();
-      if (available == "No"){
-          $("#rentCar").prop('disabled',true);
-      }
+        let available = $("#available").val();
+        if (available == "No") {
+            $("#rentCar").prop('disabled', true);
+        }
     }
+
+    $("#selectMethod").change(function () {
+        let val = $("#selectMethod").val();
+        if (val == "Driver") {
+            $("#pick").css('display','block');
+            $("#drop").css('display','block');
+        }else {
+            $("#pick").css('display','none');
+            $("#drop").css('display','none');
+        }
+    });
+
 </script>
 </body>
 </html>

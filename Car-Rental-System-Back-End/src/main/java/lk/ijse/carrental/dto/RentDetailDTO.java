@@ -19,4 +19,6 @@ public class RentDetailDTO {
     private String regNumber;
     private String driverEmail;
     private String driveStatus;
+    private String pickUpLocation;
+    private String dropLocation;
 }

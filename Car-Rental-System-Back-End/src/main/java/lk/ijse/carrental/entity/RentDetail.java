@@ -20,6 +20,8 @@ public class RentDetail{
     private String returnDate;
     private String status;
     private String driveStatus;
+    private String pickUpLocation;
+    private String dropLocation;
 
     @ManyToOne
     @JoinColumn(name = "email",referencedColumnName = "email")

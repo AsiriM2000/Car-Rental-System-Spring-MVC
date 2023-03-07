@@ -786,6 +786,7 @@
     <section class="row">
         <div class="col-4">
             <h1>Payment</h1>
+            <label id="gap" style="display: none"></label>
             <div class="mb-2">
                 <label class="form-label" for="txtRentalId">Rent Id</label>
                 <select class="form-select" id="txtRentalId"></select>
@@ -843,7 +844,7 @@
                 <tr>
                     <th style="width: 300px">Rent Id</th>
                     <th style="width: 300px">Payment ID</th>
-                    <th style="width: 300px">Payment Method</th>
+                    <th style="width: 300px">P Method</th>
                     <th style="width: 300px">Payment</th>
                     <th style="width: 300px">Damage Cost</th>
                     <th style="width: 300px">Extra Mileage</th>
@@ -1034,11 +1035,11 @@
         });
     }
 
-    function allIncome(){
+    function allIncome() {
         $.ajax({
-            url: baseUrl+"payment/allIncome",
+            url: baseUrl + "payment/allIncome",
             dataType: "json",
-            success: function (resp){
+            success: function (resp) {
                 $("#allIncome").text(resp.data);
             }
         });
@@ -1054,7 +1055,6 @@
         });
     }
 
-
     function carCount() {
         $.ajax({
             url: baseUrl + "car/count",
@@ -1064,6 +1064,7 @@
             }
         });
     }
+
     function rentCount() {
         $.ajax({
             url: baseUrl + "rent/allCount",
@@ -1351,7 +1352,7 @@
                     let driveName = resp.data[i].driverEmail.driverName;
                     let driveCon = resp.data[i].driverEmail.driverContact;
 
-                    var row = '<tr><td>' + email + '</td><td>' + rentId + '</td><td>' + regNumber + '</td><td>' + date + '</td><td>' + pickUpDate + '</td><td>' + returnDate + '</td><td>' + status + '</td><td>' + driveStatus +'</td><td>' + driveName + '</td><td>' + driveCon +'</td></tr>';
+                    var row = '<tr><td>' + email + '</td><td>' + rentId + '</td><td>' + regNumber + '</td><td>' + date + '</td><td>' + pickUpDate + '</td><td>' + returnDate + '</td><td>' + status + '</td><td>' + driveStatus + '</td><td>' + driveName + '</td><td>' + driveCon + '</td></tr>';
                     $("#tblTransaction").append(row);
 
                 }
@@ -1477,8 +1478,6 @@
     }
 
     function loadAllR() {
-        $("#txtRentalId").empty();
-        $("#txtRentalId").prepend(`<option>--Select Rent ID--</option>`);
         $.ajax({
             url: baseUrl + "rent/rentDetail",
             dataType: "json",
@@ -1489,15 +1488,6 @@
             }
         });
     }
-
-    $("#txtRentalId").change(function () {
-        let rentId = $("#txtRentalId").val();
-        let res = searchCustomer(rentId);
-        if (res.length > 0) {
-            $("#txtCustomerName").val(res[0].email.name);
-        }
-
-    });
 
     function searchCustomer(rentId) {
         let response = "";
@@ -1518,9 +1508,27 @@
         $("#txtPaymentMethod").empty();
         $("#txtPaymentMethod").prepend(`<option>--Select Payment Status--</option>`);
         $("#txtPaymentMethod").append(`<option>Daily</option><option>Monthly</option>`);
+
+        $("#txtRentalId").empty();
+        $("#txtRentalId").prepend(`<option>--Select Rent ID--</option>`);
     }
+    $("#txtRentalId").change(function () {
+        let rentId = $("#txtRentalId").val();
+        let res = searchCustomer(rentId);
+        if (res.length > 0) {
+            $("#txtCustomerName").val(res[0].email.name);
+
+            let pickUpDate1 = new Date(res[0].pickUpDate);
+            let returnDate1 = new Date(res[0].returnDate);
+
+            const diffTime = Math.abs(pickUpDate1 - returnDate1);
+            let dateGap = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            $("#gap").text(dateGap);
+        }
+    });
 
     $("#payCustomer").click(function () {
+
         let rentId = $("#txtRentalId").val();
         let payId = $("#txtPaymentId").val();
         let paymentMethod = $("#txtPaymentMethod").val();
@@ -1529,13 +1537,15 @@
         let dCost = parseFloat($("#txtDamageCost").val()) || 0;
         let eCost = parseFloat($("#txtExtraMileage").val()) || 0;
         let pDate = $("#txtDate").val();
-        let total = fPayment + dCost + eCost;
+        let gap = parseFloat($("#gap").text()) || 0;
+        let number = fPayment *gap;
+        let total = number + dCost + eCost;
 
         var payment = {
             payId: payId,
-            rentId:rentId,
-            paymentMethod:paymentMethod,
-            status:status,
+            rentId: rentId,
+            paymentMethod: paymentMethod,
+            status: status,
             payment: fPayment,
             damage: dCost,
             extra: eCost,
@@ -1573,8 +1583,8 @@
 
         var payment = {
             payId: payId,
-            rentId:rentId,
-            paymentMethod:paymentMethod,
+            rentId: rentId,
+            paymentMethod: paymentMethod,
             status: pStatus,
             payment: fPayment,
             damage: dCost,
@@ -1634,16 +1644,16 @@
             dataType: "json",
             success: function (resp) {
                 for (let pay of resp.data) {
-                    var row = '<tr><td>' + pay.rentId + '</td><td>' + pay.payId + '</td><td>' + pay.paymentMethod + '</td><td>' + pay.payment + '</td><td>' + pay.damage + '</td><td>' + pay.extra + '</td><td>' + pay.date + '</td><td>' + pay.total + '</td><td>' + pay.status +'</td></tr>';
+                    var row = '<tr><td>' + pay.rentId + '</td><td>' + pay.payId + '</td><td>' + pay.paymentMethod + '</td><td>' + pay.payment + '</td><td>' + pay.damage + '</td><td>' + pay.extra + '</td><td>' + pay.date + '</td><td>' + pay.total + '</td><td>' + pay.status + '</td></tr>';
                     $("#tblPayment").append(row);
                 }
                 bindRowClickEventsPayment();
-                clearPayment("", "", "", "", "", "", "","","");
+                clearPayment("", "", "", "", "", "", "", "", "");
             }
         });
     }
 
-    function clearPayment(rent,name, payId, status, fulPay, dCost, eCost, date,status) {
+    function clearPayment(rent, name, payId, status, fulPay, dCost, eCost, date, status) {
         $("#txtRentalId").val(rent);
         $("#txtCustomerName").val(email);
         $("#txtPaymentId").val(payId);
@@ -1745,42 +1755,41 @@
                 let total1 = null;
 
                 let data = resp.data;
-                let split = data.split(",",3);
-                for(var i=0;i<split.length;i++){
-                    let year = split[i,0];
-                    let month = split[i,1];
-                    let total = split[i,2];
+                let split = data.split(",", 3);
+                for (var i = 0; i < split.length; i++) {
+                    let year = split[i, 0];
+                    let month = split[i, 1];
+                    let total = split[i, 2];
                     year1 = year;
                     month1 = month;
                     total1 = total;
                 }
-                var row = '<tr><td>' +year1+ '</td><td>' + month1 + '</td><td> ' + total1 + '0</td></tr>';
+                var row = '<tr><td>' + year1 + '</td><td>' + month1 + '</td><td> ' + total1 + '0</td></tr>';
                 $("#monthlyIncome").append(row);
-
 
 
             }
         });
     }
 
-    function annuallyIncome(){
+    function annuallyIncome() {
         $("#annuallyIncome").empty();
         $.ajax({
-            url: baseUrl+"payment/annuallyIncome",
+            url: baseUrl + "payment/annuallyIncome",
             dataType: "json",
-            success: function (resp){
+            success: function (resp) {
                 let year2 = null;
                 let total2 = null;
 
                 let data = resp.data;
-                let split = data.split(",",2);
-                for (var i=0;i<split.length;i++){
-                    let year = split[i,0];
-                    let total = split[i,1];
+                let split = data.split(",", 2);
+                for (var i = 0; i < split.length; i++) {
+                    let year = split[i, 0];
+                    let total = split[i, 1];
                     year2 = year;
                     total2 = total;
                 }
-                var row = '<tr><td>' +year2+ '</td><td>' + total2 + '0</td></tr>';
+                var row = '<tr><td>' + year2 + '</td><td>' + total2 + '0</td></tr>';
                 $("#annuallyIncome").append(row);
             }
 
