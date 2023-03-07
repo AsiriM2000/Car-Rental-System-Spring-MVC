@@ -787,8 +787,8 @@
         <div class="col-4">
             <h1>Payment</h1>
             <div class="mb-2">
-                <label class="form-label" for="txtCustomerEmail">Customer Email</label>
-                <select class="form-select" id="txtCustomerEmail"></select>
+                <label class="form-label" for="txtRentalId">Rent Id</label>
+                <select class="form-select" id="txtRentalId"></select>
             </div>
 
             <div class="mb-2">
@@ -797,12 +797,12 @@
             </div>
 
             <div class="mb-2">
-                <label class="form-label" for="txtPaymentStatus">Payment Status</label>
-                <select class="form-select" id="txtPaymentStatus"></select>
+                <label class="form-label" for="txtPaymentMethod">Payment Method</label>
+                <select class="form-select" id="txtPaymentMethod"></select>
             </div>
 
             <div class="mb-2">
-                <label class="form-label" for="txtFullPayment">Full Payment</label>
+                <label class="form-label" for="txtFullPayment">Payment</label>
                 <input class="form-control" id="txtFullPayment" name="fPayment" type="text">
             </div>
 
@@ -821,6 +821,11 @@
                 <input class="form-control" id="txtDate" name="pDate" type="date">
             </div>
 
+            <div class="mb-2">
+                <label class="form-label" for="pStatus">Status</label>
+                <input class="form-control" id="pStatus" name="pStatus" type="text">
+            </div>
+
             <div aria-label="Basic mixed styles example" class="btn-group" role="group">
                 <button class="btn btn-primary save-cus" id="payCustomer" style="width: 200px" type="button">Pay
                 </button>
@@ -836,14 +841,15 @@
             <table class="table table-bordered table-hover">
                 <thead class="bg-danger text-white">
                 <tr>
-                    <th style="width: 300px">Email</th>
+                    <th style="width: 300px">Rent Id</th>
                     <th style="width: 300px">Payment ID</th>
-                    <th style="width: 300px">Payment Status</th>
-                    <th style="width: 300px">Full Payment</th>
+                    <th style="width: 300px">Payment Method</th>
+                    <th style="width: 300px">Payment</th>
                     <th style="width: 300px">Damage Cost</th>
                     <th style="width: 300px">Extra Mileage</th>
                     <th style="width: 300px">Date</th>
                     <th style="width: 300px">Total</th>
+                    <th style="width: 300px">Status</th>
                 </tr>
                 </thead>
                 <tbody id="tblPayment">
@@ -929,7 +935,7 @@
     loadAllCar();
     loadAllDriver();
     loadDriverName();
-    loadAllCust();
+    loadAllR();
     loadStatus();
     loadAllPayment();
     rentDetail();
@@ -1470,38 +1476,38 @@
         });
     }
 
-    function loadAllCust() {
-        $("#txtCustomerEmail").empty();
-        $("#txtCustomerEmail").prepend(`<option>--Select Customer--</option>`);
+    function loadAllR() {
+        $("#txtRentalId").empty();
+        $("#txtRentalId").prepend(`<option>--Select Rent ID--</option>`);
         $.ajax({
-            url: baseUrl + "customer",
+            url: baseUrl + "rent/rentDetail",
             dataType: "json",
             success: function (resp) {
-                for (var cus of resp.data) {
-                    $("#txtCustomerEmail").append(`<option>${cus.email}</option>`);
+                for (var rent of resp.data) {
+                    $("#txtRentalId").append(`<option>${rent.rentId}</option>`);
                 }
             }
         });
     }
 
-    $("#txtCustomerEmail").change(function () {
-        let email = $("#txtCustomerEmail").val();
-        let res = searchCustomer(email);
+    $("#txtRentalId").change(function () {
+        let rentId = $("#txtRentalId").val();
+        let res = searchCustomer(rentId);
         if (res.length > 0) {
-            $("#txtCustomerEmail").val(res[0].email);
+            $("#txtCustomerName").val(res[0].email.name);
         }
 
     });
 
-    function searchCustomer(email) {
+    function searchCustomer(rentId) {
         let response = "";
         $.ajax({
-            url: baseUrl + "customer",
+            url: baseUrl + "rent/rentDetail",
             dataType: "json",
             async: false,
             success: function (resp) {
                 response = resp.data.filter((i) => {
-                    return i.email == email;
+                    return i.rentId == rentId;
                 });
             }
         });
@@ -1509,15 +1515,16 @@
     }
 
     function loadStatus() {
-        $("#txtPaymentStatus").empty();
-        $("#txtPaymentStatus").prepend(`<option>--Select Payment Status--</option>`);
-        $("#txtPaymentStatus").append(`<option>Daily</option><option>Monthly</option>`);
+        $("#txtPaymentMethod").empty();
+        $("#txtPaymentMethod").prepend(`<option>--Select Payment Status--</option>`);
+        $("#txtPaymentMethod").append(`<option>Daily</option><option>Monthly</option>`);
     }
 
     $("#payCustomer").click(function () {
-        let custEmail = $("#txtCustomerEmail").val();
+        let rentId = $("#txtRentalId").val();
         let payId = $("#txtPaymentId").val();
-        let status = $("#txtPaymentStatus").val();
+        let paymentMethod = $("#txtPaymentMethod").val();
+        let status = $("#pStatus").val();
         let fPayment = parseFloat($("#txtFullPayment").val()) || 0;
         let dCost = parseFloat($("#txtDamageCost").val()) || 0;
         let eCost = parseFloat($("#txtExtraMileage").val()) || 0;
@@ -1526,8 +1533,9 @@
 
         var payment = {
             payId: payId,
-            email: custEmail,
-            status: status,
+            rentId:rentId,
+            paymentMethod:paymentMethod,
+            status:status,
             payment: fPayment,
             damage: dCost,
             extra: eCost,
@@ -1553,19 +1561,21 @@
     });
 
     $("#updatePayCustomer").click(function () {
-        let custEmail = $("#txtCustomerEmail").val();
+        let rentId = $("#txtRentalId").val();
         let payId = $("#txtPaymentId").val();
-        let status = $("#txtPaymentStatus").val();
+        let paymentMethod = $("#txtPaymentMethod").val();
         let fPayment = parseFloat($("#txtFullPayment").val()) || 0;
         let dCost = parseFloat($("#txtDamageCost").val()) || 0;
         let eCost = parseFloat($("#txtExtraMileage").val()) || 0;
         let pDate = $("#txtDate").val();
+        let pStatus = $("#pStatus").val();
         let total = fPayment + dCost + eCost;
 
         var payment = {
             payId: payId,
-            email: custEmail,
-            status: status,
+            rentId:rentId,
+            paymentMethod:paymentMethod,
+            status: pStatus,
             payment: fPayment,
             damage: dCost,
             extra: eCost,
@@ -1624,42 +1634,46 @@
             dataType: "json",
             success: function (resp) {
                 for (let pay of resp.data) {
-                    var row = '<tr><td>' + pay.email + '</td><td>' + pay.payId + '</td><td>' + pay.status + '</td><td>' + pay.payment + '</td><td>' + pay.damage + '</td><td>' + pay.extra + '</td><td>' + pay.date + '</td><td>' + pay.total + '</td></tr>';
+                    var row = '<tr><td>' + pay.rentId + '</td><td>' + pay.payId + '</td><td>' + pay.paymentMethod + '</td><td>' + pay.payment + '</td><td>' + pay.damage + '</td><td>' + pay.extra + '</td><td>' + pay.date + '</td><td>' + pay.total + '</td><td>' + pay.status +'</td></tr>';
                     $("#tblPayment").append(row);
                 }
                 bindRowClickEventsPayment();
-                clearPayment("", "", "", "", "", "", "");
+                clearPayment("", "", "", "", "", "", "","","");
             }
         });
     }
 
-    function clearPayment(email, payId, status, fulPay, dCost, eCost, date) {
-        $("#txtCustomerEmail").val(email);
+    function clearPayment(rent,name, payId, status, fulPay, dCost, eCost, date,status) {
+        $("#txtRentalId").val(rent);
+        $("#txtCustomerName").val(email);
         $("#txtPaymentId").val(payId);
         $("#txtPaymentStatus").val(status);
         $("#txtFullPayment").val(fulPay);
         $("#txtDamageCost").val(dCost);
         $("#txtExtraMileage").val(eCost);
         $("#txtDate").val(date);
+        $("#pStatus").val(status);
     }
 
     function bindRowClickEventsPayment() {
         $("#tblPayment>tr").click(function () {
-                let custEmail = $(this).children(":eq(0)").text();
+                let rentId = $(this).children(":eq(0)").text();
                 let payId = $(this).children(":eq(1)").text();
                 let status = $(this).children(":eq(2)").text();
                 let fPayment = $(this).children(":eq(3)").text();
                 let dCost = $(this).children(":eq(4)").text();
                 let eCost = $(this).children(":eq(5)").text();
                 let pDate = $(this).children(":eq(6)").text();
+                let pStatus = $(this).children(":eq(8)").text();
 
-                $("#txtCustomerEmail").val(custEmail);
+                $("#txtRentalId").val(rentId);
                 $("#txtPaymentId").val(payId);
-                $("#txtPaymentStatus").val(status);
+                $("#txtPaymentMethod").val(status);
                 $("#txtFullPayment").val(fPayment);
                 $("#txtDamageCost").val(dCost);
                 $("#txtExtraMileage").val(eCost);
                 $("#txtDate").val(pDate);
+                $("#pStatus").val(pStatus);
 
             }
         )

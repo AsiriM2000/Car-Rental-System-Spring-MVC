@@ -15,7 +15,8 @@ public class Payment {
 
     @Id
     private String payId;
-    private String email;
+    private String rentId;
+    private String paymentMethod;
     private String status;
     private double payment;
     private double damage;

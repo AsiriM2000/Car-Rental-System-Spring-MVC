@@ -16,7 +16,6 @@ public class RentDetailDTO {
     private String pickUpDate;
     private String returnDate;
     private String status;
-    private String email;
     private String regNumber;
     private String driverEmail;
     private String driveStatus;
