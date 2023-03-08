@@ -5,8 +5,13 @@ import lk.ijse.carrental.entity.Car;
 import lk.ijse.carrental.service.CarService;
 import lk.ijse.carrental.util.ResponseUtil;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.File;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -14,6 +19,7 @@ import java.util.List;
 @RequestMapping("/car")
 @CrossOrigin
 public class CarController {
+    private static final ArrayList<String> allImages = new ArrayList<>();
 
     @Autowired
     CarService service;
@@ -54,6 +60,23 @@ public class CarController {
         return new ResponseUtil("200","Success",carType);
     }
 
+    @PostMapping(path = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil uploadFile(@RequestParam("myFile") MultipartFile myFile) {
+        try {
+            String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getParentFile().getAbsolutePath();
+            File uploadsDir = new File(projectPath + "/uploads");
+            System.out.println(projectPath);
+            uploadsDir.mkdir();
+            myFile.transferTo(new File(uploadsDir.getAbsolutePath() + "/" + myFile.getOriginalFilename()));
+
+            allImages.add("uploads/" + myFile.getOriginalFilename());
+        } catch (URISyntaxException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return new ResponseUtil("200", " Register Successful...!", null);
+    }
 
     @PutMapping
     public ResponseUtil updateCar(@RequestBody CarDTO dto){

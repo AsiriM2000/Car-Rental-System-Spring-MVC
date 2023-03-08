@@ -680,6 +680,8 @@
                             <input class="form-control" id="losDamage" name="losDamage" type="text">
                         </div>
 
+                        <input class="form-control" id="carImg" name="myFile" title="" type="file">
+
                         <div aria-label="Basic mixed styles example" class="btn-group" role="group">
                             <button class="btn btn-success save-cus" id="saveCar" type="button">Save</button>
                             <button class="btn btn-warning close-cus" id="updateCar" type="button">Update
@@ -1077,6 +1079,7 @@
 
     $("#saveCar").click(function () {
         let carData = $("#carForm").serialize();
+        uploadNicImage();
         $.ajax({
             url: baseUrl + "car",
             method: "post",
@@ -1090,6 +1093,28 @@
             }
         });
     });
+
+    function uploadNicImage() {
+        var data = new FormData();
+        let file = $("#carImg")[0].files[0];
+        let fileName = $("#carImg")[0].files[0].name;
+        data.append("myFile",file, fileName);
+
+        $.ajax({
+            url: baseUrl + "car/upload",
+            method: 'post',
+            async: true,
+            contentType: false,
+            processData: false,
+            data: data,
+            success: function (resp) {
+                alert("Successfully Uploaded");
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
 
     $("#updateCar").click(function () {
 
