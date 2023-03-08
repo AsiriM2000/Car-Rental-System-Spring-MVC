@@ -26,7 +26,7 @@ class RentDetailRepoTest {
 
     @Test
     public void test(){
-        List<RentDetail> rentDetails = repo.userDetails("madhusankaasiri2@gmail.com", "R00-001");
+        List<RentDetail> rentDetails = repo.driverDetail("asiri@gmail.com");
         System.out.println(rentDetails.toString());
     }
 }

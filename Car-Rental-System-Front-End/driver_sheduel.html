@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Document Title
+           ============================================= -->
+    <title>Driver Sheduel</title>
+
+    <!-- Stylesheets
+      ============================================= -->
+    <link href="../assets/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Meta tags
+       ============================================= -->
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+    <style>
+        .card-title img{
+            width: 80px;
+        }
+
+        .card{
+            margin-top: 14rem!important;
+            background-color: #D9D9D9 !important;
+            box-shadow: 0 2px 8px rgb(0 0 0/20%), 0 10px 10px rgb(0 0 0/30%), 0 10px 30px 1px rgb(0 0 0/50%);
+            ackground: -webkit-linear-gradient(to right,#267871,#136a8a);
+            background: linear-gradient(to right,#267871,#136a8a);
+        }
+        * {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        #driverSheduel {
+            display: none;
+        }
+
+        #head {
+            display: none;
+        }
+
+        header {
+            width: 100%;
+            background-color: #D9D9D9;
+        }
+
+        #dashboard .card-title img {
+            width: 80px;
+        }
+
+        #dashboard .collapse {
+            flex-basis: 100%;
+            flex-grow: 1;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #dashboard .collapse a {
+            font-size: 20px;
+            color: #0047FF;
+        }
+
+        #dashboard .collapse a:hover {
+            color: #f9004d;
+            transition: .4s;
+        }
+
+        main #dashboard {
+            height: 700px;
+            margin: 50px auto;
+            display: flex;
+        }
+
+        main #dashboard section {
+            margin: 80px auto;
+            text-align: center;
+        }
+
+        main #dashboard a {
+            margin-top: 70px !important;
+            text-decoration: none;
+            padding-top: 30px;
+            padding-bottom: 5px;
+            padding-left: 15px;
+            padding-right: 15px;
+            border-radius: 10px;
+            margin: 10px;
+            -webkit-box-shadow: 0 5px 5px 2px #484848;
+            border: 1px solid #000;
+            background: #D9D9D9;
+            color: #222222;
+            font-size: 20px;
+            display: inline-block;
+            width: 275px;
+            height: 180px;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        main #dashboard img:hover {
+            transform: scale(1.3);
+            transition: .3s;
+        }
+
+        /*<!-- customer and item-->*/
+        .customer-head {
+            width: 100%;
+            height: 40px;
+            background-color: #D9D9D9;
+
+        }
+
+        header {
+            width: 100%;
+            background-color: #D9D9D9;
+            margin-bottom: 2rem;
+        }
+
+        .main-section {
+            width: 90%;
+            margin: auto;
+            background-color: #2E4053;
+        }
+
+        .collapse {
+            flex-basis: 100%;
+            flex-grow: 1;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .collapse a {
+            font-size: 20px;
+            color: #0047FF;
+        }
+
+        .collapse a:hover {
+            color: #f9004d;
+            transition: .4s;
+        }
+
+        .breadcrumb {
+            margin-left: 20px;
+            list-style: none;
+            border-radius: 4px;
+        }
+
+        .breadcrumb li {
+            margin-top: 10px;
+            font-size: 20px;
+        }
+
+        .breadcrumb a {
+            text-decoration: none;
+            font-size: 20px;
+        }
+        tbody tr {
+            color: aqua;
+        }
+    </style>
+</head>
+<body>
+
+<header id="head">
+    <nav class="navbar navbar-expand-lg">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img alt="Logo" class="d-inline-block align-text-top" height="30" src="../assets/img/admin/car.png"
+                     width="30">
+                Easy Car Rental (Pvt) Ltd.
+            </a>
+
+            <button aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation"
+                    class="navbar-toggler"
+                    data-bs-target="#navbarNavDropdown" data-bs-toggle="collapse" type="button">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav justify-content-center">
+                    <li class="nav-item">
+                        <a aria-current="page" class="nav-link" href="#" id="home">Home</a>
+                    </li>
+                </ul>
+            </div>
+            <a class="navbar-brand" href="#">
+                <img alt="Logo" class="d-inline-block align-text-top" height="30" src="../assets/img/admin/login.png"
+                     width="30">
+            </a>
+        </div>
+    </nav>
+</header>
+
+<!-- Login Page
+      ============================================= -->
+<main id="DriverLogin">
+    <div>
+        <div class="col-lg-3 m-auto">
+            <div class="card">
+                <div class="card-title text-center mt-3">
+                    <img src="assets/img/admin/user.png">
+                </div>
+                <div class="card-body">
+                    <form>
+                        <div class="mb-3">
+                            <span style="height:30px; width:25px;" class="add-on"><i class="icon-user icon-2x"></i></span>
+                            <input type="text" class="form-control" placeholder="Email" id="username" name="username">
+                        </div>
+                        <div class="mb-3 form-check">
+                            <button type="button" class="btn btn-success float-end" id="login">Login</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<!-- driverSheduel
+   ============================================= -->
+<main id="driverSheduel">
+    <section class="main-section">
+        <section class="customer-head">
+            <ul class="breadcrumb">
+                <img src="../assets/img/admin/customers.png" width="35px">
+                <li><a href="#">Dashboard /</a></li>
+                <li class="active"> Driver Sheduel</li>
+            </ul>
+        </section>
+
+        <section class="cus-table">
+            <div class="col-md-12 mt-4" div style="height:430px; overflow-y: scroll">
+                <table class="table table-bordered">
+                    <thead class="bg-danger text-white">
+                    <tr>
+                        <th style="width: 300px">Register Number</th>
+                        <th style="width: 300px">Customer Name</th>
+                        <th style="width: 300px">Customer Contact</th>
+                        <th style="width: 300px">PickUp Date</th>
+                        <th style="width: 300px">Return Date</th>
+                        <th style="width: 300px">PickUp Location</th>
+                        <th style="width: 300px">Return Location</th>
+                    </tr>
+                    </thead>
+                    <tbody id="tblDriverSheduel">
+
+                    </tbody>
+                </table>
+            </div>
+        </section>
+    </section>
+</main>
+
+
+<script src="../assets/js/bootstrap.min.js"></script>
+<script src="../assets/js/jquery-3.6.1.min.js"></script>
+
+<script>
+    let baseUrl = "http://localhost:8081/Car_Rental_System_Back_End_war/";
+
+    $("#login").click(function (){
+        let username = $("#username").val();
+        $.ajax({
+            url: baseUrl+"driver?driverEmail="+username,
+            dataType: "json",
+            success: function (resp){
+                let checkData = resp.data;
+                if (checkData == ""){
+                    alert("Please Enter Correct Email!")
+                }else {
+                    $.ajax({
+                        url: baseUrl+"rent/driverSchedule?driverEmail="+username,
+                        dataType: "json",
+                        success: function (resp){
+                            $("#DriverLogin").css('display','none')
+                            $("#head").css('display','block');
+                            $("#driverSheduel").css('display','block');
+
+                            $("#tblDriverSheduel").empty();
+                            for (var i = 0; i < resp.data.length; i++) {
+                                let regNumber = resp.data[i].regNumber.regNumber;
+                                let name = resp.data[i].email.name;
+                                let contact = resp.data[i].email.contact;
+                                let pickUpDate = resp.data[i].pickUpDate;
+                                let returnDate = resp.data[i].returnDate;
+                                let pickUpLocation = resp.data[i].pickUpLocation;
+                                let dropLocation = resp.data[i].dropLocation;
+
+                                var row = '<tr><td>' + regNumber + '</td><td>' + name + '</td><td>' + contact + '</td><td>' + pickUpDate + '</td><td>' + returnDate  + '</td><td>' + pickUpLocation + '</td><td>' + dropLocation +'</td></tr>';
+                                $("#tblDriverSheduel").append(row);
+
+                            }
+                        }
+                    });
+                }
+
+            }
+        });
+    });
+</script>
+</body>
+</html>

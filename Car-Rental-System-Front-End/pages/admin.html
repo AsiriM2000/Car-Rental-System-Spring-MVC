@@ -769,8 +769,8 @@
                     <th style="width: 300px">Return Date</th>
                     <th style="width: 300px">Status</th>
                     <th style="width: 300px">D Status</th>
-                    <th style="width: 300px">D Name</th>
-                    <th style="width: 300px">D Contact</th>
+                    <th style="width: 300px">Pickup</th>
+                    <th style="width: 300px">Drop</th>
                 </tr>
                 </thead>
                 <tbody id="tblTransaction">
@@ -1349,10 +1349,10 @@
                     let returnDate = resp.data[i].returnDate;
                     let status = resp.data[i].status;
                     let driveStatus = resp.data[i].driveStatus;
-                    let driveName = resp.data[i].driverEmail.driverName;
-                    let driveCon = resp.data[i].driverEmail.driverContact;
+                    let pickUpLocation = resp.data[i].pickUpLocation;
+                    let dropLocation = resp.data[i].dropLocation;
 
-                    var row = '<tr><td>' + email + '</td><td>' + rentId + '</td><td>' + regNumber + '</td><td>' + date + '</td><td>' + pickUpDate + '</td><td>' + returnDate + '</td><td>' + status + '</td><td>' + driveStatus + '</td><td>' + driveName + '</td><td>' + driveCon + '</td></tr>';
+                    var row = '<tr><td>' + email + '</td><td>' + rentId + '</td><td>' + regNumber + '</td><td>' + date + '</td><td>' + pickUpDate + '</td><td>' + returnDate + '</td><td>' + status + '</td><td>' + driveStatus + '</td><td>' + pickUpLocation + '</td><td>' + dropLocation+ '</td></tr>';
                     $("#tblTransaction").append(row);
 
                 }
@@ -1361,6 +1361,9 @@
 
         });
     }
+
+    let pickup = null;
+    let drop = null;
 
     function bind() {
         $("#tblTransaction>tr").click(function () {
@@ -1373,6 +1376,8 @@
             let returnDate = $(this).children(":eq(5)").text();
             let status = $(this).children(":eq(6)").text();
             let driveStatus = $(this).children(":eq(7)").text();
+            pickup = $(this).children(":eq(8)").text();
+            drop = $(this).children(":eq(9)").text();
 
             $("#rentEmail").val(email);
             $("#rentId").val(rentId);
@@ -1408,7 +1413,10 @@
                 returnDate: returnDate,
                 status: "Accept",
                 driveStatus: driverStatus,
-                driverEmail: driverEmail
+                driverEmail: driverEmail,
+                pickUpLocation:pickup,
+                dropLocation:drop
+
             }
 
             $.ajax({
@@ -1421,6 +1429,7 @@
                     alert(resp.message);
                     rentDetail();
                     setData();
+                    set();
                 },
                 error: function (error) {
                     alert(JSON.parse(error.responseText).message);

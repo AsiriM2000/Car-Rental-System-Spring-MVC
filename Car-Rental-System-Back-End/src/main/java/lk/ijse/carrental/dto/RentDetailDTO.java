@@ -12,6 +12,7 @@ import lombok.ToString;
 public class RentDetailDTO {
 
     private String rentId;
+    private String email;
     private String date;
     private String pickUpDate;
     private String returnDate;

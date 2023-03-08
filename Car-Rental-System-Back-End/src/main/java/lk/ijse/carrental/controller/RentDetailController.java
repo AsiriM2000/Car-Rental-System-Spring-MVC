@@ -50,6 +50,12 @@ public class RentDetailController {
         return new ResponseUtil("200","Success",rentDetails);
     }
 
+    @GetMapping("/driverSchedule")
+    public ResponseUtil userDetails(String driverEmail){
+        List<RentDetail> rentDetails = repo.driverDetail(driverEmail);
+        return new ResponseUtil("200","Success",rentDetails);
+    }
+
     @PutMapping
     public ResponseUtil updateRentD(@RequestBody RentDetailDTO dto){
         service.updateRentalDetail(dto);

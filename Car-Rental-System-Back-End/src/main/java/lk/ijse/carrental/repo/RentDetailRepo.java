@@ -18,4 +18,7 @@ public interface RentDetailRepo extends JpaRepository<RentDetail,String> {
 
     @Query(value = "select * from RentDetail where email=?1 and rentId=?2",nativeQuery = true)
     List<RentDetail>userDetails(String email,String rentId);
+
+    @Query(value = "select * from RentDetail where driverEmail=?1",nativeQuery = true)
+    List<RentDetail>driverDetail(String driverEmail);
 }
