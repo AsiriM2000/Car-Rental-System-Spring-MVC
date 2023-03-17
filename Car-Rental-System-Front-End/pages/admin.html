@@ -726,7 +726,7 @@
             </div>
 
             <div class="mb-2">
-                <label class="form-label" for="returnDate">PickUp Date</label>
+                <label class="form-label" for="returnDate">Returned Date</label>
                 <input class="form-control" id="returnDate" name="returnDate" type="date">
             </div>
 
@@ -1452,6 +1452,7 @@
                 data: JSON.stringify(stat),
                 success: function (resp) {
                     alert(resp.message);
+                    clearRentDetails();
                     rentDetail();
                     setData();
                     set();
@@ -1462,6 +1463,19 @@
             });
         }
     });
+
+    function clearRentDetails(){
+            $("#rentEmail").val("");
+            $("#rentId").val("");
+            $("#regNumberR").val("");
+            $("#date").val("");
+            $("#pickUpDate").val("");
+            $("#returnDate").val("");
+            $("#status").val("");
+            $("#driveStatus").val("");
+            $("#selectDriver").val("");
+            $("#driverAvailable").val("");
+    }
 
     $("#selectDriver").change(function () {
         let driverEmail = $("#selectDriver").val();
@@ -1545,7 +1559,9 @@
 
         $("#txtRentalId").empty();
         $("#txtRentalId").prepend(`<option>--Select Rent ID--</option>`);
+
     }
+
     $("#txtRentalId").change(function () {
         let rentId = $("#txtRentalId").val();
         let res = searchCustomer(rentId);
@@ -1689,7 +1705,6 @@
 
     function clearPayment(rent, name, payId, status, fulPay, dCost, eCost, date, status) {
         $("#txtRentalId").val(rent);
-        $("#txtCustomerName").val(email);
         $("#txtPaymentId").val(payId);
         $("#txtPaymentStatus").val(status);
         $("#txtFullPayment").val(fulPay);
@@ -1727,6 +1742,7 @@
     function loadDriverName() {
         $("#selectDriver").empty();
         $("#selectDriver").prepend(`<option>--Select Driver--</option>`);
+
         $.ajax({
             url: baseUrl + "driver",
             dataType: "json",
@@ -1744,8 +1760,6 @@
         if (res.length > 0) {
             $("#driverAvailable").val(res[0].driverAvailable);
         }
-
-
     });
 
     function searchDriver(email) {
