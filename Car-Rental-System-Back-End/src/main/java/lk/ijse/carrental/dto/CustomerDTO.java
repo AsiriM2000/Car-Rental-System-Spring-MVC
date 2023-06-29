@@ -10,10 +10,11 @@ import java.util.List;
 @ToString
 public class CustomerDTO {
     private String email;
+    private String nic;
     private String name;
     private String address;
-    private String nic;
     private String license;
     private String contact;
     private String password;
+    private String imageLocation;
 }

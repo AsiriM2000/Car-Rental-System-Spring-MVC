@@ -687,7 +687,7 @@
                             <input class="form-control" id="losDamage" name="losDamage" type="text">
                         </div>
 
-                        <input class="form-control" id="carImg" name="myFile" title="" type="file">
+                        <input class="form-control" id="carImg" name="myFile" type="file">
 
                         <div aria-label="Basic mixed styles example" class="btn-group" role="group">
                             <button class="btn btn-success save-cus" id="saveCar" type="button">Save</button>
@@ -1085,13 +1085,46 @@
     }
 
     $("#saveCar").click(function () {
-        let carData = $("#carForm").serialize();
-        uploadNicImage();
+        let carName = $("#carName").val();
+        let regNumber = $("#regNumber").val();
+        let brand = $("#brand").val();
+        let type = $("#type").val();
+        let passenger = $("#noOfPassenger").val();
+        let trans = $("#transmission").val();
+        let fuel = $("#fuelType").val();
+        let dailyRate = $("#dailyRate").val();
+        let monthlyRate = $("#monthlyRate").val();
+        let freePrice = $("#freePrice").val();
+        let extraPrice = $("#extraPrice").val();
+        let color = $("#color").val();
+        let losDamage = $("#losDamage").val();
+        let available = $("#available").val();
+
+        var car = {
+            carName: carName,
+            regNumber: regNumber,
+            brand: brand,
+            type: type,
+            noOfPassenger: passenger,
+            transmission: trans,
+            fuelType: fuel,
+            dailyRate: dailyRate,
+            monthlyRate: monthlyRate,
+            freePrice: freePrice,
+            extraPrice: extraPrice,
+            color: color,
+            losDamage: losDamage,
+            available: available
+        }
+
         $.ajax({
             url: baseUrl + "car",
             method: "post",
-            data: carData,
+            contentType: "application/json",
+            data: JSON.stringify(car),
+            dataType: "json",
             success: function (resp) {
+                uploadCarImages(regNumber);
                 alert(resp.message);
                 loadAllCar();
             },
@@ -1101,24 +1134,29 @@
         });
     });
 
-    function uploadNicImage() {
+    function uploadCarImages(regNumber) {
+
+        let nicFile = $("#carImg")[0].files[0];
+
+        let nicFileName = regNumber + "-imageLocation-" + $("#carImg")[0].files[0].name;
+
         var data = new FormData();
-        let file = $("#carImg")[0].files[0];
-        let fileName = $("#carImg")[0].files[0].name;
-        data.append("myFile",file, fileName);
+
+        data.append("imageLocation", nicFile, nicFileName);
 
         $.ajax({
-            url: baseUrl + "car/upload",
-            method: 'post',
+            url: baseUrl + "car/uploadImg/" + regNumber,
+            method: "put",
             async: true,
             contentType: false,
             processData: false,
             data: data,
             success: function (resp) {
-                alert("Successfully Uploaded");
+                console.log("Uploaded");
+                alert(resp.message)
             },
-            error: function (err) {
-                console.log(err);
+            error: function (error) {
+                alert(JSON.parse(error.responseText).message);
             }
         });
     }
@@ -1183,6 +1221,7 @@
             success: function (resp) {
                 alert(resp.message);
                 loadAllCar();
+
             },
             error: function (error) {
                 alert(JSON.parse(error.responseText).message);

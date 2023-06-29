@@ -23,7 +23,9 @@ public class AdminController {
 
     @GetMapping(params = {"username","password"})
     public ResponseUtil login(String username,String password){
+
         AdminDTO adminDTO = service.searchByAdminUsernameAndPassword(username, password);
         return new ResponseUtil("200","Success",adminDTO);
+
     }
 }

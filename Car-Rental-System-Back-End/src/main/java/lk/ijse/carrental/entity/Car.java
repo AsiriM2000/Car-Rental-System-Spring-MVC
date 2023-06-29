@@ -31,6 +31,7 @@ public class Car {
     private String color;
     private String losDamage;
     private String available;
+    private String imageLocation;
 //    @OneToMany(mappedBy = "regNumber", cascade = CascadeType.ALL)
 //    private List<RentDetail> rental_details = new ArrayList<>();
 }

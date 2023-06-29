@@ -24,5 +24,6 @@ public class CarDTO {
     private String color;
     private String losDamage;
     private String available;
+    private String imageLocation;
 
 }

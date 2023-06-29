@@ -63,6 +63,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public void uploadCustomerImages(String imageLocation, String nic) {
+            repo.updateCustomerFilePaths(imageLocation, nic);
+    }
+
+    @Override
     public long count() {
         return repo.count();
     }

@@ -35,7 +35,7 @@ public class JPAConfig {
         ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
         ds.setUrl("jdbc:mysql://localhost:3306/easy_car_rental?createDatabaseIfNotExist=true");
         ds.setUsername("root");
-        ds.setPassword("1234");
+        ds.setPassword("");
         return ds;
     }
 

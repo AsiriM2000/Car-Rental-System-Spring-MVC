@@ -7,7 +7,7 @@
 
     <!-- Document Title Image
        ============================================= -->
-    <link rel="icon" href="../assets/img/admin/car.png">
+    <link href="../assets/img/admin/car.png" rel="icon">
 
     <!-- Stylesheets
       ============================================= -->
@@ -175,11 +175,12 @@
     </form>
 </div>
 
+
 <!--SignUp-->
 <div class="modal" id="id02">
     <span class="close" onclick="document.getElementById('id02').style.display='none'"
           title="Close Modal">&times;</span>
-    <form class="modal-content animate" id="signUpForm">
+    <form class="modal-content animate">
         <div class="imgcontainer">
             <span class="close" onclick="document.getElementById('id02').style.display='none'" title="Close Modal">&times;</span>
         </div>
@@ -208,7 +209,7 @@
             </div>
 
             <label class="btn" for="nicImg">Select NIC Image</label>
-            <input class="form-control" id="nicImg" name="myFile" title="" type="file">
+            <input class="form-control" id="nicImg" name="myFile" type="file">
 
             <div class="mb-3">
                 <input class="form-control" id="drivingNum" name="license" placeholder="Enter License Number"
@@ -216,16 +217,13 @@
                 <span class="control-error" id="lblCusLicense"></span>
             </div>
 
-            <label class="btn" for="nicImg">Select License Image</label>
-            <input class="form-control" id="licenseImg" name="" title="" type="file">
-
             <div class="mb-3">
                 <input class="form-control" id="contact" name="contact" placeholder="Enter Contact Number" type="text">
                 <span class="control-error" id="lblCusContact"></span>
             </div>
 
             <div class="mb-3">
-                <input class="form-control" id="password" name="password" placeholder="Enter Password" type="text">
+                <input class="form-control" id="password" name="password" placeholder="Enter Password" type="password">
                 <span class="control-error" id="lblCusPassword"></span>
             </div>
 
@@ -278,14 +276,34 @@
     }
 
     $("#signupBtn").click(function () {
-        var formData = $("#signUpForm").serialize();
-        uploadNicImage();
+        let email = $("#email").val();
+        let name = $("#name").val();
+        let address = $("#address").val();
+        let nicNum = $("#nicNum").val();
+        let drivingNum = $("#drivingNum").val();
+        let contact = $("#contact").val();
+        let password = $("#password").val();
+
+        let customer = {
+            nic: nicNum,
+            email: email,
+            name: name,
+            address: address,
+            license: drivingNum,
+            contact: contact,
+            password: password
+        }
+
+        console.log(customer)
+
         $.ajax({
             url: baseUrl + "customer",
             method: "post",
-            data: formData,
+            contentType: "application/json",
+            data: JSON.stringify(customer),
             dataType: "json",
             success: function (resp) {
+                uploadCustomerImages(nicNum);
                 alert(resp.message)
                 console.log(resp.message);
                 setTextFieldValues("", "", "", "", "", "", "");
@@ -296,27 +314,54 @@
         });
     });
 
-    function uploadNicImage() {
+    function uploadCustomerImages(nicNum) {
+
+        let nicFile = $("#nicImg")[0].files[0];
+
+        let nicFileName = nicNum + "-imageLocation-" + $("#nicImg")[0].files[0].name;
+
         var data = new FormData();
-        let file = $("#nicImg")[0].files[0];
-        let fileName = $("#nicImg")[0].files[0].name;
-        data.append("myFile",file, fileName);
+
+        data.append("imageLocation", nicFile, nicFileName);
 
         $.ajax({
-            url: baseUrl + "customer/upload",
-            method: 'post',
+            url: baseUrl + "customer/uploadImg/" + nicNum,
+            method: "put",
             async: true,
             contentType: false,
             processData: false,
             data: data,
             success: function (resp) {
-                alert("Successfully Uploaded");
+                console.log("Uploaded");
+                alert(resp.message)
             },
-            error: function (err) {
-                console.log(err);
+            error: function (error) {
+                alert(JSON.parse(error.responseText).message);
             }
         });
     }
+
+    // function uploadNicImage() {
+    //     var data = new FormData();
+    //     let file = $("#nicImg")[0].files[0];
+    //     let fileName = $("#nicImg")[0].files[0].name;
+    //     data.append("myFile", file, fileName);
+    //
+    //     $.ajax({
+    //         url: baseUrl + "customer/upload",
+    //         method: 'post',
+    //         async: true,
+    //         contentType: false,
+    //         processData: false,
+    //         data: data,
+    //         success: function (resp) {
+    //             alert("Successfully Uploaded");
+    //         },
+    //         error: function (err) {
+    //             console.log(err);
+    //         }
+    //     });
+    // }
 
     function setTextFieldValues(email, name, address, nic, license, contact, password) {
         $("#email").val(email);

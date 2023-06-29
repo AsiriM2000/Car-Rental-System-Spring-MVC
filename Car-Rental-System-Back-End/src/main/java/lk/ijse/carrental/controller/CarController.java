@@ -19,15 +19,36 @@ import java.util.List;
 @RequestMapping("/car")
 @CrossOrigin
 public class CarController {
-    private static final ArrayList<String> allImages = new ArrayList<>();
 
     @Autowired
     CarService service;
 
     @PostMapping
-    public ResponseUtil saveCar(@ModelAttribute CarDTO dto){
+    public ResponseUtil saveCar(@RequestBody CarDTO dto){
         service.saveCar(dto);
         return new ResponseUtil("200",dto.toString()+" Save Successful...!",null);
+    }
+
+    @PutMapping(path = "/uploadImg/{regNumber}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseUtil uploadImagesAndPath(@RequestPart("imageLocation") MultipartFile imageLocation, @PathVariable String regNumber) {
+        try {
+
+            String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getParentFile().getAbsolutePath();
+            File uploadsDir = new File(projectPath + "/uploads");
+            uploadsDir.mkdir();
+
+            imageLocation.transferTo(new File(uploadsDir.getAbsolutePath() + "\\" + imageLocation.getOriginalFilename()));
+
+            String carImageLocationPath = imageLocation.getOriginalFilename();
+
+            service.uploadCarImages(carImageLocationPath, regNumber);
+
+            return new ResponseUtil("200", "Uploaded", null);
+
+        } catch (IOException | URISyntaxException e) {
+            e.printStackTrace();
+            return new ResponseUtil("500",e.getMessage(),null);
+        }
     }
 
     @GetMapping
@@ -58,24 +79,6 @@ public class CarController {
     public ResponseUtil getAllCarType(String type){
         ArrayList<CarDTO> carType = service.searchCarType(type);
         return new ResponseUtil("200","Success",carType);
-    }
-
-    @PostMapping(path = "/upload", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseUtil uploadFile(@RequestParam("myFile") MultipartFile myFile) {
-        try {
-            String projectPath = new File(this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI()).getParentFile().getParentFile().getAbsolutePath();
-            File uploadsDir = new File(projectPath + "/uploads");
-            System.out.println(projectPath);
-            uploadsDir.mkdir();
-            myFile.transferTo(new File(uploadsDir.getAbsolutePath() + "/" + myFile.getOriginalFilename()));
-
-            allImages.add("uploads/" + myFile.getOriginalFilename());
-        } catch (URISyntaxException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return new ResponseUtil("200", " Register Successful...!", null);
     }
 
     @PutMapping

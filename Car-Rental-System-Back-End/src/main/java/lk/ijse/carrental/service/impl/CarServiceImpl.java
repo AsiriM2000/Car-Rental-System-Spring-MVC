@@ -73,4 +73,9 @@ public class CarServiceImpl implements CarService {
         return mapper.map(repo.searchCarType(type),new TypeToken<ArrayList<CarDTO>>(){}.getType());
     }
 
+    @Override
+    public void uploadCarImages(String imageLocation, String regNumber) {
+        repo.updateCarFilePaths(imageLocation, regNumber);
+    }
+
 }

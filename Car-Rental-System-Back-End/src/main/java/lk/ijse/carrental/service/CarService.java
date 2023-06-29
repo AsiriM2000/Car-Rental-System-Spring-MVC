@@ -15,4 +15,5 @@ public interface CarService {
     CarDTO searchByCarName(String carName0);
     ArrayList<CarDTO> searchCarBrand(String brand);
     ArrayList<CarDTO> searchCarType(String type);
+    void uploadCarImages(String imageLocation, String regNumber);
 }
